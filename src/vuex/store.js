@@ -1,25 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
+
 Vue.use(Vuex)
 
-// state 保存初始数据
-const store = new Vuex.Store({
+export default new Vuex.Store({
+  // state 保存初始数据
   state: {
     count: 0
   },
-  //  mutation 函数
-  mutation: {
-    increment (state) {
-      state.count++
-    }
-  },
+  //  mutations 函数
+  mutations: mutations,
   // 触发事件函数
-  actions: {
-    increment ({ commit }) {
-      commit('increment')
-    }
-  }
+  actions: actions,
+  // 取值函数
+  getters: getters
 })
 
-export default store
+console.log(actions)
