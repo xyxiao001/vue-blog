@@ -35,6 +35,6 @@ export default {
     background-color: #fff;
     padding-left: 250px;
     padding-right: 40px;
-    max-width: 1390px;
+    width: auto;
   }
 </style>
