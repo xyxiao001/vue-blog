@@ -30,7 +30,6 @@ export default {
   },
   // 页面进入执行
   mounted () {
-    console.log(store)
   },
   // 页面切换
   destroyed () {

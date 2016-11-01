@@ -1,10 +1,7 @@
-const mutations = {
-  increment (state) => {
-    state.count++
-  },
-  decrement (state) => {
-    state.count--
-  }
+export const increment = (state) => {
+  state.count++
 }
 
-export default mutations
+export const decrement = (state) => {
+  state.count--
+}

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import mutations from './mutations'
-import actions from './actions'
-import getters from './getters'
+import * as mutations from './mutations'
+import * as actions from './actions'
+import * as getters from './getters'
 
 Vue.use(Vuex)
 
@@ -23,5 +23,3 @@ export default new Vuex.Store({
   // 开发使用严格模式
   strict: process.env.NODE_ENV !== 'production'
 })
-
-console.log(mutations)
