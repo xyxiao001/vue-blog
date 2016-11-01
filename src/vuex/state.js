@@ -22,11 +22,12 @@ const state = {
       icon: 'icon-xiaolian'
     }
   ],
-  articlPre: [
+  articlPres: [
     {
       id: '1',
       title: '如何 hack Node.js 模块？',
       tag: 'Node.js',
+      tagName: 'node',
       img: 'http://img.alicdn.com/tfs/TB1SJkrNVXXXXXsXVXXXXXXXXXX-900-500.jpg',
       time: '2016-10-27 16:55:11',
       pre: `为何要去 hack？在业务开发过程中，往往会依赖一些 Node.js 模块，hack 这些 Node.js 模块的主要目的是在不修改工具源码的情况下，篡改一些特定的功能。可能会是出于以下几种情况的考虑：
