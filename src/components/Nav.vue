@@ -64,6 +64,19 @@ export default {
           border-radius: 70px;
           overflow: hidden;
         }
+
+        &:hover {
+          animation: show 6s linear infinite;
+        }
+
+        @keyframes show {
+          0% {
+            transform: rotate3d(0, 0, 0, 0deg) scale(1);
+          }
+          100% {
+            transform: rotate3d(0, 0, 1, 360deg) scale(1.1);
+          }
+        }
       }
 
       span {
