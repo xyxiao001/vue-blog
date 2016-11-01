@@ -3,7 +3,10 @@
     <article v-for="list in lists">
       <div class="article">
         <router-link :to="{ path: '/detail', query: {id: list.id} }" class="photo" >
-          <span :alt="list.title" :style="{'background-image': 'url('+ list.img +')'}"></span>
+          <span
+            :alt="list.title"
+            :style="{'background-image': 'url('+ list.img +')'}">
+          </span>
         </router-link>
         <div class="article-meta">
           <p class="category">
@@ -71,7 +74,6 @@ export default {
           cursor: pointer;
 
           span {
-            background-image: url(http://img.alicdn.com/tfs/TB1cVgDNpXXXXb2XFXXXXXXXXXX-900-500.jpg);
             display: block;
             position: absolute;
             width: 100%;
