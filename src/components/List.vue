@@ -51,17 +51,17 @@ export default {
 
     /*换行（作用于容器）*/
     flex-wrap: wrap;
+    margin-bottom: 50px;
 
     article {
-      width: 370px;
-      height: 370px;
-      margin: 15px;
+      width: 375px;
+      height: 360px;
+      margin: 10px;
       padding: 5px;
       box-shadow: 0 15px 30px rgba(0,0,0,0.2);
       transform: translate3d(0, -2px, 0);
 
       .article {
-        margin-right: 25px;
 
         a.photo {
           height: 0;
@@ -74,7 +74,7 @@ export default {
           cursor: pointer;
 
           span {
-            background-image: url(http://img.alicdn.com/tfs/TB1SJkrNVXXXXXsXVXXXXXXXXXX-900-500.jpg);
+            background-image: url(http://img.alicdn.com/tfs/TB1cVgDNpXXXXb2XFXXXXXXXXXX-900-500.jpg);
             display: block;
             position: absolute;
             width: 100%;
@@ -131,7 +131,7 @@ export default {
           font-size: 16px;
           line-height: 20px;
           overflow: hidden;
-          height: 100px;
+          height: 80px;
         }
       }
 
@@ -143,6 +143,15 @@ export default {
         .article-title a {
           color: #62bbc3;
         }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1480px) {
+    .a-list {
+      article {
+        width: 330px;
+        height: 350px;
       }
     }
   }
