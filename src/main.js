@@ -7,6 +7,7 @@ import Dashboard from './view/Dashboard'
 import Archives from './view/Archives'
 import Tags from './view/Tags'
 import About from './view/About'
+import Detail from './view/Detail'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,7 @@ const router = new VueRouter({
     { path: '/archives', component: Archives },
     { path: '/tags', component: Tags },
     { path: '/about', component: About },
+    { path: '/detail', component: Detail },
     { path: '*', component: Dashboard }
   ]
 })

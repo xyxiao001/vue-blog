@@ -152,7 +152,14 @@ export default {
     .a-list {
       article {
         width: 330px;
-        height: 350px;
+        height: 335px;
+
+        .article {
+          .article-excerpt {
+            height: 75px;
+            font-size: 14px;
+          }
+        }
       }
     }
   }
