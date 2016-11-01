@@ -1,5 +1,5 @@
 const state = {
-  touxiang: 'http://7xvdom.com1.z0.glb.clouddn.com/touxiang.jpg',
+  touxiang: 'http://ofyaji162.bkt.clouddn.com/touxiang.jpg',
   menus: [
     {
       name: '/',
@@ -21,7 +21,8 @@ const state = {
       text: '关于',
       icon: 'icon-xiaolian'
     }
-  ]
+  ],
+  articl: {}
 }
 
 export default state

@@ -2,13 +2,15 @@
   <div class="wraper">
     <NavBar></NavBar>
     <div class="content">
-      首页
+      <List></List>
     </div>
   </div>
 </template>
 
 <script>
+// import marked from 'marked'
 import NavBar from '../components/Nav'
+import List from '../components/List'
 export default {
   data () {
     return {
@@ -17,7 +19,8 @@ export default {
   computed: {
   },
   components: {
-    NavBar
+    NavBar,
+    List
   },
   methods: {
   },
@@ -31,10 +34,25 @@ export default {
 </script>
 
 <style lang="scss">
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+  blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+  img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt,
+  dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: "lucida grande", "lucida sans unicode",
+                lucida, "Helvetica Neue", helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  }
   .content {
     background-color: #fff;
     padding-left: 250px;
-    padding-right: 40px;
     width: auto;
   }
 </style>
