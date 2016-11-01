@@ -4,12 +4,9 @@ import Vuex from 'vuex'
 import * as mutations from './mutations'
 import * as actions from './actions'
 import * as getters from './getters'
+import state from './state'
 
 Vue.use(Vuex)
-
-const state = {
-  count: 0
-}
 
 export default new Vuex.Store({
   // state 保存初始数据
