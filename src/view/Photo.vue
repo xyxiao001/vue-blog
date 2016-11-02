@@ -9,6 +9,7 @@
         </div>
       </div>
       <Mloading :loading="mloading"></Mloading>
+      <p class="error">{{ this.error }}</p>
     </div>
   </div>
 </template>
@@ -26,7 +27,8 @@ export default {
       photos: [],
       page: 1,
       listHeight: 0,
-      first: true
+      first: true,
+      error: ''
     }
   },
   computed: {
@@ -45,6 +47,7 @@ export default {
       }, (response) => {
         this.first === true ? this.loading = false : this.mloading = false
         console.error('请求失败！')
+        this.error = '请求失败了！ 忧伤!'
       })
     }
   },
@@ -93,6 +96,12 @@ export default {
         cursor: zoom-in;
       }
     }
+  }
+
+  .error {
+    text-align: center;
+    color: red;
+    font-size: 20px;
   }
 
   @media screen and (max-width: 1400px) {
