@@ -60,8 +60,7 @@ export default {
         var d = document.body.clientHeight
         // 记录滚动条高度
         var t = document.documentElement.scrollTop || document.body.scrollTop
-        console.log(d - t)
-        if (d - t < 600) {
+        if (d - t < 700) {
           this.mloading = true
           this.page += 1
           this.start()
