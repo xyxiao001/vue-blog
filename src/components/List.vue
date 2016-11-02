@@ -59,7 +59,19 @@ export default {
       margin: 10px;
       padding: 5px;
       box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-      transform: translate3d(0, -2px, 0);
+      animation: showA 1.5s ease-out 1;
+
+      @keyframes showA {
+        0% {
+          opacity: 0;
+          transform: translate3d(0, 50px, 0);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+      }
 
       .article {
 

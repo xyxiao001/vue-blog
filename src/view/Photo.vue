@@ -4,10 +4,8 @@
     <div class="content">
       <Loading :loading="loading"></Loading>
       <div class="photo-list">
-        <div class="waterFall">
-          <div class="photo-item" v-for="photo in photos">
-            <img :src="photo.urls.small" :alt="photo.id" />
-          </div>
+        <div class="photo-item" v-for="photo in photos">
+          <img :src="photo.urls.small" :alt="photo.id"/>
         </div>
       </div>
     </div>
@@ -42,8 +40,6 @@ export default {
       this.loading = false
       console.error('请求失败！')
     })
-
-    // 瀑布流布局
   }
 }
 </script>
@@ -52,26 +48,35 @@ export default {
   .photo-list {
     margin-top: 30px;
     width: 1200px;
-
-    .waterFall {
-      -webkit-column-count: 3;
-      -moz-column-count: 3;
-      column-count: 3;
-      -moz-column-gap: 0px; /* Firefox */
-      -webkit-column-gap: 0px; /* Safari and Chrome */
-      column-gap: 0px;
-    }
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -moz-column-gap: 0px; /* Firefox */
+    -webkit-column-gap: 0px; /* Safari and Chrome */
+    column-gap: 0px;
 
     .photo-item {
       float: left;
       display: inline-block;
-      width: 375px;
       margin: 5px;
 
       img {
         width: 100%;
         cursor: zoom-in;
       }
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .photo-list {
+      margin-top: 15px;
+      width: 800px;
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+      -moz-column-gap: 0px; /* Firefox */
+      -webkit-column-gap: 0px; /* Safari and Chrome */
+      column-gap: 0px;
     }
   }
 </style>
