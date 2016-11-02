@@ -9,6 +9,7 @@ import Tags from './view/Tags'
 import About from './view/About'
 import Detail from './view/Detail'
 import TagDetail from './view/TagDetail'
+import Photo from './view/Photo'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,7 @@ const router = new VueRouter({
     { path: '/about', component: About },
     { path: '/detail', component: Detail },
     { path: '/tags/:name', component: TagDetail },
+    { path: '/photo', component: Photo },
     { path: '*', component: Dashboard }
   ]
 })

@@ -20,6 +20,11 @@ const state = {
       name: '/about',
       text: '关于',
       icon: 'icon-xiaolian'
+    },
+    {
+      name: '/photo',
+      text: '风景',
+      icon: 'icon-photo'
     }
   ],
   articlPres: [
