@@ -26,7 +26,6 @@ export default {
       url: 'https://api.unsplash.com/photos?client_id=fc1ad074b94abad2fa784ab7740425e91b4ec8db73473371fa36aaa88e866658&page=',
       photos: [],
       page: 1,
-      listHeight: 0,
       first: true,
       error: ''
     }
@@ -40,9 +39,6 @@ export default {
         this.first = false
         response.body.forEach((val) => {
           this.photos.push(val)
-        })
-        this.$nextTick(() => {
-          this.listHeight = window.getComputedStyle(this.$refs.photoList).height
         })
       }, (response) => {
         this.first === true ? this.loading = false : this.mloading = false
@@ -61,10 +57,11 @@ export default {
     // 滚动加载
     window.onscroll = () => {
       if (this.mloading === false) {
-        var d = this.listHeight > 0 ? this.listHeight : document.body.height
+        var d = document.body.clientHeight
         // 记录滚动条高度
         var t = document.documentElement.scrollTop || document.body.scrollTop
-        if (d - t < 400) {
+        console.log(d - t)
+        if (d - t < 500) {
           this.mloading = true
           this.page += 1
           this.start()
