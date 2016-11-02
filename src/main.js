@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './components/App'
 import Store from './vuex/store'
+import VueResource from 'vue-resource'
 
 import Dashboard from './view/Dashboard'
 import Archives from './view/Archives'
@@ -12,6 +13,7 @@ import TagDetail from './view/TagDetail'
 import Photo from './view/Photo'
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 const router = new VueRouter({
   mode: 'history',

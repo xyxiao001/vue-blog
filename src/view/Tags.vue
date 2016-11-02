@@ -3,7 +3,7 @@
     <NavBar></NavBar>
     <div class="content">
       <div class="tag-list">
-        <div class="tag-item" v-for="tag in tags">
+        <div class="tag-item" v-for="(tag, index) in tags">
             <router-link :to="{path: 'tags/' + tag.name }">
               {{ tag.name }}
             </router-link>
@@ -35,13 +35,16 @@ export default {
 <style lang="scss">
   .tag-list {
     margin: 50px;
+    min-width: 200px;
   }
 
   .tag-item {
     display: inline-block;
     margin: 10px;
+    margin-bottom: 20px;
 
     a {
+      position: relative;
       padding: 10px 20px;
       border: 1px solid #d9d9d9;
       border-radius: 20px;
