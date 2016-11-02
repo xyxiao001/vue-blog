@@ -22,9 +22,11 @@ export default {
     return {
       loading: true,
       url: 'https://api.unsplash.com/photos?client_id=fc1ad074b94abad2fa784ab7740425e91b4ec8db73473371fa36aaa88e866658&page=',
-      page: 1,
-      photos: []
+      photos: [],
+      page: 1
     }
+  },
+  computed: {
   },
   methods: {
   },
@@ -40,23 +42,31 @@ export default {
       this.loading = false
       console.error('请求失败！')
     })
+
+    // 瀑布流布局
   }
 }
 </script>
 
 <style lang="scss">
   .photo-list {
-    margin: auto;
-    max-width: 1200px;
+    margin-top: 30px;
+    width: 1200px;
 
     .waterFall {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+      -moz-column-gap: 0px; /* Firefox */
+      -webkit-column-gap: 0px; /* Safari and Chrome */
+      column-gap: 0px;
     }
 
     .photo-item {
       float: left;
       display: inline-block;
       width: 375px;
-      margin: 12px;
+      margin: 5px;
 
       img {
         width: 100%;
