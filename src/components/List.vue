@@ -10,7 +10,7 @@
         </router-link>
         <div class="article-meta">
           <p class="category">
-            <router-link :to="{ path: '/tags', query: {tag: list.tagName} }" class="article-link">{{ list.tag }}</router-link>
+            <router-link :to="{ path: '/tags/' + list.tag }" class="article-link">{{ list.tag }}</router-link>
           </p>
           <p class="date">
             <time>{{ list.time }}</time>
