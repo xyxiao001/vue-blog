@@ -61,7 +61,7 @@ export default {
         // 记录滚动条高度
         var t = document.documentElement.scrollTop || document.body.scrollTop
         console.log(d - t)
-        if (d - t < 500) {
+        if (d - t < 600) {
           this.mloading = true
           this.page += 1
           this.start()
