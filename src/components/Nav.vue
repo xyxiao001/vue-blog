@@ -1,5 +1,8 @@
 <template>
-  <nav id="slider-bar">
+  <nav id="slider-bar" ref="slider">
+    <div class="top-bar" @click="open">
+      <i class="iconfont icon-left"></i>
+    </div>
     <div class="profile">
       <router-link  to="/">
          <img :src="touxiang" alt="goodboy blog">
@@ -22,6 +25,7 @@ import store from '../vuex/store'
 export default {
   data () {
     return {
+      drop: true
     }
   },
   computed: {
@@ -30,6 +34,17 @@ export default {
     },
     menus () {
       return store.getters.getMenus
+    }
+  },
+  methods: {
+    open () {
+      if (this.drop) {
+        this.$refs.slider.style.transform = 'translate3d(-220px, 0, 0)'
+        this.drop = false
+      } else {
+        this.$refs.slider.style.transform = 'translate3d(0, 0, 0)'
+        this.drop = true
+      }
     }
   }
 }
@@ -48,6 +63,10 @@ export default {
     z-index: 1;
     color: #999;
     -webkit-overflow-scrolling: touch;
+
+    .top-bar {
+      display: none;
+    }
 
     .profile {
       padding-top: 40px;
@@ -132,5 +151,25 @@ export default {
         }
       }
     }
+  }
+
+  @media screen and (max-width: 1000px){
+    #slider-bar {
+      transform: translate3d(-220px, 0, 0);
+      transition: all 1s ease-out;
+      .top-bar {
+        position: absolute;
+        left: 220px;
+        display: block;
+        z-index: 999;
+        color: white;
+
+        i {
+          font-size: 25px;
+          cursor: pointer;
+        }
+      }
+    }
+
   }
 </style>

@@ -104,4 +104,16 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 500px) {
+    .loading {
+      .show-loading {
+        position: absolute;
+        left: 40%;
+        top: 30%;
+        width: 200px;
+        height: 100px;
+      }
+    }
+  }
 </style>

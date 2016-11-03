@@ -56,4 +56,10 @@ export default {
     width: auto;
     overflow-x: hidden;
   }
+
+  @media screen and (max-width: 1000px) {
+    .content {
+      padding-left: 30px;
+    }
+  }
 </style>
