@@ -98,5 +98,17 @@ export default {
     .show-story {
       width: 95%;
     }
+
+    .story-tag {
+
+      .tag-item {
+        font-size: 14px;
+        margin:20px 2px;
+
+        a {
+          padding: 10px 10px;
+        }
+      }
+    }
   }
 </style>
