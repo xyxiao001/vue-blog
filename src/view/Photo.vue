@@ -174,4 +174,12 @@ export default {
       column-count: 2;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    .photo-list {
+      -webkit-column-count: 1;
+      -moz-column-count: 1;
+      column-count: 1;
+    }
+  }
 </style>
