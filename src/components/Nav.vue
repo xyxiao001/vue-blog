@@ -1,7 +1,7 @@
 <template>
   <nav id="slider-bar" ref="slider">
     <div class="top-bar" @click="open">
-      <i class="iconfont icon-left"></i>
+      <i class="iconfont" :class="icon"></i>
     </div>
     <div class="profile">
       <router-link  to="/">
@@ -25,7 +25,7 @@ import store from '../vuex/store'
 export default {
   data () {
     return {
-      drop: true
+      drop: false
     }
   },
   computed: {
@@ -34,6 +34,9 @@ export default {
     },
     menus () {
       return store.getters.getMenus
+    },
+    icon () {
+      return this.drop === true ? 'icon-left' : 'icon-right'
     }
   },
   methods: {
@@ -63,6 +66,7 @@ export default {
     z-index: 1;
     color: #999;
     -webkit-overflow-scrolling: touch;
+    transition: all 0.5s ease-out;
 
     .top-bar {
       display: none;
@@ -156,16 +160,18 @@ export default {
   @media screen and (max-width: 1000px){
     #slider-bar {
       transform: translate3d(-220px, 0, 0);
-      transition: all 1s ease-out;
       .top-bar {
         position: absolute;
+        top: 5px;
         left: 220px;
         display: block;
         z-index: 999;
         color: white;
+        width: 30px;
+        height: 30px;
 
         i {
-          font-size: 25px;
+          font-size: 28px;
           cursor: pointer;
         }
       }
