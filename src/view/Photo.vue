@@ -137,6 +137,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 100;
     cursor: zoom-out;
+    background-position: center center;
     background-size: cover;
   }
 
@@ -148,6 +149,7 @@ export default {
     left: 0;
     z-index: 200;
     cursor: zoom-out;
+    background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
   }
