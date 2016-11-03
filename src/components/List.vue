@@ -175,4 +175,24 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 500px) {
+    .a-list {
+      article {
+        width: 90%;
+        height: auto;
+
+        .article {
+          .article-excerpt {
+            height: 75px;
+            font-size: 15px;
+          }
+
+          .article-title a {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
 </style>

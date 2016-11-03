@@ -177,9 +177,20 @@ export default {
 
   @media screen and (max-width: 500px) {
     .photo-list {
+      width: 98%;
       -webkit-column-count: 1;
       -moz-column-count: 1;
       column-count: 1;
+      margin: 0px;
+
+      .photo-item {
+        width: 100%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
   }
 </style>
