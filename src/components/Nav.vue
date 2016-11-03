@@ -25,7 +25,7 @@ import store from '../vuex/store'
 export default {
   data () {
     return {
-      drop: false
+      drop: true
     }
   },
   computed: {
@@ -67,9 +67,22 @@ export default {
     color: #999;
     -webkit-overflow-scrolling: touch;
     transition: all 0.5s ease-out;
+    transform: translate3d(0, 0, 0);
 
     .top-bar {
-      display: none;
+      position: absolute;
+      top: 5px;
+      left: 220px;
+      display: block;
+      z-index: 999;
+      color: white;
+      width: 30px;
+      height: 30px;
+
+      i {
+        font-size: 28px;
+        cursor: pointer;
+      }
     }
 
     .profile {
@@ -160,22 +173,6 @@ export default {
   @media screen and (max-width: 1000px){
     #slider-bar {
       transform: translate3d(-220px, 0, 0);
-      .top-bar {
-        position: absolute;
-        top: 5px;
-        left: 220px;
-        display: block;
-        z-index: 999;
-        color: white;
-        width: 30px;
-        height: 30px;
-
-        i {
-          font-size: 28px;
-          cursor: pointer;
-        }
-      }
     }
-
   }
 </style>
