@@ -54,13 +54,16 @@ export default {
   },
   mounted () {
     this.start()
+    // 请求第二页
+    this.page += 1
+    this.start()
     // 滚动加载
     window.onscroll = () => {
       if (this.mloading === false) {
         var d = document.body.clientHeight
         // 记录滚动条高度
         var t = document.documentElement.scrollTop || document.body.scrollTop
-        if (d - t < 700) {
+        if (d - t < 1000) {
           this.mloading = true
           this.page += 1
           this.start()
@@ -73,6 +76,7 @@ export default {
 
 <style lang="scss">
   .photo-list {
+    margin: auto;
     margin-top: 30px;
     width: 80%;
     -webkit-column-count: 4;
@@ -85,7 +89,7 @@ export default {
     .photo-item {
       float: left;
       display: inline-block;
-      margin: 0px  5px;
+      margin: 0px  3px;
 
       img {
         width: 100%;
@@ -111,6 +115,15 @@ export default {
       -moz-column-gap: 0px; /* Firefox */
       -webkit-column-gap: 0px; /* Safari and Chrome */
       column-gap: 0px;
+    }
+  }
+
+
+  @media screen and (max-width: 1000px) {
+    .photo-list {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
     }
   }
 </style>
