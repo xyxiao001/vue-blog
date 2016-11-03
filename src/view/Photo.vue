@@ -4,12 +4,23 @@
     <div class="content photo-c">
       <Loading :loading="loading"></Loading>
       <div class="photo-list" ref="photoList">
-        <div class="photo-item" v-for="photo in photos">
-          <img :src="photo.urls.small" :alt="photo.id"/>
+        <div class="photo-item" v-for="(photo, index) in photos">
+          <img :src="photo.urls.small" :alt="photo.id" @click="showLarge(index)">
         </div>
       </div>
       <Mloading :loading="mloading"></Mloading>
       <p class="error">{{ this.error }}</p>
+    </div>
+    <div
+      class="l-show"
+      v-show="large"
+      @click="large = false"
+      :style="{'background-image': 'url('+ this.minBack +')'}">
+        <div class="t-show"
+          v-show="large"
+          @click="large = false"
+          :style="{'background-image': 'url('+ this.maxBack +')'}">
+        </div>
     </div>
   </div>
 </template>
@@ -23,11 +34,14 @@ export default {
     return {
       loading: true,
       mloading: false,
-      url: 'https://api.unsplash.com/photos?client_id=fc1ad074b94abad2fa784ab7740425e91b4ec8db73473371fa36aaa88e866658&page=',
+      url: 'https://api.unsplash.com/photos?client_id=80f66654628683dc7a20a3f2b44a93f8a9f0afaa41be7c7c392c5648dc6bb035&page=',
       photos: [],
       page: 1,
       first: true,
-      error: ''
+      error: '',
+      large: false,
+      minBack: '',
+      maxBack: ''
     }
   },
   computed: {
@@ -45,6 +59,15 @@ export default {
         console.error('请求失败！')
         this.error = '请求失败了！ 忧伤!'
       })
+    },
+    showLarge (index) {
+      this.large = true
+      // 小图
+      this.minBack = this.photos[index].urls.small
+      // 中等
+      // this.maxBack = this.photos[index].urls.regular
+      this.maxBack = this.photos[index].urls.full
+      // this.maxBack = this.photos[index].urls.raw
     }
   },
   components: {
@@ -90,6 +113,7 @@ export default {
       float: left;
       display: inline-block;
       margin: 0px  3px;
+      transition: all 1s ease-out;
 
       img {
         width: 100%;
@@ -102,6 +126,30 @@ export default {
     text-align: center;
     color: red;
     font-size: 20px;
+  }
+
+  .l-show {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    cursor: zoom-out;
+    background-size: cover;
+  }
+
+  .t-show {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    cursor: zoom-out;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   @media screen and (max-width: 1400px) {
