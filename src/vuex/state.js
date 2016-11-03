@@ -25,6 +25,11 @@ const state = {
       name: '/photo',
       text: '风景',
       icon: 'icon-photo'
+    },
+    {
+      name: '/story',
+      text: '鬼故事',
+      icon: 'icon-mogui'
     }
   ],
   articlPres: [

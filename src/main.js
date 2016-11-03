@@ -11,6 +11,7 @@ import About from './view/About'
 import Detail from './view/Detail'
 import TagDetail from './view/TagDetail'
 import Photo from './view/Photo'
+import Story from './view/Story'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -26,6 +27,7 @@ const router = new VueRouter({
     { path: '/detail', component: Detail },
     { path: '/tags/:name', component: TagDetail },
     { path: '/photo', component: Photo },
+    { path: '/story', component: Story },
     { path: '*', component: Dashboard }
   ]
 })
