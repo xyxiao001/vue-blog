@@ -70,7 +70,10 @@ const state = {
     {
       name: '随心而动'
     }
-  ]
+  ],
+  story: {
+    name: '未知'
+  }
 }
 
 export default state

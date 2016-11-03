@@ -1,18 +1,45 @@
 <template>
-  <a class="s-item">
-    <div class="left">
-      <img :src="item.img" alt="item.title" />
-    </div>
-    <div class="right">
-      <span class="title">{{ item.title }}</span>
-      <p>{{ item.desc }}</p>
-    </div>
-  </a>
+  <div
+    class="s-item"
+    @mouseover="changeName(item.title)"
+    @mouseout="leave"
+    @click="changeName(item.title)">
+    <router-link
+      :to="{path: '/story/detail',  query: {id: item.id}}">
+      <div class="left">
+        <img :src="item.img" alt="item.title" />
+      </div>
+      <div class="right">
+        <span class="title">{{ item.title }}</span>
+        <p>{{ item.desc }}</p>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
+import store from '../vuex/store'
 export default {
-  props: ['item']
+  data () {
+    return {
+      set: false
+    }
+  },
+  props: ['item'],
+  methods: {
+    changeName (name) {
+      if (!this.set) {
+        store.dispatch({
+          type: 'setStoryName',
+          payload: name
+        })
+        this.set = true
+      }
+    },
+    leave () {
+      this.set = false
+    }
+  }
 }
 </script>
 
@@ -53,6 +80,7 @@ export default {
 
       p {
         font-size: 13px;
+        color: #aaa;
       }
     }
   }

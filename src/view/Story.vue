@@ -3,7 +3,7 @@
     <NavBar></NavBar>
     <div class="content">
       <div class="s-list">
-        <Sitem  v-for="list in lists" :item="list"></Sitem>
+        <Sitem v-for="list in lists" :item="list"></Sitem>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
     start () {
       this.$http.get(this.url + this.current).then((response) => {
         const data = response.body.showapi_res_body.pagebean
-        this.allPages = data.allPages
+        this.allPages = data.allPages ? data.allPages : 0
         this.lists = data.contentlist
       }, (response) => {
         console.error('请求失败！')

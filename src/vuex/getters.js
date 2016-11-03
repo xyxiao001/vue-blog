@@ -10,3 +10,6 @@ export const getPre = state => state.articlPres
 
 // tags 标签集合
 export const getTags = state => state.tags
+
+// tags 标签集合
+export const getStoryName = state => state.story.name
