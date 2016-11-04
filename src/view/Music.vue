@@ -4,7 +4,7 @@
     <div class="content">
       <Loading :loading="loading"></Loading>
       <div class="music">
-        <div class="bg"></div>
+        <div class="bg" :style="{'background-image': 'url('+ bg +')'}"></div>
         <div class="mask"></div>
         <div class="show-music">
           <div class="left">
@@ -40,10 +40,30 @@
           <div class="right">
             <div class="l-box" v-html="lyr"></div>
           </div>
+          <div class="controls">
+            <div class="control-label">
+              <i class="iconfont icon-preMusic-copy" @click="goPre"></i>
+              <i
+                @click="playItem(now)"
+                class="iconfont playing"
+                :class="{'icon-pauseMusic': playing === true,
+                 'icon-playMusic': playing === false}">
+              </i>
+              <i class="iconfont icon-nextMusic" @click="goNext"></i>
+            </div>
+            <div class="show-info">
+              <div class="i-l">
+                <a class="title">{{ songName }}</a>
+                <span> - </span>
+                <a class="singer-name">{{ singer }}</a>
+              </div>
+              <div class="i-r">{{ reslutTime }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <audio :src="musicSrc" ref="music"></audio>
+    <audio :src="musicSrc" ref="music" @ended="goNext"></audio>
   </div>
 </template>
 
@@ -61,10 +81,28 @@ export default {
       playing: false,
       musicSrc: '',
       lyr: '',
-      loading: true
+      preList: [],
+      loading: true,
+      bg: '',
+      songName: '',
+      singer: '',
+      allTime: 0,
+      nowTime: 0,
+      timeInter: ''
     }
   },
   computed: {
+    reslutTime () {
+      // 生成时间展示
+      var two = (data) => {
+        var m = ~~(data / 60)
+        var s = ~~(data % 60)
+        m = m > 9 ? m : '0' + m
+        s = s > 9 ? s : '0' + s
+        return m + ' : ' + s
+      }
+      return two(this.nowTime) + '/' + two(this.allTime)
+    }
   },
   methods: {
     all () {
@@ -73,8 +111,8 @@ export default {
         this.loading = false
         // 处理数据
         this.lists = response.body.showapi_res_body.pagebean.songlist
-        // 进来自动播放第一首
-        this.playItem(0)
+        // 进来随机播放
+        this.playItem(~~(Math.random() * this.lists.length))
       }, (response) => {
         console.error('请求失败！')
       })
@@ -90,22 +128,59 @@ export default {
     playItem (index) {
       if (index === this.now && this.playing === true) {
         this.pause()
-      } else {
-        this.now = index
-        this.musicSrc = this.lists[this.now].url
+      } else if (index === this.now && this.playing === false) {
         this.play()
-        this.detail()
+      } else {
+        this.nowTime = 0
+        this.now = index
+        this.play()
       }
     },
     play () {
+      if (this.now !== this.preList[this.preList.length - 1]) {
+        this.preList.push(this.now)
+      }
+      this.musicSrc = this.lists[this.now].url
+      this.bg = this.lists[this.now].albumpic_big
+      this.songName = this.lists[this.now].songname
+      this.singer = this.lists[this.now].singername
+      // 记录歌曲时间
+      this.allTime = this.lists[this.now].seconds
+      this.detail()
       this.$nextTick(() => {
         this.$refs.music.play()
         this.playing = true
+        // 开始计时器
+        this.clearTime()
+        this.startTime()
       })
+    },
+    startTime () {
+      this.timeInter = setInterval(() => { this.nowTime += 1 }, 1000)
+    },
+    clearTime () {
+      clearTimeout(this.timeInter)
     },
     pause () {
       this.$refs.music.pause()
+      this.clearTime()
       this.playing = false
+    },
+    goNext () {
+      this.now < this.lists.length - 1 ? this.now += 1 : this.now = 0
+      this.nowTime = 0
+      this.play()
+    },
+    goPre () {
+      // 上一曲时去读历史记录 来进行回放
+      // 读到历史记录的倒数第二位
+      if (this.preList.length > 1) {
+        this.now = this.preList[this.preList.length - 2]
+        // 然后进行删除记录
+        this.preList.pop()
+      }
+      this.nowTime = 0
+      this.play()
     }
   },
   components: {
@@ -114,6 +189,9 @@ export default {
   },
   mounted () {
     this.all()
+  },
+  destroyed () {
+    this.clearTime()
   }
 }
 </script>
@@ -134,12 +212,11 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("http://y.gtimg.cn/music/photo_new/T002R300x300M000003y8dsH2wBHlo.jpg?max_age=2592000");
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
-      -webkit-filter: blur(90px);
-      filter: blur(90px);
+      -webkit-filter: blur(30px);
+      filter: blur(30px);
       opacity: .6;
     }
 
@@ -216,6 +293,10 @@ export default {
             background-image: url(http://y.gtimg.cn/mediastyle/yqq/img/wave.gif?max_age=2592000&v=78979d47cc7dc55cab5d36b4c96168d5);
           }
 
+          tr.on td {
+            color: white;
+          }
+
           tr.on td.control {
             opacity: 1;
           }
@@ -236,6 +317,74 @@ export default {
         float: left;
         margin-left: 50px;
         width: 400px;
+        height: 415px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+          background-color: #202020;
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(235,87,86,.73);
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+        }
+      }
+
+      .controls {
+        position: fixed;
+        width: 80%;
+        bottom: 0;
+        color: rgba(225,225,225,.8);
+
+        .control-label {
+          float: left;
+          width: 200px;
+          height: 90px;
+          i {
+            font-size: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+          }
+        }
+
+        .show-info {
+          width: 50%;
+          float: left;
+
+          .i-l {
+            float: left;
+          }
+
+          .i-r {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .music .show-music {
+      position: absolute;
+      width: 80%;
+      padding: 1%;
+      color: rgba(225,225,225, 1);
+      z-index: 3;
+
+      .left {
+        table {
+          td {
+            width: 60px;
+          }
+
+        }
       }
     }
   }
