@@ -17,19 +17,24 @@ const state = {
       icon: 'icon-tags'
     },
     {
-      name: '/about',
-      text: '关于',
-      icon: 'icon-xiaolian'
-    },
-    {
       name: '/photo',
       text: '风景',
       icon: 'icon-photo'
     },
     {
+      name: '/music',
+      text: '听听歌',
+      icon: 'icon-music'
+    },
+    {
       name: '/story',
       text: '鬼故事',
       icon: 'icon-mogui'
+    },
+    {
+      name: '/about',
+      text: '关于',
+      icon: 'icon-xiaolian'
     }
   ],
   articlPres: [

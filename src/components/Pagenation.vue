@@ -28,7 +28,7 @@
       <span>跳转到：</span>
       <input
         type="number"
-        @keydown="goPage = goPage >= ~~(allPages) ? allPages : goPage"
+        @keyup="goPage = goPage >= ~~(allPages) ? allPages : goPage"
         class="goPage"
         v-model.number="goPage">
       <router-link
@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss">
   .pagenation {
-    width: 450px;
+    width: 500px;
     margin: 30px auto;
 
     ul li{

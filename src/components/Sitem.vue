@@ -7,7 +7,7 @@
     <router-link
       :to="{path: '/story/detail',  query: {id: item.id}}">
       <div class="left">
-        <img :src="item.img" alt="item.title" />
+        <img :src="item.img" :alt="item.title" />
       </div>
       <div class="right">
         <span class="title">{{ item.title }}</span>

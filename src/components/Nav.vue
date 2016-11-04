@@ -25,7 +25,7 @@ import store from '../vuex/store'
 export default {
   data () {
     return {
-      drop: true
+      drop: false
     }
   },
   computed: {
@@ -69,7 +69,22 @@ export default {
     transition: all 0.5s ease-out;
     transform: translate3d(0, 0, 0);
     z-index: 1000;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      background-color: #202020;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
 
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(235,87,86,.73);
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+    
     .top-bar {
       position: absolute;
       top: 5px;
@@ -79,6 +94,7 @@ export default {
       color: white;
       width: 30px;
       height: 30px;
+      display: none;
 
       i {
         font-size: 28px;
@@ -174,6 +190,10 @@ export default {
   @media screen and (max-width: 1000px){
     #slider-bar {
       transform: translate3d(-220px, 0, 0);
+
+      .top-bar {
+        display: block;
+      }
     }
   }
 </style>
