@@ -5,7 +5,7 @@
       <Loading :loading="loading"></Loading>
       <div class="show-tag story-tag">
         <div class="tag-item">
-            <router-link to='/story'>鬼故事</router-link>
+            <router-link :to="{path: '/story', query: {page: page}}">鬼故事</router-link>
         </div>
         <div class="tag-item">
           <a>→</a>
@@ -36,6 +36,9 @@ export default {
   computed: {
     name () {
       return store.getters.getStoryName
+    },
+    page () {
+      return store.getters.getStoryPage
     }
   },
   methods: {

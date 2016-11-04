@@ -29,6 +29,7 @@ const router = new VueRouter({
     { path: '/tags/:name', component: TagDetail },
     { path: '/photo', component: Photo },
     { path: '/story', component: Story },
+    { path: '/story?:page', component: Story },
     { path: '/story/:detail', component: Sdetail },
     { path: '*', component: Dashboard }
   ]

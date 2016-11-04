@@ -68,6 +68,7 @@ export default {
     -webkit-overflow-scrolling: touch;
     transition: all 0.5s ease-out;
     transform: translate3d(0, 0, 0);
+    z-index: 1000;
 
     .top-bar {
       position: absolute;

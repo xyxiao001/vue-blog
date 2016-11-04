@@ -72,7 +72,8 @@ const state = {
     }
   ],
   story: {
-    name: '未知'
+    name: '未知名字',
+    page: 1
   }
 }
 

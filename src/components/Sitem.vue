@@ -30,8 +30,11 @@ export default {
     changeName (name) {
       if (!this.set) {
         store.dispatch({
-          type: 'setStoryName',
-          payload: name
+          type: 'setStory',
+          payload: {
+            name: name,
+            page: this.$route.query.page ? ~~(this.$route.query.page) : 1
+          }
         })
         this.set = true
       }

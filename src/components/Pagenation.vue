@@ -1,0 +1,145 @@
+<template>
+  <div class="pagenation">
+    <router-link
+      class="pre pages"
+      v-show="current > 5"
+      :to="{path: this.$route.path, query: { page: 1 }}" exact>首页
+    </router-link>
+    <router-link
+      class="pre pages"
+      v-show="current > 1"
+      :to="{path: this.$route.path, query: { page: current - 1 }}" exact>上一页
+    </router-link>
+    <ul>
+      <li v-for="i in (allPages - current > 5 ? current + 4 : allPages)">
+        <router-link
+          class="pages"
+          :class="{'active': i === current}"
+          :to="{path: $route.path, query: { page: i }}"
+          v-if="i >= current" exact>{{ i }}</router-link>
+      </li>
+    </ul>
+    <router-link
+      v-show="current < allPages"
+      :to="{path: this.$route.path, query: { page: current + 1 }}"
+      class="next pages" exact>下一页
+    </router-link>
+    <div class="go">
+      <span>跳转到：</span>
+      <input
+        type="number"
+        @keydown="goPage = goPage >= ~~(allPages) ? allPages : goPage"
+        class="goPage"
+        v-model.number="goPage">
+      <router-link
+        :to="{path: this.$route.path, query: { page: goPage }}"
+        class="pages" exact>GO
+      </router-link>
+      <span>共{{ allPages }}页</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      goPage: 1
+    }
+  },
+  props: ['allPages'],
+  computed: {
+    current () {
+      return this.$route.query.page ? ~~(this.$route.query.page) : 1
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  .pagenation {
+    width: 450px;
+    margin: 30px auto;
+
+    ul li{
+      list-style-type: none;
+      float: left;
+
+      a.active {
+        background-color: #ff7b6c;
+        color: white;
+      }
+    }
+
+    a.pages {
+      display: inline-block;
+      float: left;
+      text-decoration: none;
+      border: 1px solid #ff7b6c;
+      padding: 3px 8px;
+      margin-right: 5px;
+      border-radius: 10px;
+      color: #ff7b6c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    a.disabled {
+      cursor: not-allowed;
+    }
+
+    .go {
+      clear: both;
+      padding-top: 15px;
+      width: 300px;
+      color: #aaa;
+
+      .pages {
+        position: relative;
+        float: none;
+      }
+    }
+
+    .goPage {
+      width: 50px;
+      border: 1px solid #ff7b6c;
+      padding: 3px 8px;
+      outline: none;
+      border-radius: 10px;
+      line-height: 25px;
+      color: #aaa;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button{
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .pagenation {
+      width: 80%;
+
+      .pre {
+        margin-bottom: 10px;
+      }
+
+      ul {
+        width: 100%;
+        float: left;
+      }
+
+      .next {
+        display: block;
+        margin-top: 10px;
+      }
+
+      a.pages {
+        font-size: 12px;
+      }
+    }
+  }
+</style>

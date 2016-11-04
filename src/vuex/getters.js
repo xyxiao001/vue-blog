@@ -11,5 +11,8 @@ export const getPre = state => state.articlPres
 // tags 标签集合
 export const getTags = state => state.tags
 
-// tags 标签集合
+// 鬼故事名字
 export const getStoryName = state => state.story.name
+
+// 从哪页跳转来的
+export const getStoryPage = state => state.story.page
