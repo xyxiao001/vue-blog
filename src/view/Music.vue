@@ -382,7 +382,12 @@ export default {
       .left {
         table {
           td {
-            width: 60px;
+            width: 70px;
+            font-size: 14px;
+
+            &:first-child {
+              width: 350px;
+            }
           }
 
         }
