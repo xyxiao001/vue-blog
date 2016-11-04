@@ -2,6 +2,7 @@
   <div class="wraper">
     <NavBar></NavBar>
     <div class="content">
+      <Loading :loading="loading"></Loading>
       <div class="show-tag story-tag">
         <div class="tag-item">
             <router-link to='/story'>鬼故事</router-link>
@@ -21,12 +22,15 @@
 <script>
 import store from '../vuex/store'
 import NavBar from '../components/Nav'
+import Loading from '../components/Loading'
+
 export default {
   data () {
     return {
       id: '',
       url: 'https://route.showapi.com/955-2?&page=1&showapi_appid=26601&showapi_timestamp=20161103170634&type=dp&showapi_sign=c23526a67ce4ea5bc3fd75123ddf55cc&id=',
-      detail: ''
+      detail: '',
+      loading: true
     }
   },
   computed: {
@@ -39,6 +43,7 @@ export default {
       this.$http.get(this.url + this.id).then((response) => {
         // 处理数据
         this.clear(response.body.showapi_res_body.text)
+        this.loading = false
       }, (response) => {
         console.error('请求失败！')
       })
@@ -52,7 +57,8 @@ export default {
     }
   },
   components: {
-    NavBar
+    NavBar,
+    Loading
   },
   mounted () {
     this.id = this.$route.query.id

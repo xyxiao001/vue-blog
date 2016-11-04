@@ -2,6 +2,7 @@
   <div class="wraper">
     <NavBar></NavBar>
     <div class="content">
+      <Loading :loading="loading"></Loading>
       <div class="s-list">
         <Sitem v-for="list in lists" :item="list"></Sitem>
       </div>
@@ -12,6 +13,7 @@
 <script>
 import NavBar from '../components/Nav'
 import Sitem from '../components/Sitem'
+import Loading from '../components/Loading'
 
 export default {
   data () {
@@ -19,7 +21,8 @@ export default {
       url: 'https://route.showapi.com/955-1?&showapi_appid=26601&showapi_timestamp=20161103170634&type=dp&showapi_sign=c23526a67ce4ea5bc3fd75123ddf55cc&page=',
       current: 1,
       allPages: '',
-      lists: []
+      lists: [],
+      loading: true
     }
   },
   computed: {
@@ -30,6 +33,7 @@ export default {
         const data = response.body.showapi_res_body.pagebean
         this.allPages = data.allPages ? data.allPages : 0
         this.lists = data.contentlist
+        this.loading = false
       }, (response) => {
         console.error('请求失败！')
       })
@@ -37,7 +41,8 @@ export default {
   },
   components: {
     NavBar,
-    Sitem
+    Sitem,
+    Loading
   },
   mounted () {
     this.start()
