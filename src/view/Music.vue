@@ -340,6 +340,7 @@ export default {
       .controls {
         position: fixed;
         width: 80%;
+        margin-left: 10%;
         bottom: 0;
         color: rgba(225,225,225,.8);
 
