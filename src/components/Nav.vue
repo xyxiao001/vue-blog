@@ -84,7 +84,7 @@ export default {
       -moz-border-radius: 4px;
       border-radius: 4px;
     }
-    
+
     .top-bar {
       position: absolute;
       top: 5px;
@@ -124,10 +124,10 @@ export default {
 
         @keyframes show {
           0% {
-            transform: rotate3d(0, 0, 0, 0deg) scale(1);
+            transform: rotate3d(0, 0, 0, 0deg);
           }
           100% {
-            transform: rotate3d(0, 0, 1, 360deg) scale(1.1);
+            transform: rotate3d(0, 0, 1, 360deg);
           }
         }
       }

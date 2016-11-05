@@ -38,7 +38,14 @@
             </table>
           </div>
           <div class="right">
-            <div class="l-box" v-html="lyr"></div>
+            <div class="l-box">
+              <div class="show-img">
+                  <img :src="bg" :alt="songName" class="show-img"
+                    :class="{'animate-img': playing}"
+                  >
+              </div>
+              <div class="l-lyr"  v-html="lyr"></div>
+            </div>
           </div>
           <div class="controls">
             <div class="control-label">
@@ -57,7 +64,15 @@
                 <span> - </span>
                 <a class="singer-name">{{ singer }}</a>
               </div>
-              <div class="i-r">{{ reslutTime }}</div>
+              <div class="i-r">
+                <p>{{ reslutTime }}<p>
+              </div>
+            </div>
+            <div class="progress">
+              <div class="line"></div>
+              <div class="lineIn" :style="{'width': (nowTime / allTime) *100 + '%'}">
+                <i class="iconfont icon-dot"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -215,8 +230,8 @@ export default {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
-      -webkit-filter: blur(30px);
-      filter: blur(30px);
+      -webkit-filter: blur(20px);
+      filter: blur(20px);
       opacity: .6;
     }
 
@@ -335,6 +350,41 @@ export default {
           -moz-border-radius: 4px;
           border-radius: 4px;
         }
+
+        .l-box {
+          .show-img {
+            position: relative;
+            display: block;
+            margin: auto;
+            width: 240px;
+            height: 240px;
+            border-radius: 100%;
+            background-size: cover;
+            background-image: url(http://music.163.com/style/mobile/img/share/disc-ip6.png);
+
+            img {
+              display: inline-block;
+              margin-top: 47px;
+              margin-left: 47px;
+              width: 61%;
+              height: 61%;
+              transition: all 1s ease-out;
+            }
+
+            img.animate-img {
+              animation: showImg 35s linear infinite
+            }
+          }
+          @keyframes showImg {
+            0% {
+              transform: rotate3d(0, 0, 0, 360deg);
+            }
+            100% {
+              transform: rotate3d(0, 0, 1, 360deg);
+            }
+          }
+        }
+
       }
 
       .controls {
@@ -342,7 +392,7 @@ export default {
         width: 80%;
         margin-left: 10%;
         bottom: 0;
-        color: rgba(225,225,225,.8);
+        color: rgba(225,225,225, 1);
 
         .control-label {
           float: left;
@@ -357,6 +407,7 @@ export default {
 
         .show-info {
           width: 50%;
+          margin-top: 5px;
           float: left;
 
           .i-l {
@@ -367,6 +418,44 @@ export default {
             float: right;
           }
         }
+
+        .progress {
+          position: relative;
+          width: 50%;
+          margin-top: 40px;
+          margin-left: 200px;
+          height: 8px;
+          cursor: pointer;
+
+          .line {
+            position: relative;
+            height: 2px;
+            background: rgba(255,255,255,.2);
+          }
+
+          .lineIn {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 0%;
+            height: 2px;
+            background: rgba(255,255,255,.7);
+            transition: all 1s linear;
+
+            i {
+              position: absolute;
+              font-size: 28px;
+              top: -20px;
+              right: 5px;
+              width: 10px;
+              height: 10px;
+              background-position: 0 -170px;
+              opacity: 1;
+              filter: none;
+              color: white;
+            }
+          }
+        }
       }
     }
   }
@@ -374,7 +463,7 @@ export default {
   @media screen and (max-width: 1400px) {
     .music .show-music {
       position: absolute;
-      width: 80%;
+      min-width: 1300px;
       padding: 1%;
       color: rgba(225,225,225, 1);
       z-index: 3;
@@ -389,7 +478,36 @@ export default {
               width: 350px;
             }
           }
+        }
+      }
+    }
+  }
 
+  @media screen and (max-width: 500px) {
+    .music .show-music {
+      .left {
+        height: 450px;
+      }
+
+      .controls {
+        width: 80%;
+        bottom: 10px;
+
+        .control-label {
+          width: 80%;
+          height: 60px;
+          text-align: center;
+        }
+
+        .show-info {
+          margin-top: -110px;
+          width: 80%;
+        }
+
+        .progress {
+          width: 80%;
+          margin-top: -10px;
+          margin-left: 0;
         }
       }
     }
