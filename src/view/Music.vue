@@ -78,7 +78,11 @@
         </div>
       </div>
     </div>
-    <audio :src="musicSrc" ref="music" @ended="goNext"></audio>
+    <audio
+      :src="musicSrc"
+      ref="music"
+      @playing="startTime"
+      @ended="goNext"></audio>
   </div>
 </template>
 
@@ -167,7 +171,6 @@ export default {
         this.playing = true
         // 开始计时器
         this.clearTime()
-        this.startTime()
       })
     },
     startTime () {
