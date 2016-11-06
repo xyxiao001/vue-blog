@@ -100,7 +100,7 @@ import Loading from '../components/Loading'
 export default {
   data () {
     return {
-      url: 'https://route.showapi.com/213-4?showapi_appid=26601&showapi_timestamp=20161104133125&topid=5&showapi_sign=011cc1d2d0461a7dac17c2cb73fe7c3b',
+      url: 'https://route.showapi.com/213-4?showapi_appid=26601&showapi_timestamp=20161104133125&topid=26&showapi_sign=011cc1d2d0461a7dac17c2cb73fe7c3b',
       url2: 'https://route.showapi.com/213-2?showapi_appid=26601&showapi_timestamp=20161104173307&showapi_sign=39d50b416de374b3b781a65a60c5acad&musicid=',
       musicId: '',
       lists: [],
