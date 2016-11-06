@@ -37,26 +37,34 @@
               </tbody>
             </table>
           </div>
-          <div class="right">
+          <div class="right" ref="showRight">
             <div class="l-box">
               <div class="show-img">
                   <img :src="bg" :alt="songName" class="show-img"
                     :class="{'animate-img': playing}"
                   >
               </div>
-              <div class="l-lyr"  v-html="lyr"></div>
+              <div style="display: none" v-html="lyr" ref="lyr"></div>
+              <div class="l-lyr" ref="lyrList" :style="{'transform': 'translate3d(0, '+ 35 * 0 + 'px, 0)'}">
+                <p
+                  v-for="(s, index) in lyrList"
+                  :data-time="Math.round(s.min * 60 + s.sec + s.ms / 100)">
+                  {{ s.txt }}
+                </p>
+              </div>
             </div>
           </div>
           <div class="controls">
             <div class="control-label">
-              <i class="iconfont icon-preMusic-copy" @click="goPre"></i>
+              <i class="iconfont icon-preMusic-copy"  title="上一首" @click="goPre"></i>
               <i
                 @click="playItem(now)"
                 class="iconfont playing"
                 :class="{'icon-pauseMusic': playing === true,
-                 'icon-playMusic': playing === false}">
+                 'icon-playMusic': playing === false}"
+                 :title="playingText ">
               </i>
-              <i class="iconfont icon-nextMusic" @click="goNext"></i>
+              <i class="iconfont icon-nextMusic"  title="下一首" @click="goNext"></i>
             </div>
             <div class="show-info">
               <div class="i-l">
@@ -100,6 +108,7 @@ export default {
       playing: false,
       musicSrc: '',
       lyr: '',
+      lyrList: [],
       preList: [],
       loading: true,
       bg: '',
@@ -121,6 +130,9 @@ export default {
         return m + ' : ' + s
       }
       return two(this.nowTime) + '/' + two(this.allTime)
+    },
+    playingText () {
+      return this.playing === true ? '暂停' : '开始'
     }
   },
   methods: {
@@ -136,14 +148,19 @@ export default {
         console.error('请求失败！')
       })
     },
+    // 请求歌词
     detail () {
       this.musicId = this.lists[this.now].songid
       this.$http.get(this.url2 + this.musicId).then((response) => {
+        // 歌词
         this.lyr = response.body.showapi_res_body.lyric
+        // this.showLyr(response.body.showapi_res_body.lyric)
+        this.showLyr()
       }, (response) => {
         console.error('请求失败！')
       })
     },
+    // 选择播放的是哪首
     playItem (index) {
       if (index === this.now && this.playing === true) {
         this.pause()
@@ -155,6 +172,7 @@ export default {
         this.play()
       }
     },
+    // 播放
     play () {
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
@@ -173,31 +191,94 @@ export default {
         this.clearTime()
       })
     },
-    startTime () {
-      this.timeInter = setInterval(() => { this.nowTime += 1 }, 1000)
+    // 解析歌词
+    showLyr () {
+      this.$nextTick(() => {
+        // 转义字符
+        var lyrics = this.$refs.lyr.innerHTML
+        // 切割成数组
+        lyrics = lyrics.split('\n')
+        // console.log(lyrics)
+        var lycObj = []
+        // 提取时间轴
+        lyrics.forEach(function (val, index) {
+          if (index > 4) {
+            // 去除两边空格
+            val = val.replace('/^s+|s+$/', '')
+            var obj = {}
+            obj.min = ~~(val.substring(1, 3))
+            obj.sec = ~~(val.substring(4, 6))
+            obj.ms = ~~(val.substring(7, 9))
+            obj.txt = val.substring(10, val.length)
+            if (obj.txt.length > 0) {
+              lycObj.push(obj)
+            }
+          }
+          // 提取时间
+          // var time = /[[\d:\d((.|)\d\])]/g.exec(val)
+        })
+        this.lyrList = lycObj
+      })
     },
+    // 开始计时
+    startTime () {
+      this.timeInter = setInterval(() => {
+        this.nowTime += 1
+        if (this.lyrList.length > 2) {
+          // 表示有歌词 可以滚动
+          this.lyrList.forEach((v, i) => {
+            if (i < this.lyrList.length - 1) {
+              if (this.sumTime(v) <= this.nowTime && this.sumTime(this.lyrList[i + 1]) > this.nowTime) {
+                // 选中p
+                document.querySelectorAll('.l-lyr p').forEach((val, index) => {
+                  if (index === i) {
+                    val.className = 'on'
+                    this.$refs.showRight.scrollTop = i * 35
+                    // this.$refs.lyrList.style.transform = 'translate3d(0, -' + i * 35 + 'px, 0)'
+                  } else {
+                    val.className = ''
+                  }
+                })
+              }
+            } else {
+              this.lyrLine = this.lyrList.length - 1
+            }
+          })
+        } else {
+          this.$refs.lyrList.innerHTML = '<p>此歌曲为没有填词的纯音乐，请您欣赏</p>'
+        }
+      }, 1000)
+    },
+    // 算出时间
+    sumTime (v) {
+      return Math.round(v.min * 60 + v.sec + v.ms / 100)
+    },
+    // 结束计时
     clearTime () {
       clearTimeout(this.timeInter)
     },
+    // 暂停
     pause () {
       this.$refs.music.pause()
       this.clearTime()
       this.playing = false
     },
+    // 下一首
     goNext () {
       this.now < this.lists.length - 1 ? this.now += 1 : this.now = 0
       this.nowTime = 0
       this.play()
     },
+    // 上一首
     goPre () {
       // 上一曲时去读历史记录 来进行回放
       // 读到历史记录的倒数第二位
       if (this.preList.length > 1) {
         this.now = this.preList[this.preList.length - 2]
         // 然后进行删除记录
+        this.nowTime = 0
         this.preList.pop()
       }
-      this.nowTime = 0
       this.play()
     }
   },
@@ -384,6 +465,18 @@ export default {
             }
             100% {
               transform: rotate3d(0, 0, 1, 360deg);
+            }
+          }
+          .l-lyr {
+            transition: all 1s ease;
+            p {
+              text-align: center;
+              line-height: 35px;
+              transition: all 0.5s ease-out;
+
+              &.on {
+                color: #31c27c;
+              }
             }
           }
         }
