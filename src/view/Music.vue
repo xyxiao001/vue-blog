@@ -443,7 +443,7 @@ export default {
             width: 0%;
             height: 2px;
             background: rgba(255,255,255,.7);
-            transition: all 1s linear;
+            transition: all 0.1s linear;
 
             i {
               position: absolute;
@@ -489,7 +489,7 @@ export default {
   @media screen and (max-width: 500px) {
     .music .show-music {
       .left {
-        height: 450px;
+        height: 425px;
       }
 
       .controls {
