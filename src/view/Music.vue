@@ -238,7 +238,9 @@ export default {
                 lyrP.forEach((val, index) => {
                   if (index === i) {
                     val.className = 'on'
-                    this.$refs.showRight.scrollTop = i * 35
+                    window.requestAnimationFrame(() => {
+                      this.$refs.showRight.scrollTop = i * 35
+                    })
                     // this.$refs.lyrList.style.transform = 'translate3d(0, -' + i * 35 + 'px, 0)'
                   } else {
                     val.className = ''
