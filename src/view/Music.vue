@@ -386,7 +386,7 @@ export default {
           }
 
           td.control {
-            width: 100px;
+            width: 130px;
             padding-top: 0;
             opacity: 0;
 
@@ -573,6 +573,7 @@ export default {
 
   @media screen and (max-width: 1400px) {
     .music .show-music {
+      margin-left: 2%;
       padding: 4%;
 
       .left {
@@ -582,7 +583,7 @@ export default {
             font-size: 14px;
 
             &:first-child {
-              width: 350px;
+              max-width: 250px;
             }
           }
         }
@@ -596,7 +597,6 @@ export default {
 
   @media screen and (max-width: 1000px) {
     .music .show-music {
-       margin-left: 2%;
       .left {
       }
 
@@ -609,9 +609,24 @@ export default {
   @media screen and (max-width: 500px) {
     .music .show-music {
       width: 100%;
+      margin-left: 0;
+      padding-left: 1%;
       .left {
         width: 100%;
         height: 340px;
+
+        table {
+          td:first-child {
+            max-width: 200px;
+          }
+
+          td.control {
+            i {
+              font-size: 16px;
+              margin-right: 5px;
+            }
+          }
+        }
       }
 
       .right {
@@ -627,7 +642,7 @@ export default {
 
       .controls {
         width: 80%;
-        margin-left: 5%;
+        margin-left: 10%;
         bottom: 10px;
 
         .control-label {
