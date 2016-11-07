@@ -591,7 +591,7 @@ export default {
       }
 
       .right {
-        width: 30%;
+        width: 40%;
       }
     }
   }
