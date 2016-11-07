@@ -608,14 +608,21 @@ export default {
 
   @media screen and (max-width: 500px) {
     .music .show-music {
-      width: 200%;
+      width: 100%;
       .left {
-        width: 45%;
+        width: 100%;
         height: 340px;
       }
 
       .right {
-        width: 45%;
+        width: 100%;
+        height: 100px;
+        text-align: left;
+
+        .l-box {
+          margin-left: -20%;
+          margin-top: -220px;
+        }
       }
 
       .controls {
