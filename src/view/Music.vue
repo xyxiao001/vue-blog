@@ -631,7 +631,7 @@ export default {
 
       .right {
         width: 100%;
-        height: 100px;
+        height: 50px;
         text-align: left;
 
         .l-box {
