@@ -278,8 +278,10 @@ export default {
         // 然后进行删除记录
         this.nowTime = 0
         this.preList.pop()
+        this.play()
+      } else {
+        return false
       }
-      this.play()
     }
   },
   components: {
@@ -332,13 +334,15 @@ export default {
 
     .show-music {
       position: absolute;
-      width: 1500px;
+      margin-left: 5%;
+      width: 80%;
       padding: 5%;
       color: rgba(225,225,225, 1);
       z-index: 3;
 
       .left {
         float: left;
+        width: 40%;
         height: 415px;
         overflow-y: scroll;
         &::-webkit-scrollbar {
@@ -414,8 +418,7 @@ export default {
 
       .right {
         float: left;
-        margin-left: 50px;
-        width: 400px;
+        width: 40%;
         height: 415px;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -559,8 +562,7 @@ export default {
   @media screen and (max-width: 1400px) {
     .music .show-music {
       position: absolute;
-      min-width: 1300px;
-      padding: 1%;
+      padding: 4%;
       color: rgba(225,225,225, 1);
       z-index: 3;
 
