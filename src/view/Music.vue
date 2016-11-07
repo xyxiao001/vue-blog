@@ -201,7 +201,7 @@ export default {
         // 切割成数组
         lyrics = lyrics.split('\n')
         // console.log(lyrics)
-        var lycObj = []
+        var lyrObj = []
         // 提取时间轴
         lyrics.forEach(function (val, index) {
           if (index > 4) {
@@ -213,26 +213,29 @@ export default {
             obj.ms = ~~(val.substring(7, 9))
             obj.txt = val.substring(10, val.length)
             if (obj.txt.length > 0) {
-              lycObj.push(obj)
+              lyrObj.push(obj)
             }
           }
           // 提取时间
           // var time = /[[\d:\d((.|)\d\])]/g.exec(val)
         })
-        this.lyrList = lycObj
+        // 添加一个空的p
+        lyrObj.push({min: 999, sec: 999, ms: 999, txt: ''})
+        this.lyrList = lyrObj
       })
     },
     // 开始计时
     startTime () {
       this.timeInter = setInterval(() => {
         this.nowTime += 1
+        var lyrP = document.querySelectorAll('.l-lyr p')
         if (this.lyrList.length > 2) {
           // 表示有歌词 可以滚动
           this.lyrList.forEach((v, i) => {
             if (i < this.lyrList.length - 1) {
               if (this.sumTime(v) <= this.nowTime && this.sumTime(this.lyrList[i + 1]) > this.nowTime) {
                 // 选中p
-                document.querySelectorAll('.l-lyr p').forEach((val, index) => {
+                lyrP.forEach((val, index) => {
                   if (index === i) {
                     val.className = 'on'
                     this.$refs.showRight.scrollTop = i * 35
@@ -242,8 +245,6 @@ export default {
                   }
                 })
               }
-            } else {
-              this.lyrLine = this.lyrList.length - 1
             }
           })
         } else {
