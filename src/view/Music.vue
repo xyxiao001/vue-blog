@@ -228,7 +228,7 @@ export default {
     startTime () {
       this.timeInter = setInterval(() => {
         this.nowTime += 1
-        var lyrP = document.querySelectorAll('.l-lyr p')
+        var lyrP = Array.prototype.slice.call(document.querySelectorAll('.l-lyr p'))
         if (this.lyrList.length > 2) {
           // 表示有歌词 可以滚动
           this.lyrList.forEach((v, i) => {
@@ -238,9 +238,7 @@ export default {
                 lyrP.forEach((val, index) => {
                   if (index === i) {
                     val.className = 'on'
-                    window.requestAnimationFrame(() => {
-                      this.$refs.showRight.scrollTop = i * 35
-                    })
+                    this.$refs.showRight.scrollTop = i * 35
                     // this.$refs.lyrList.style.transform = 'translate3d(0, -' + i * 35 + 'px, 0)'
                   } else {
                     val.className = ''
@@ -249,8 +247,6 @@ export default {
               }
             }
           })
-        } else {
-          this.$refs.lyrList.innerHTML = '<p>此歌曲为没有填词的纯音乐，请您欣赏</p>'
         }
       }, 1000)
     },
