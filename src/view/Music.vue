@@ -22,17 +22,19 @@
                   v-for="(list, index) in lists"
                   @click="playItem(index)"
                   :class="{on: index === now}">
-                  <td>{{ index + 1 }}. {{ list.songname }}</td>
+                  <td><span class="clip">{{ index + 1 }}. {{ list.songname }}</span></td>
                   <td class="control">
-                    <span class="living"></span>
-                    <i
-                      class="iconfont"
-                      :class="{'icon-pauseMusic': index === now && playing === true,
-                       'icon-playMusic': index !== now || (index === now && playing === false)}">
-                    </i>
+                    <span class="clip">
+                      <span class="living"></span>
+                      <i
+                        class="iconfont"
+                        :class="{'icon-pauseMusic': index === now && playing === true,
+                         'icon-playMusic': index !== now || (index === now && playing === false)}">
+                      </i>
+                    </span>
                   </td>
-                  <td>{{ list.singername }}</td>
-                  <td>{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</td>
+                  <td><span class="clip">{{ list.singername }}</span></td>
+                  <td><span class="clip">{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</span></td>
                 </tr>
               </tbody>
             </table>
@@ -298,6 +300,15 @@ export default {
 </script>
 
 <style lang="scss">
+  span.clip {
+    display: inline-block;
+    width: 100%;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+  }
+
   .music {
     position: fixed;
     width: 100%;
@@ -335,7 +346,7 @@ export default {
     .show-music {
       position: absolute;
       margin-left: 5%;
-      width: 80%;
+      width: 90%;
       padding: 5%;
       color: rgba(225,225,225, 1);
       z-index: 3;
@@ -343,8 +354,9 @@ export default {
       .left {
         float: left;
         width: 40%;
-        height: 415px;
+        height: 425px;
         overflow-y: scroll;
+        overflow-x: hidden;
         &::-webkit-scrollbar {
           width: 8px;
           height: 8px;
@@ -363,19 +375,19 @@ export default {
 
         table {
           td {
-            width: 80px;
             height: 40px;
             line-height: 40px;
             text-align: left;
             cursor: pointer;
 
             &:first-child {
-              width: 400px;
+              max-width: 300px;
             }
           }
 
           td.control {
             width: 100px;
+            padding-top: 0;
             opacity: 0;
 
             i {
@@ -419,7 +431,7 @@ export default {
       .right {
         float: left;
         width: 40%;
-        height: 415px;
+        height: 425px;
         overflow-x: hidden;
         overflow-y: scroll;
         &::-webkit-scrollbar {
@@ -561,10 +573,7 @@ export default {
 
   @media screen and (max-width: 1400px) {
     .music .show-music {
-      position: absolute;
       padding: 4%;
-      color: rgba(225,225,225, 1);
-      z-index: 3;
 
       .left {
         table {
@@ -578,17 +587,40 @@ export default {
           }
         }
       }
+
+      .right {
+        width: 30%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .music .show-music {
+       margin-left: 2%;
+      .left {
+      }
+
+      .right {
+        width: 50%;
+      }
     }
   }
 
   @media screen and (max-width: 500px) {
     .music .show-music {
+      width: 200%;
       .left {
-        height: 425px;
+        width: 45%;
+        height: 340px;
+      }
+
+      .right {
+        width: 45%;
       }
 
       .controls {
         width: 80%;
+        margin-left: 5%;
         bottom: 10px;
 
         .control-label {
