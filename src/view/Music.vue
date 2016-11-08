@@ -612,9 +612,14 @@ export default {
       padding-left: 1%;
       .left {
         width: 100%;
-        height: 340px;
+        height: 300px;
 
         table {
+          td {
+              line-height: 30px;
+              height: 30px;
+          }
+
           td:first-child {
             max-width: 200px;
           }
@@ -630,12 +635,12 @@ export default {
 
       .right {
         width: 100%;
-        height: 50px;
+        height: 40px;
         text-align: left;
 
         .l-box {
           margin-left: -20%;
-          margin-top: -220px;
+          margin-top: -230px;
         }
       }
 
