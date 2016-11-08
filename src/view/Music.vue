@@ -227,7 +227,8 @@ export default {
     // 开始计时
     startTime () {
       this.timeInter = setInterval(() => {
-        this.nowTime += 1
+        // 读取当前时间
+        this.nowTime = this.$refs.music.currentTime
         var lyrP = Array.prototype.slice.call(document.querySelectorAll('.l-lyr p'))
         if (this.lyrList.length > 2) {
           // 表示有歌词 可以滚动
@@ -248,7 +249,7 @@ export default {
             }
           })
         }
-      }, 1000)
+      }, 100)
     },
     // 算出时间
     sumTime (v) {
