@@ -50,7 +50,7 @@
               <div class="l-lyr" ref="lyrList" :style="{'transform': 'translate3d(0, '+ 35 * 0 + 'px, 0)'}">
                 <p
                   v-for="(s, index) in lyrList"
-                  :data-time="Math.round(s.min * 60 + s.sec + s.ms / 100)">
+                  :data-time="(s.min * 60 + s.sec + s.ms / 100)">
                   {{ s.txt }}
                 </p>
               </div>
@@ -253,7 +253,7 @@ export default {
     },
     // 算出时间
     sumTime (v) {
-      return Math.round(v.min * 60 + v.sec + v.ms / 100)
+      return (v.min * 60 + v.sec + v.ms / 100).toFixed(2)
     },
     // 结束计时
     clearTime () {
