@@ -78,9 +78,13 @@
                 <p>{{ reslutTime }}<p>
               </div>
             </div>
-            <div class="progress">
+            <div class="progress"
+              ref="progress"
+              @mousemove="jumpTo"
+              @mouseout="jumpLeave">
               <div class="line"></div>
-              <div class="lineIn" :style="{'width': (nowTime / allTime) *100 + '%'}">
+              <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
+              <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
                 <i class="iconfont icon-dot"></i>
               </div>
             </div>
@@ -92,6 +96,7 @@
       :src="musicSrc"
       ref="music"
       @playing="startTime"
+      @seeked="seeked"
       @ended="goNext"></audio>
   </div>
 </template>
@@ -118,7 +123,8 @@ export default {
       singer: '',
       allTime: 0,
       nowTime: 0,
-      timeInter: ''
+      timeInter: '',
+      jump: 0
     }
   },
   computed: {
@@ -284,6 +290,20 @@ export default {
       } else {
         return false
       }
+    },
+    // 想要去跳转
+    jumpTo (event) {
+      // 得到容器长度
+      var all = window.getComputedStyle(this.$refs.progress).width
+      all = all.replace('px', '')
+      this.jump = (event.offsetX / all).toFixed(2)
+    },
+    jumpLeave () {
+      this.jump = 0
+    },
+    // 跳转完成后
+    seeked () {
+      this.play()
     }
   },
   components: {
@@ -391,8 +411,9 @@ export default {
             opacity: 0;
 
             i {
-              font-size: 25px;
-              line-height: 40px;
+              font-size: 18px;
+              line-height: 30px;
+              margin-right: 5px;
             }
 
             &:hover {
@@ -502,7 +523,7 @@ export default {
         position: fixed;
         width: 80%;
         margin-left: 10%;
-        bottom: 0;
+        bottom: 10px;
         color: rgba(225,225,225, 1);
 
         .control-label {
@@ -535,7 +556,8 @@ export default {
           width: 50%;
           margin-top: 40px;
           margin-left: 200px;
-          height: 8px;
+          padding-top: 10px;
+          height: 20px;
           cursor: pointer;
 
           .line {
@@ -544,14 +566,26 @@ export default {
             background: rgba(255,255,255,.2);
           }
 
+          .lineTo {
+            position: absolute;
+            top: 10px;
+            left: 0px;
+            width: 0%;
+            height: 2px;
+            background: rgba(255,255,255,.5);
+            transition: all 0.1s linear;
+            z-index: 2;
+          }
+
           .lineIn {
             position: absolute;
-            top: 0px;
+            top: 10px;
             left: 0px;
             width: 0%;
             height: 2px;
             background: rgba(255,255,255,.7);
             transition: all 0.1s linear;
+            z-index: 10;
 
             i {
               position: absolute;
