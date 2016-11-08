@@ -80,6 +80,7 @@
             </div>
             <div class="progress"
               ref="progress"
+              @click="jumpGo"
               @mousemove="jumpTo"
               @mouseout="jumpLeave">
               <div class="line"></div>
@@ -177,11 +178,16 @@ export default {
       } else {
         this.nowTime = 0
         this.now = index
-        this.play()
+        this.playNext()
       }
     },
-    // 播放
+    // 单纯的播放
     play () {
+      this.$refs.music.play()
+      this.playing = true
+    },
+    // 改变后播放
+    playNext () {
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
       }
@@ -275,7 +281,7 @@ export default {
     goNext () {
       this.now < this.lists.length - 1 ? this.now += 1 : this.now = 0
       this.nowTime = 0
-      this.play()
+      this.playNext()
     },
     // 上一首
     goPre () {
@@ -286,7 +292,7 @@ export default {
         // 然后进行删除记录
         this.nowTime = 0
         this.preList.pop()
-        this.play()
+        this.playNext()
       } else {
         return false
       }
@@ -298,8 +304,20 @@ export default {
       all = all.replace('px', '')
       this.jump = (event.offsetX / all).toFixed(2)
     },
+    // 离开
     jumpLeave () {
       this.jump = 0
+    },
+    // 跳转
+    jumpGo (event) {
+      // 当开始点击时 停止播放
+      this.pause()
+      var go = event.offsetX
+      // 得到要去的时间
+      var all = window.getComputedStyle(this.$refs.progress).width
+      all = all.replace('px', '')
+      var time = ((go / all) * this.allTime).toFixed(2)
+      this.$refs.music.currentTime = time
     },
     // 跳转完成后
     seeked () {
