@@ -46,6 +46,7 @@ export default {
     font-style: inherit;
     font-family: inherit;
     font-size: 100%;
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
     vertical-align: baseline;
     font-family: "lucida grande", "lucida sans unicode",
                 lucida, "Helvetica Neue", helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
