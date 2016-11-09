@@ -22,7 +22,7 @@
                   v-for="(list, index) in lists"
                   @click="playItem(index)"
                   :class="{on: index === now}">
-                  <td><span class="clip">{{ index + 1 }}. {{ list.songname }}</span></td>
+                  <td><span class="clip" :title="list.songname">{{ index + 1 }}. {{ list.songname }}</span></td>
                   <td class="control">
                     <span class="clip">
                       <span class="living"></span>
@@ -89,6 +89,18 @@
                 <i class="iconfont icon-dot"></i>
               </div>
             </div>
+            <div class="volume">
+              <i
+                @click="changeMuted"
+                :class="{'icon-yl': muted === false, 'icon-jy': muted === true}"
+                class="iconfont"></i>
+              <span class="volume-line" @click="changeVolume"></span>
+              <span class="volume-to"
+                @click="changeVolume"
+               :style="{'width': volume * 85 + 'px'}">
+                <i class="iconfont icon-dot"></i>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -125,7 +137,9 @@ export default {
       allTime: 0,
       nowTime: 0,
       timeInter: '',
-      jump: 0
+      jump: 0,
+      muted: false,
+      volume: 0
     }
   },
   computed: {
@@ -153,6 +167,9 @@ export default {
         this.lists = response.body.showapi_res_body.pagebean.songlist
         // 进来随机播放
         this.playItem(~~(Math.random() * this.lists.length))
+        // 设置音量为一半
+        this.$refs.music.volume = 0.5
+        this.volume = 0.5
       }, (response) => {
         console.error('请求失败！')
       })
@@ -322,6 +339,22 @@ export default {
     // 跳转完成后
     seeked () {
       this.play()
+    },
+    // 是否静音
+    changeMuted () {
+      if (!this.muted) {
+        this.muted = true
+        this.$refs.music.muted = true
+      } else {
+        this.muted = false
+        this.$refs.music.muted = false
+      }
+    },
+    // 改变音量
+    changeVolume (event) {
+      var volume = ((event.offsetX) / 80).toFixed(1)
+      this.volume = volume
+      this.$refs.music.volume = volume
     }
   },
   components: {
@@ -539,7 +572,7 @@ export default {
 
       .controls {
         position: fixed;
-        width: 80%;
+        width: 50%;
         margin-left: 10%;
         bottom: 10px;
         color: rgba(225,225,225, 1);
@@ -556,7 +589,7 @@ export default {
         }
 
         .show-info {
-          width: 50%;
+          width: 65%;
           margin-top: 5px;
           float: left;
 
@@ -571,9 +604,9 @@ export default {
 
         .progress {
           position: relative;
-          width: 50%;
-          margin-top: 40px;
-          margin-left: 200px;
+          width: 65%;
+          display: inline-block;
+          margin-top: 10px;
           padding-top: 10px;
           height: 20px;
           cursor: pointer;
@@ -616,6 +649,45 @@ export default {
               opacity: 1;
               filter: none;
               color: white;
+            }
+          }
+        }
+
+        .volume {
+          float: right;
+          position: relative;
+          width: 120px;
+
+          i {
+            cursor: pointer;
+            font-size: 25px;
+          }
+
+          .volume-line {
+            position: absolute;
+            width: 85px;
+            top: 20px;
+            left: 35px;
+            height: 4px;
+            background: rgba(255,255,255,.2);
+            z-index: 1;
+            cursor: pointer;
+          }
+
+          .volume-to {
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            height: 4px;
+            background: rgba(255,255,255, 0.8);
+            z-index: 2;
+            cursor: pointer;
+
+            i {
+              position: absolute;
+              top: -16px;
+              right: -8px;
+              z-index: 3;
             }
           }
         }
