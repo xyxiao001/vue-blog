@@ -352,7 +352,7 @@ export default {
     },
     // 改变音量
     changeVolume (event) {
-      var volume = ((event.offsetX) / 80).toFixed(1)
+      var volume = ((event.offsetX) / 80).toFixed(2)
       this.volume = volume
       this.$refs.music.volume = volume
     }
