@@ -7,6 +7,14 @@
         <div class="bg" :style="{'background-image': 'url('+ bg +')'}"></div>
         <div class="mask"></div>
         <div class="show-music">
+          <div class="serach-music">
+            <input type="text>" placeholder="你想听什么呢？" v-model="search" @keyup.enter="searchMusic">
+            <select @change="changeSelect" ref="select">
+              <option>列表</option>
+              <option>在线</option>
+            </select>
+            <button v-show="onLine" @click="searchMusic">搜索</button>
+          </div>
           <div class="left">
             <table>
               <thead>
@@ -14,12 +22,13 @@
                   <td>歌曲</td>
                   <td></td>
                   <td>歌手</td>
-                  <td>时长</td>
+                  <td v-show="!onLine">时长</td>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="(list, index) in lists"
+                  v-for="(list, index) in newLists"
+                  :key="list.songid"
                   @click="playItem(index)"
                   :class="{on: index === now}">
                   <td><span class="clip" :title="list.songname">{{ index + 1 }}. {{ list.songname }}</span></td>
@@ -34,7 +43,7 @@
                     </span>
                   </td>
                   <td><span class="clip">{{ list.singername }}</span></td>
-                  <td><span class="clip">{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</span></td>
+                  <td v-show="!onLine"><span class="clip">{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</span></td>
                 </tr>
               </tbody>
             </table>
@@ -120,10 +129,12 @@ import Loading from '../components/Loading'
 export default {
   data () {
     return {
-      url: 'https://route.showapi.com/213-4?showapi_appid=26601&showapi_timestamp=20161104133125&topid=26&showapi_sign=011cc1d2d0461a7dac17c2cb73fe7c3b',
+      url1: 'https://route.showapi.com/213-4?showapi_appid=26601&showapi_timestamp=20161104133125&topid=26&showapi_sign=011cc1d2d0461a7dac17c2cb73fe7c3b',
       url2: 'https://route.showapi.com/213-2?showapi_appid=26601&showapi_timestamp=20161104173307&showapi_sign=39d50b416de374b3b781a65a60c5acad&musicid=',
+      url3: 'https://route.showapi.com/213-1?page=1&showapi_appid=26601&showapi_timestamp=20161110120146&showapi_sign=985554800aba921b2633ab6a2f344b61&keyword=',
       musicId: '',
       lists: [],
+      newLists: [],
       now: '',
       playing: false,
       musicSrc: '',
@@ -139,7 +150,9 @@ export default {
       timeInter: '',
       jump: 0,
       muted: false,
-      volume: 0
+      volume: 0,
+      search: '',
+      onLine: false
     }
   },
   computed: {
@@ -158,13 +171,23 @@ export default {
       return this.playing === true ? '暂停' : '开始'
     }
   },
+  watch: {
+    search () {
+      if (!this.onLine) {
+        this.newLists = this.lists.filter((item) => {
+          return (item.songname.indexOf(this.search) !== -1 || item.singername.indexOf(this.search) !== -1)
+        })
+      }
+    }
+  },
   methods: {
     all () {
-      this.$http.get(this.url).then((response) => {
+      this.$http.get(this.url1).then((response) => {
         // 移出loading
         this.loading = false
         // 处理数据
         this.lists = response.body.showapi_res_body.pagebean.songlist
+        this.newLists = this.lists
         // 进来随机播放
         this.playItem(~~(Math.random() * this.lists.length))
         // 设置音量为一半
@@ -176,7 +199,7 @@ export default {
     },
     // 请求歌词
     detail () {
-      this.musicId = this.lists[this.now].songid
+      this.musicId = this.newLists[this.now].songid
       this.$http.get(this.url2 + this.musicId).then((response) => {
         // 歌词
         this.lyr = response.body.showapi_res_body.lyric
@@ -185,6 +208,22 @@ export default {
       }, (response) => {
         console.error('请求失败！')
       })
+    },
+    // 搜素
+    searchMusic () {
+      if (this.onLine) {
+        this.$http.get(this.url3 + this.search).then((response) => {
+          // 处理数据
+          this.lists = response.body.showapi_res_body.pagebean.contentlist
+          this.newLists = this.lists
+          if (this.newLists.length > 0) {
+            this.nowTime = 0
+            this.playItem(0)
+          }
+        }, (response) => {
+          console.error('请求失败！')
+        })
+      }
     },
     // 选择播放的是哪首
     playItem (index) {
@@ -200,6 +239,7 @@ export default {
     },
     // 单纯的播放
     play () {
+      this.allTime = this.$refs.music.duration
       this.$refs.music.play()
       this.playing = true
     },
@@ -208,17 +248,18 @@ export default {
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
       }
-      this.musicSrc = this.lists[this.now].url
-      this.bg = this.lists[this.now].albumpic_big
-      this.songName = this.lists[this.now].songname
-      this.singer = this.lists[this.now].singername
+      this.musicSrc = this.newLists[this.now].url ? this.newLists[this.now].url : this.newLists[this.now].m4a
+      this.bg = this.newLists[this.now].albumpic_big
+      this.songName = this.newLists[this.now].songname
+      this.singer = this.newLists[this.now].singername
       // 记录歌曲时间
-      this.allTime = this.lists[this.now].seconds
+      this.allTime = this.newLists[this.now].seconds
       this.detail()
       this.$nextTick(() => {
         this.$refs.music.play()
         this.playing = true
         // 开始计时器
+        this.allTime = this.$refs.music.duration
         this.clearTime()
       })
     },
@@ -355,6 +396,10 @@ export default {
       var volume = ((event.offsetX) / 80).toFixed(2)
       this.volume = volume
       this.$refs.music.volume = volume
+    },
+    // 搜索
+    changeSelect () {
+      this.onLine = this.$refs.select.value === '在线'
     }
   },
   components: {
@@ -445,6 +490,10 @@ export default {
         }
 
         table {
+          display: block;
+          width: 100%;
+          height: 100%;
+
           td {
             height: 40px;
             line-height: 40px;
@@ -690,6 +739,38 @@ export default {
               z-index: 3;
             }
           }
+        }
+      }
+
+      .serach-music {
+        input {
+          width: 150px;;
+          line-height: 30px;
+          border: 0;
+          font-size: 18px;
+          outline: inherit;
+          z-index: 1;
+          padding-left: 5px;
+        }
+
+        select {
+          width: 100px;;
+          height: 31px;
+          border: 0;
+          font-size: 18px;
+          outline: inherit;
+          z-index: 1;
+          padding-left: 5px;
+        }
+
+        button {
+          width: 50px;
+          height: 30px;
+          font-size: 16px;
+          border: 0;
+          outline: none;
+          cursor: pointer;
+          background-color: white;
         }
       }
     }
