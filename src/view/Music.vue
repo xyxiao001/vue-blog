@@ -218,6 +218,7 @@ export default {
           this.newLists = this.lists
           if (this.newLists.length > 0) {
             this.nowTime = 0
+            this.now = 1
             this.playItem(0)
           }
         }, (response) => {
