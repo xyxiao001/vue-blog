@@ -716,6 +716,11 @@ export default {
       .right {
         width: 40%;
       }
+
+      .controls {
+        margin-left: 0;
+        width: 70%;
+      }
     }
   }
 
@@ -789,6 +794,10 @@ export default {
           width: 80%;
           margin-top: -10px;
           margin-left: 0;
+        }
+
+        .volume {
+          float: left;
         }
       }
     }
