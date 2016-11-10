@@ -747,7 +747,7 @@ export default {
 
       .serach-music {
         input {
-          width: 150px;;
+          width: 140px;;
           line-height: 30px;
           border: 0;
           font-size: 18px;
@@ -757,7 +757,7 @@ export default {
         }
 
         select {
-          width: 100px;;
+          width: 80px;;
           height: 31px;
           border: 0;
           font-size: 18px;
