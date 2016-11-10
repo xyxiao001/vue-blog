@@ -258,8 +258,11 @@ export default {
       this.$nextTick(() => {
         this.$refs.music.play()
         this.playing = true
-        // 开始计时器
-        this.allTime = this.$refs.music.duration
+        if (this.onLine) {
+          setTimeout(() => {
+            this.allTime = this.$refs.music.duration
+          }, 1000)
+        }
         this.clearTime()
       })
     },
