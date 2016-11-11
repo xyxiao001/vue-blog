@@ -10,7 +10,7 @@
           <div class="serach-music">
             <input type="text>" placeholder="你想听什么呢？" v-model="search" @keyup.enter="searchMusic">
             <select @change="changeSelect" ref="select">
-              <option>列表</option>
+              <option>本地</option>
               <option>在线</option>
             </select>
             <button v-show="onLine" @click="searchMusic">搜索</button>
