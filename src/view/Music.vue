@@ -135,6 +135,7 @@ export default {
       musicId: '',
       lists: [],
       newLists: [],
+      onLinelists: [],
       now: '',
       playing: false,
       musicSrc: '',
@@ -214,8 +215,8 @@ export default {
       if (this.onLine) {
         this.$http.get(this.url3 + this.search).then((response) => {
           // 处理数据
-          this.lists = response.body.showapi_res_body.pagebean.contentlist
-          this.newLists = this.lists
+          this.onLinelists = response.body.showapi_res_body.pagebean.contentlist
+          this.newLists = this.onLinelists
           if (this.newLists.length > 0) {
             this.nowTime = 0
             this.now = 1
@@ -404,6 +405,12 @@ export default {
     // 搜索
     changeSelect () {
       this.onLine = this.$refs.select.value === '在线'
+      this.newLists = this.onLine ? this.onLinelists : this.lists
+      if (this.newLists.length > 0) {
+        this.nowTime = 0
+        this.now = 1
+        this.playItem(0)
+      }
     }
   },
   components: {
