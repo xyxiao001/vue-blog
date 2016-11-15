@@ -37,6 +37,8 @@ const state = {
       icon: 'icon-xiaolian'
     }
   ],
+  NavTop: 0,
+  NavLeft: 0,
   articlPres: [
     {
       id: '1',

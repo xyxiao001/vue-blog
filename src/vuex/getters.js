@@ -4,6 +4,8 @@ export const getTouxiang = state => state.touxiang
 
 // 左侧导航栏
 export const getMenus = state => state.menus
+export const getNavTop = state => state.NavTop
+export const getNavLeft = state => state.NavLeft
 
 // 列表展示
 export const getPre = state => state.articlPres
