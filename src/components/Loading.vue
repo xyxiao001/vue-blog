@@ -76,6 +76,20 @@ export default {
         animation: row5 1s ease-out infinite;
       }
 
+      @-webkit-keyframes row1 {
+        0% {
+          -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        50% {
+          -webkit-transform: translate3d(-10px, -30px, 0);
+        }
+
+        100% {
+          -webkit-transform: translate3d(0, 0, 0);
+        }
+      }
+
       @keyframes row1 {
         0% {
           transform: translate3d(0, 0, 0);
@@ -87,6 +101,20 @@ export default {
 
         100% {
           transform: translate3d(0, 0, 0);
+        }
+      }
+
+      @-webkit-keyframes row5 {
+        0% {
+          -webkit-transform: translate3d(10px, -30px, 0);
+        }
+
+        50% {
+          -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        100% {
+          -webkit-transform: translate3d(10px, -30px, 0);
         }
       }
 
