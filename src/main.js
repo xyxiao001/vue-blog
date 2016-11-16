@@ -19,7 +19,8 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
+  base: __dirname,
   linkActiveClass: 'active',
   routes: [
     { path: '/dashboard', component: Dashboard },
