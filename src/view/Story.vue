@@ -20,7 +20,7 @@ import Pagenation from '../components/Pagenation'
 export default {
   data () {
     return {
-      url: 'https://route.showapi.com/955-1?&showapi_appid=26601&showapi_timestamp=20161103170634&type=dp&showapi_sign=c23526a67ce4ea5bc3fd75123ddf55cc&page=',
+      url: 'https://route.showapi.com/955-1?&showapi_appid=26601&type=dp&showapi_sign=adc05e2062a5402b81c563a3ced09208&page=',
       allPages: 0,
       lists: [],
       loading: true

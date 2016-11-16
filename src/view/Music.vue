@@ -129,9 +129,9 @@ import Loading from '../components/Loading'
 export default {
   data () {
     return {
-      url1: 'https://route.showapi.com/213-4?showapi_appid=26601&showapi_timestamp=20161104133125&topid=26&showapi_sign=011cc1d2d0461a7dac17c2cb73fe7c3b',
-      url2: 'https://route.showapi.com/213-2?showapi_appid=26601&showapi_timestamp=20161104173307&showapi_sign=39d50b416de374b3b781a65a60c5acad&musicid=',
-      url3: 'https://route.showapi.com/213-1?page=1&showapi_appid=26601&showapi_timestamp=20161110120146&showapi_sign=985554800aba921b2633ab6a2f344b61&keyword=',
+      url1: 'https://route.showapi.com/213-4?showapi_appid=26601&topid=26&showapi_sign=adc05e2062a5402b81c563a3ced09208',
+      url2: 'https://route.showapi.com/213-2?showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&musicid=',
+      url3: 'https://route.showapi.com/213-1?page=1&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=',
       musicId: '',
       lists: [],
       newLists: [],
