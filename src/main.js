@@ -21,8 +21,7 @@ Vue.use(VueResource)
 const router = new VueRouter({
   // mode: 'hash',
   // base: __dirname,
-  history: true,
-  saveScrollPosition: true,
+  mode: 'history',
   linkActiveClass: 'active',
   routes: [
     { path: '/dashboard', component: Dashboard },
