@@ -19,8 +19,10 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const router = new VueRouter({
-  mode: 'hash',
-  base: __dirname,
+  // mode: 'hash',
+  // base: __dirname,
+  history: true, //html5模式 去掉锚点
+  saveScrollPosition: true //记住页面的滚动位置 html5模式适用
   linkActiveClass: 'active',
   routes: [
     { path: '/dashboard', component: Dashboard },
