@@ -9,8 +9,8 @@
        </router-link>
       <span>goodboy 博客</span>
     </div>
-    <ul class="menus" ref="menu">
-      <li v-for="(menu, index) in menus" @click="ripple($event, index)">
+    <ul class="menus">
+      <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
         <router-link :to="{path: menu.name}" exact>
           <i :class="menu.icon" class="iconfont"></i>
           <span>{{ menu.text }}</span>
@@ -68,10 +68,12 @@ export default {
     }
   },
   mounted () {
-    this.$refs.menu.childNodes.forEach((v, i) => {
-      if (v.childNodes[0].className === 'active') {
-        this.now = i
-      }
+    this.$nextTick(() => {
+      document.querySelectorAll('.menu').forEach((v, i) => {
+        if (v.childNodes[0].className === 'active') {
+          this.now = i
+        }
+      })
     })
   }
 }
