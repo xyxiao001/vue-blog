@@ -4,9 +4,9 @@
       <i class="iconfont" :class="icon"></i>
     </div>
     <div class="profile">
-      <router-link  to="/">
+      <a href="https://github.com/xyxiao001" target="_blank">
          <img :src="touxiang" alt="goodboy blog">
-       </router-link>
+       </a>
       <span>goodboy 博客</span>
     </div>
     <ul class="menus">

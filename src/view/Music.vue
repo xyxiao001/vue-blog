@@ -48,7 +48,7 @@
               </tbody>
             </table>
           </div>
-          <div class="right" ref="showRight">
+          <div class="right" ref="showRight" @mouseover="lyrIn = true" @mouseout="lyrIn = false">
             <div class="l-box">
               <div class="show-img">
                   <img :src="bg" :alt="songName" class="show-img"
@@ -56,7 +56,7 @@
                   >
               </div>
               <div style="display: none" v-html="lyr" ref="lyr"></div>
-              <div class="l-lyr" ref="lyrList" :style="{'transform': 'translate3d(0, '+ 35 * 0 + 'px, 0)'}">
+              <div class="l-lyr" ref="lyrList">
                 <p
                   v-for="(s, index) in lyrList"
                   :data-time="(s.min * 60 + s.sec + s.ms / 100)">
@@ -137,6 +137,8 @@ export default {
       newLists: [],
       onLinelists: [],
       now: '',
+      nowLyr: 0,
+      lyrIn: false,
       playing: false,
       musicSrc: '',
       lyr: '',
@@ -314,7 +316,11 @@ export default {
                 lyrP.forEach((val, index) => {
                   if (index === i) {
                     val.className = 'on'
-                    this.$refs.showRight.scrollTop = i * 35
+                    this.nowLyr = i
+                    // 如果鼠标不在右边执行滚动
+                    if (!this.lyrIn) {
+                      this.$refs.showRight.scrollTop = i * 35
+                    }
                     // this.$refs.lyrList.style.transform = 'translate3d(0, -' + i * 35 + 'px, 0)'
                   } else {
                     val.className = ''
@@ -615,7 +621,7 @@ export default {
             }
           }
           .l-lyr {
-            transition: all 1s ease;
+            transition: all 1s ease-out;
             p {
               text-align: center;
               line-height: 35px;
@@ -641,6 +647,7 @@ export default {
           float: left;
           width: 200px;
           height: 90px;
+          user-select: none;
           i {
             font-size: 40px;
             margin-right: 10px;
@@ -754,6 +761,7 @@ export default {
       }
 
       .serach-music {
+        margin-bottom: 10px;
         input {
           width: 140px;;
           line-height: 30px;
