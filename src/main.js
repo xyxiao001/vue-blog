@@ -14,6 +14,7 @@ import Photo from './view/Photo'
 import Story from './view/Story'
 import Sdetail from './view/Sdetail'
 import Music from './view/Music'
+import Video from './view/Video'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -35,6 +36,7 @@ const router = new VueRouter({
     { path: '/story?:page', component: Story },
     { path: '/story/:detail', component: Sdetail },
     { path: '/music', component: Music },
+    { path: '/video', component: Video },
     { path: '*', component: Dashboard }
   ]
 })

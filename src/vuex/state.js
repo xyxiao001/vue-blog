@@ -7,19 +7,9 @@ const state = {
       icon: 'icon-index'
     },
     {
-      name: '/archives',
-      text: '归档',
-      icon: 'icon-wodedangan'
-    },
-    {
       name: '/tags',
       text: '标签',
       icon: 'icon-tags'
-    },
-    {
-      name: '/photo',
-      text: '风景',
-      icon: 'icon-photo'
     },
     {
       name: '/music',
@@ -27,9 +17,24 @@ const state = {
       icon: 'icon-music'
     },
     {
+      name: '/video',
+      text: '小视频',
+      icon: 'icon-shipin'
+    },
+    {
+      name: '/photo',
+      text: '风景',
+      icon: 'icon-photo'
+    },
+    {
       name: '/story',
       text: '鬼故事',
       icon: 'icon-mogui'
+    },
+    {
+      name: '/archives',
+      text: '归档',
+      icon: 'icon-wodedangan'
     },
     {
       name: '/about',
