@@ -95,7 +95,7 @@
               <div class="line"></div>
               <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
               <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
-                <i class="iconfont icon-dot"></i>
+                <i class="iconfont icon-dot" @mouseDown=""></i>
               </div>
             </div>
             <div class="volume">
@@ -705,7 +705,7 @@ export default {
             transition: all 0.1s linear;
             z-index: 10;
 
-            i {
+            i.icontdot, i::before {
               position: absolute;
               font-size: 28px;
               top: -20px;
@@ -750,7 +750,7 @@ export default {
             z-index: 2;
             cursor: pointer;
 
-            i {
+            i.icontdot, i:before {
               position: absolute;
               top: -16px;
               right: -8px;
