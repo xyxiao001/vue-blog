@@ -30,7 +30,7 @@
                   v-for="(list, index) in newLists"
                   :key="list.songid"
                   @click="playItem(index)"
-                  :class="{on: index === now}">
+                  :class="{on: list.songname === songName && list.singername === singer}">
                   <td><span class="clip" :title="list.songname">{{ index + 1 }}. {{ list.songname }}</span></td>
                   <td class="control">
                     <span class="clip">
@@ -412,11 +412,11 @@ export default {
     changeSelect () {
       this.onLine = this.$refs.select.value === '在线'
       this.newLists = this.onLine ? this.onLinelists : this.lists
-      if (this.newLists.length > 0) {
-        this.nowTime = 0
-        this.now = 1
-        this.playItem(0)
-      }
+      // if (this.newLists.length > 0) {
+      //   this.nowTime = 0
+      //   this.now = 1
+      //   this.playItem(0)
+      // }
     }
   },
   components: {
@@ -460,9 +460,9 @@ export default {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
-      -webkit-filter: blur(20px);
-      filter: blur(20px);
-      opacity: .6;
+      -webkit-filter: blur(60px);
+      filter: blur(60px);
+      opacity: .8;
     }
 
     .mask {
