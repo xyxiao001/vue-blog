@@ -95,7 +95,7 @@
               <div class="line"></div>
               <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
               <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
-                <i class="iconfont icon-dot"></i>
+                <i class="iconfont icon-dot" @mouseDown=""></i>
               </div>
             </div>
             <div class="volume">
@@ -705,7 +705,7 @@ export default {
             transition: all 0.1s linear;
             z-index: 10;
 
-            i {
+            i.icontdot, i::before {
               position: absolute;
               font-size: 28px;
               top: -20px;
@@ -750,7 +750,7 @@ export default {
             z-index: 2;
             cursor: pointer;
 
-            i {
+            i.icontdot, i:before {
               position: absolute;
               top: -16px;
               right: -8px;
@@ -801,6 +801,7 @@ export default {
       padding: 4%;
 
       .left {
+        height: 340px;
         table {
           td {
             width: 70px;
@@ -815,6 +816,7 @@ export default {
 
       .right {
         width: 40%;
+        height: 340px;
       }
 
       .controls {
@@ -842,12 +844,12 @@ export default {
       padding-left: 1%;
       .left {
         width: 100%;
-        height: 300px;
+        height: 280px;
 
         table {
           td {
-              line-height: 30px;
-              height: 30px;
+              line-height: 25px;
+              height: 25px;
           }
 
           td:first-child {
@@ -865,7 +867,8 @@ export default {
 
       .right {
         width: 100%;
-        height: 40px;
+        height: 35px;
+        line-height: 35px;
         text-align: left;
 
         .l-box {
@@ -875,29 +878,34 @@ export default {
       }
 
       .controls {
-        width: 80%;
-        margin-left: 10%;
-        bottom: 10px;
+        width: 100%;
 
         .control-label {
-          width: 80%;
+          width: 35%;
           height: 60px;
           text-align: center;
+
+          i {
+            font-size: 30px;
+            margin-right: 2px;
+            margin-left: 0px;
+          }
         }
 
         .show-info {
-          margin-top: -110px;
+          margin-top: -90px;
+          margin-left: 10px;
           width: 80%;
         }
 
         .progress {
-          width: 80%;
-          margin-top: -10px;
+          width: 50%;
+          margin-top: 15px;
           margin-left: 0;
         }
 
         .volume {
-          float: left;
+          display: none;
         }
       }
     }
