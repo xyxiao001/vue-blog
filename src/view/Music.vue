@@ -914,8 +914,8 @@ export default {
         text-align: left;
 
         .l-box {
-          margin-left: -20%;
-          margin-top: -230px;
+          margin-left: -10%;
+          margin-top: -280px;
         }
       }
 
