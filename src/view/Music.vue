@@ -48,7 +48,7 @@
               </tbody>
             </table>
           </div>
-          <div class="right" ref="showRight" @mouseover="lyrIn = true" @mouseout="lyrIn = false">
+          <div class="right">
             <div class="l-box">
               <div class="show-img">
                   <img :src="bg" :alt="songName" class="show-img"
@@ -56,12 +56,14 @@
                   >
               </div>
               <div style="display: none" v-html="lyr" ref="lyr"></div>
-              <div class="l-lyr" ref="lyrList">
-                <p
-                  v-for="(s, index) in lyrList"
-                  :data-time="(s.min * 60 + s.sec + s.ms / 100)">
-                  {{ s.txt }}
-                </p>
+              <div class="show-lyr" ref="showLyr"  @mouseover="inLyr" @mouseleave="outLyr">
+                <div class="l-lyr" ref="lyrList">
+                  <p
+                    v-for="(s, index) in lyrList"
+                    :data-time="(s.min * 60 + s.sec + s.ms / 100)">
+                    {{ s.txt }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -202,6 +204,12 @@ export default {
     },
     // 请求歌词
     detail () {
+      this.lyrList = [{
+        min: -1,
+        ms: 0,
+        sec: 0,
+        txt: '歌词加载中...'
+      }]
       this.musicId = this.newLists[this.now].songid
       this.$http.get(this.url2 + this.musicId).then((response) => {
         // 歌词
@@ -249,6 +257,7 @@ export default {
     },
     // 改变后播放
     playNext () {
+      this.$refs.lyrList.style.transform = 'translate3d(0, 0, 0)'
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
       }
@@ -318,10 +327,11 @@ export default {
                     val.className = 'on'
                     this.nowLyr = i
                     // 如果鼠标不在右边执行滚动
-                    if (!this.lyrIn) {
-                      this.$refs.showRight.scrollTop = i * 35
+                    if (this.lyrIn === false) {
+                      this.$refs.showLyr.scrollTop = 0
+                      this.$refs.lyrList.style.transitionDuration = '0.4s'
+                      this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
                     }
-                    // this.$refs.lyrList.style.transform = 'translate3d(0, -' + i * 35 + 'px, 0)'
                   } else {
                     val.className = ''
                   }
@@ -331,6 +341,23 @@ export default {
           })
         }
       }, 100)
+    },
+    // 歌词
+    inLyr () {
+      if (this.lyrIn === false) {
+        this.$refs.lyrList.style.transitionDuration = '0s'
+        this.$refs.lyrList.style.transform = 'translate3d(0, 0, 0)'
+        this.$refs.showLyr.scrollTop = (this.nowLyr - 1) * 35
+        this.lyrIn = true
+      }
+    },
+    outLyr () {
+      if (this.lyrIn === true) {
+        this.$refs.lyrList.style.transitionDuration = '0s'
+        this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
+        this.$refs.showLyr.scrollTop = 0
+        this.lyrIn = false
+      }
     },
     // 算出时间
     sumTime (v) {
@@ -571,7 +598,7 @@ export default {
         width: 40%;
         height: 425px;
         overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: hidden;
         &::-webkit-scrollbar {
           width: 8px;
           height: 8px;
@@ -589,23 +616,27 @@ export default {
         }
 
         .l-box {
+          position: relative;
+          width: 100%;
+          height: auto;
+          overflow: hidden;
           .show-img {
-            position: relative;
-            display: block;
-            margin: auto;
+            position: absolute;;
             width: 240px;
             height: 240px;
+            left: 50%;
+            margin-left: -110px;
             border-radius: 100%;
             background-size: cover;
             background-image: url(http://music.163.com/style/mobile/img/share/disc-ip6.png);
 
             img {
-              display: inline-block;
-              margin-top: 47px;
-              margin-left: 47px;
-              width: 61%;
-              height: 61%;
-              transition: all 1s ease-out;
+              position: absolute;
+              top: 45px;
+              left: 155px;
+              width: 62%;
+              height: 62%;
+              transition: transform 1s ease;
             }
 
             img.animate-img {
@@ -620,8 +651,19 @@ export default {
               transform: rotate3d(0, 0, 1, 360deg);
             }
           }
+
+          .show-lyr {
+            position: relative;
+            margin-top: 250px;
+            width: 105%;
+            height: 200px;
+            overflow-y: auto;
+          }
+
           .l-lyr {
-            transition: all 1s ease-out;
+            position: relative;
+            width: 100%;
+            transition: all 0.4s ease-out;
             p {
               text-align: center;
               line-height: 35px;
@@ -690,8 +732,8 @@ export default {
             left: 0px;
             width: 0%;
             height: 2px;
-            background: rgba(255,255,255,.5);
-            transition: all 0.1s linear;
+            background: rgba(255,255,255, 0);
+            transition: all 0.05s linear;
             z-index: 2;
           }
 
@@ -702,7 +744,7 @@ export default {
             width: 0%;
             height: 2px;
             background: rgba(255,255,255,.7);
-            transition: all 0.1s linear;
+            transition: all 0.05s linear;
             z-index: 10;
 
             i.icontdot, i::before {
