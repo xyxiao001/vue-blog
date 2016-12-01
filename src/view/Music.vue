@@ -826,13 +826,27 @@ export default {
         }
 
         button {
-          width: 50px;
-          height: 30px;
-          font-size: 16px;
-          border: 0;
-          outline: none;
+          display: inline-block;
+          line-height: 1;
+          white-space: nowrap;
           cursor: pointer;
-          background-color: white;
+          background: #fff;
+          border: 1px solid #c0ccda;
+          color: #1f2d3d;
+          -webkit-appearance: none;
+          text-align: center;
+          box-sizing: border-box;
+          outline: none;
+          margin: 0;
+          -moz-user-select: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+          padding: 9px 15px;
+          font-size: 14px;
+          border-radius: 4px;
+          color: #fff;
+          background-color: #50bfff;
+          border-color: #50bfff;
         }
       }
     }
