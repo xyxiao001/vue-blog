@@ -106,7 +106,8 @@ export default {
 
   @media screen and (max-width: 500px) {
     .show-story {
-      width: 95%;
+      width: 90%;
+      margin: 0 auto;
     }
 
     .story-tag {
