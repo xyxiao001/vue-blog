@@ -57,6 +57,7 @@ export default {
       a = a.replace('var cpro_id = "u535693', '').replace('var cpro_id = "u535693', '')
       a = a.replace('var cpro_id = "u138765";', '')
       this.detail = a
+      this.detail = this.detail.replace(/&nbsp;&nbsp;&nbsp;/g, '<br/>&nbsp;&nbsp;&nbsp;')
     }
   },
   components: {
@@ -78,7 +79,7 @@ export default {
     box-shadow: 0 0 15px 0 #CCC;
     background: #F6F4EC;
     border-radius: 3px;
-    padding: 0 10px;
+    padding: 0 20px;
     padding-bottom: 40px;
     font: 14px/2.5 "Microsoft YaHei";
   }
