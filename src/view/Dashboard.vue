@@ -48,7 +48,7 @@ export default {
     font-size: 100%;
     -webkit-tap-highlight-color:rgba(255,255,255,0);
     vertical-align: baseline;
-    font-family: "Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   .content {
     background-color: #fff;
