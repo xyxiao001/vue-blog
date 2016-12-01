@@ -664,6 +664,7 @@ export default {
             position: relative;
             width: 100%;
             transition: all 0.4s ease-out;
+            margin-bottom: 200px;
             p {
               text-align: center;
               line-height: 35px;
