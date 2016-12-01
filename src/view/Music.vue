@@ -945,7 +945,17 @@ export default {
 
         .l-box {
           margin-left: -10%;
-          margin-top: -280px;
+          height: 35px;
+
+          .show-img {
+            display: none;
+          }
+
+          .show-lyr {
+            margin-top: 0;
+            height: 100px;
+            margin-top: -35px;
+          }
         }
       }
 
