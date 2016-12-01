@@ -48,8 +48,7 @@ export default {
     font-size: 100%;
     -webkit-tap-highlight-color:rgba(255,255,255,0);
     vertical-align: baseline;
-    font-family: "lucida grande", "lucida sans unicode",
-                lucida, "Helvetica Neue", helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif";
   }
   .content {
     background-color: #fff;
