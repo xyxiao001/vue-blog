@@ -859,6 +859,21 @@ export default {
       .right {
         width: 40%;
         height: 340px;
+
+        .l-box .show-img {
+          width: 180px;
+          height: 180px;
+          margin-left: -90px;
+
+          img {
+            top: 34px;
+            left: 125px;
+          }
+        }
+
+        .l-box .show-lyr {
+          margin-top: 200px;
+        }
       }
 
       .controls {
