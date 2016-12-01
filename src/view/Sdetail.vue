@@ -57,7 +57,7 @@ export default {
       a = a.replace('var cpro_id = "u535693', '').replace('var cpro_id = "u535693', '')
       a = a.replace('var cpro_id = "u138765";', '')
       this.detail = a
-      this.detail = this.detail.replace(/&nbsp;&nbsp;&nbsp;/g, '<br/>&nbsp;&nbsp;&nbsp;')
+      this.detail = this.detail.replace(/&nbsp;&nbsp;&nbsp;/g, '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
     }
   },
   components: {
