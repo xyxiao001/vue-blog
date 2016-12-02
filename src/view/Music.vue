@@ -97,7 +97,7 @@
               <div class="line"></div>
               <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
               <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
-                <i class="iconfont icon-dot" @mouseDown=""></i>
+                <i class="iconfont icon-dot" @mousedown="drap($event)" @touchstart="drap($event)"></i>
               </div>
             </div>
             <div class="volume">
@@ -154,6 +154,8 @@ export default {
       nowTime: 0,
       timeInter: '',
       jump: 0,
+      nowX: 0,
+      oldX: 0,
       muted: false,
       volume: 0,
       search: '',
@@ -443,7 +445,28 @@ export default {
     // 进度条拖拽
     drap (e) {
       e.preventDefault()
-      console.log(e)
+      this.pause()
+      this.oldX = e.clientX ? e.clientX : e.touches[0].clientX
+      window.addEventListener('mousemove', this.move)
+      window.addEventListener('mouseup', this.leave)
+      window.addEventListener('touchend', this.leave)
+    },
+    move (e) {
+      // 得到当前
+      var all = window.getComputedStyle(this.$refs.progress).width
+      all = all.replace('px', '')
+      this.nowX = e.clientX ? e.clientX : e.touches[0].clientX
+      var end = parseInt(this.nowX - this.oldX)
+      end = end > all ? all : end < 0 ? 0 : end
+      this.nowTime = Number(((end / all) * this.allTime).toFixed(2))
+    },
+    leave (e) {
+      if (this.oldX !== 0) {
+        this.oldX = 0
+        this.$refs.music.currentTime = this.nowTime
+      }
+      window.removeEventListener('mousemove', this.move)
+      window.removeEventListener('touchmove', this.move)
     }
   },
   components: {
