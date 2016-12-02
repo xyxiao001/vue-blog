@@ -439,11 +439,11 @@ export default {
     changeSelect () {
       this.onLine = this.$refs.select.value === '在线'
       this.newLists = this.onLine ? this.onLinelists : this.lists
-      // if (this.newLists.length > 0) {
-      //   this.nowTime = 0
-      //   this.now = 1
-      //   this.playItem(0)
-      // }
+    },
+    // 进度条拖拽
+    drap (e) {
+      e.preventDefault()
+      console.log(e)
     }
   },
   components: {
@@ -452,6 +452,16 @@ export default {
   },
   mounted () {
     this.all()
+    // 绑定事件
+    window.addEventListener('keydown', (e) => {
+      if (e.keyCode === 32) {
+        if (this.playing === true) {
+          this.pause()
+        } else {
+          this.play()
+        }
+      }
+    })
   },
   destroyed () {
     this.clearTime()
