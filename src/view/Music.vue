@@ -230,11 +230,20 @@ export default {
           // 处理数据
           this.onLinelists = response.body.showapi_res_body.pagebean.contentlist
           this.newLists = this.onLinelists
-          if (this.newLists.length > 0) {
-            this.nowTime = 0
-            this.now = 1
-            this.playItem(0)
+          if (response.body.showapi_res_body.pagebean.allPages > 2) {
+            this.$http.get('https://route.showapi.com/213-1?page=2&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=' + this.search).then((nextRes) => {
+              this.onLinelists = this.onLinelists.concat(nextRes.body.showapi_res_body.pagebean.contentlist)
+              this.newLists = this.onLinelists
+            }, (response) => {
+              console.error('请求失败！')
+            })
           }
+          // 搜索结束不要播放
+          // if (this.newLists.length > 0) {
+          //   this.nowTime = 0
+          //   this.now = 1
+          //   this.playItem(0)
+          // }
         }, (response) => {
           console.error('请求失败！')
         })
@@ -264,6 +273,7 @@ export default {
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
       }
+      this.now = this.now > this.newLists.length - 1 ? 0 : this.now
       this.musicSrc = this.newLists[this.now].url ? this.newLists[this.now].url : this.newLists[this.now].m4a
       this.bg = this.newLists[this.now].albumpic_big
       this.songName = this.newLists[this.now].songname
