@@ -96,7 +96,7 @@
               @mouseout="jumpLeave">
               <div class="line"></div>
               <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
-              <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
+              <div class="lineIn" ref="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
                 <i class="iconfont icon-dot" @mousedown="drap($event)" @touchstart="drap($event)"></i>
               </div>
             </div>
@@ -156,6 +156,7 @@ export default {
       jump: 0,
       nowX: 0,
       oldX: 0,
+      nowLine: 0,
       muted: false,
       volume: 0,
       search: '',
@@ -447,7 +448,11 @@ export default {
       e.preventDefault()
       this.pause()
       this.oldX = e.clientX ? e.clientX : e.touches[0].clientX
+      this.nowLine = window.getComputedStyle(this.$refs.lineIn).width
+      this.nowLine = this.nowLine.replace('px', '')
+      this.$refs.lineIn.style.transitionDuration = '0s'
       window.addEventListener('mousemove', this.move)
+      window.addEventListener('touchmove', this.move)
       window.addEventListener('mouseup', this.leave)
       window.addEventListener('touchend', this.leave)
     },
@@ -456,7 +461,7 @@ export default {
       var all = window.getComputedStyle(this.$refs.progress).width
       all = all.replace('px', '')
       this.nowX = e.clientX ? e.clientX : e.touches[0].clientX
-      var end = parseInt(this.nowX - this.oldX)
+      var end = Number(this.nowX - this.oldX) + Number(this.nowLine)
       end = end > all ? all : end < 0 ? 0 : end
       this.nowTime = Number(((end / all) * this.allTime).toFixed(2))
     },
@@ -464,6 +469,7 @@ export default {
       if (this.oldX !== 0) {
         this.oldX = 0
         this.$refs.music.currentTime = this.nowTime
+        this.$refs.lineIn.style.transitionDuration = '0.05s'
       }
       window.removeEventListener('mousemove', this.move)
       window.removeEventListener('touchmove', this.move)
@@ -840,7 +846,7 @@ export default {
         margin-bottom: 10px;
         input {
           width: 140px;;
-          line-height: 30px;
+          line-height: 31px;
           border: 0;
           font-size: 18px;
           outline: inherit;
@@ -849,8 +855,9 @@ export default {
         }
 
         select {
+          display: inline-block;
           width: 80px;;
-          height: 31px;
+          height: 32px;
           border: 0;
           font-size: 18px;
           outline: inherit;
@@ -1017,6 +1024,12 @@ export default {
           width: 50%;
           margin-top: 15px;
           margin-left: 0;
+
+          .lineIn {
+            i {
+              top: -18px;
+            }
+          }
         }
 
         .volume {
