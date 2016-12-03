@@ -483,12 +483,26 @@ export default {
     this.all()
     // 绑定事件
     window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 32) {
-        if (this.playing === true) {
-          this.pause()
-        } else {
-          this.play()
-        }
+      switch (e.keyCode) {
+        case 32:
+          if (this.playing === true) {
+            this.pause()
+          } else {
+            this.play()
+          }
+          break
+        case 37:
+          if (this.playing === true) {
+            this.goPre()
+          }
+          break
+        case 39:
+          if (this.playing === true) {
+            this.goNext()
+          }
+          break
+        default:
+          return false
       }
     })
   },
