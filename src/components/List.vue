@@ -59,8 +59,8 @@ export default {
       margin: 10px;
       margin-left: 1.6%;
       padding: 5px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-      animation: showA 1.5s ease-out 1;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+      animation: showA 1s ease-out 1;
 
       @keyframes showA {
         0% {
@@ -176,7 +176,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 700px) {
     .a-list {
       article {
         width: 95%;
