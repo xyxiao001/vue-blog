@@ -54,9 +54,9 @@ export default {
     margin-bottom: 50px;
 
     article {
-      width: 375px;
-      height: 360px;
-      margin: 10px;
+      width: 25%;
+      height: auto;
+      margin: 10px 1%;
       padding: 5px;
       box-shadow: 0 15px 30px rgba(0,0,0,0.2);
       animation: showA 1.5s ease-out 1;
@@ -163,12 +163,11 @@ export default {
   @media screen and (max-width: 1480px) {
     .a-list {
       article {
-        width: 330px;
-        height: 335px;
+        width: 45%;
+        height: auto;;
 
         .article {
           .article-excerpt {
-            height: 75px;
             font-size: 14px;
           }
         }
