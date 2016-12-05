@@ -17,6 +17,7 @@ import Music from './view/Music'
 import Video from './view/Video'
 import News from './view/News'
 import Movies from './view/Movies'
+import NotFound from './view/404'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -27,7 +28,7 @@ const router = new VueRouter({
   // mode: 'history',
   linkActiveClass: 'active',
   routes: [
-    { path: '/dashboard', component: Dashboard },
+    { path: '/', component: Dashboard },
     { path: '/archives', component: Archives },
     { path: '/tags', component: Tags },
     { path: '/tags/:name', component: TagDetail },
@@ -41,7 +42,7 @@ const router = new VueRouter({
     { path: '/video', component: Video },
     { path: '/news', component: News },
     { path: '/movies', component: Movies },
-    { path: '*', component: Dashboard }
+    { path: '*', component: NotFound }
   ]
 })
 
