@@ -45,6 +45,7 @@ export default {
         this.lists = data.contentlist
         this.loading = false
       }, (response) => {
+        this.loading = false
         console.error('请求失败！')
       })
     }
