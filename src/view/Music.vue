@@ -1025,6 +1025,7 @@ export default {
 
       .controls {
         width: 100%;
+        bottom: 0px;
 
         .control-label {
           width: 35%;

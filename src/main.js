@@ -15,6 +15,8 @@ import Story from './view/Story'
 import Sdetail from './view/Sdetail'
 import Music from './view/Music'
 import Video from './view/Video'
+import News from './view/News'
+import Movies from './view/Movies'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -28,15 +30,17 @@ const router = new VueRouter({
     { path: '/dashboard', component: Dashboard },
     { path: '/archives', component: Archives },
     { path: '/tags', component: Tags },
+    { path: '/tags/:name', component: TagDetail },
     { path: '/about', component: About },
     { path: '/detail', component: Detail },
-    { path: '/tags/:name', component: TagDetail },
     { path: '/photo', component: Photo },
     { path: '/story', component: Story },
     { path: '/story?:page', component: Story },
     { path: '/story/:detail', component: Sdetail },
     { path: '/music', component: Music },
     { path: '/video', component: Video },
+    { path: '/news', component: News },
+    { path: '/movies', component: Movies },
     { path: '*', component: Dashboard }
   ]
 })
