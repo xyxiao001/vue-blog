@@ -49,9 +49,9 @@ export default {
 <style lang="scss">
   .s-item {
     display: inline-block;
-    width: 500px;
-    height: 105px;
-    margin: 20px;
+    width: 31%;
+    height: auto;
+    margin: 1%;
     background-color: #fff;
     border: 1px solid #eee;
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.06) inset;
@@ -62,19 +62,29 @@ export default {
     overflow: hidden;
     cursor: pointer;
 
+    &>a {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+
     .left {
       float: left;
-      width: 100px;
+      width: 30%;
+      height: 123px;
 
       img {
-        height: 100px;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
       }
     }
 
     .right {
       float: left;
-      width: 335px;
-      margin-left: 60px;
+      width: 65%;
+      margin-left: 2%;
 
       .title {
         font-size: 16px;
@@ -86,6 +96,12 @@ export default {
         color: #aaa;
       }
     }
+  }
+
+  @media screen and (max-width: 1400px) {
+      .s-item {
+        width: 47%;
+      }
   }
 
   @media screen and (max-width: 500px) {
