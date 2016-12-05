@@ -48,7 +48,6 @@ export default {
     width: 100%;
     text-align: center;
     font-size: 48px;
-    height: 250px;
     margin-top: 10%;
   }
 

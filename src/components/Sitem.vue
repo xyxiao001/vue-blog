@@ -72,7 +72,7 @@ export default {
     .left {
       float: left;
       width: 30%;
-      height: 123px;
+      height: 100px;
 
       img {
         width: 100%;
@@ -112,6 +112,7 @@ export default {
       .left {
         float: left;
         width: 30%;
+        height: 125px;
 
         img {
           width: 100%;

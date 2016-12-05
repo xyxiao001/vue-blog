@@ -7,18 +7,23 @@ const state = {
       icon: 'icon-index'
     },
     {
-      name: '/tags',
-      text: '标签',
-      icon: 'icon-tags'
-    },
-    {
       name: '/music',
       text: '听听歌',
       icon: 'icon-music'
     },
     {
+      name: '/news',
+      text: '看看报',
+      icon: 'icon-news'
+    },
+    {
+      name: '/movies',
+      text: '电影票房',
+      icon: 'icon-movie'
+    },
+    {
       name: '/video',
-      text: '小视频',
+      text: '来点视频',
       icon: 'icon-shipin'
     },
     {
@@ -30,6 +35,11 @@ const state = {
       name: '/story',
       text: '鬼故事',
       icon: 'icon-mogui'
+    },
+    {
+      name: '/tags',
+      text: '标签',
+      icon: 'icon-tags'
     },
     {
       name: '/archives',
