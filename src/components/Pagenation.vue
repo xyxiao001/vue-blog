@@ -2,7 +2,7 @@
   <div class="pagenation">
     <router-link
       class="pre pages"
-      v-show="current > 5"
+      v-show="current > 0"
       :to="{path: this.$route.path, query: { page: 1 }}" exact>首页
     </router-link>
     <router-link
@@ -10,13 +10,18 @@
       v-show="current > 1"
       :to="{path: this.$route.path, query: { page: current - 1 }}" exact>上一页
     </router-link>
+    <a
+      class="pre pages disabled"
+      v-show="current <= 1"
+      >上一页
+    </a>
     <ul>
-      <li v-for="i in (allPages - current > 5 ? current + 4 : allPages)">
+      <li v-for="page in pages">
         <router-link
           class="pages"
-          :class="{'active': i === current}"
-          :to="{path: $route.path, query: { page: i }}"
-          v-if="i >= current" exact>{{ i }}</router-link>
+          :class="{'active': page === current}"
+          :to="{path: $route.path, query: { page: page }}"
+           exact>{{ page }}</router-link>
       </li>
     </ul>
     <router-link
@@ -24,6 +29,11 @@
       :to="{path: this.$route.path, query: { page: current + 1 }}"
       class="next pages" exact>下一页
     </router-link>
+    <a
+      class="next pages disabled"
+      v-show="current >= allPages"
+      >下一页
+    </a>
     <div class="go">
       <span>跳转到：</span>
       <input
@@ -51,6 +61,28 @@ export default {
   computed: {
     current () {
       return this.$route.query.page ? ~~(this.$route.query.page) : 1
+    },
+    pages () {
+      var arr = []
+      var pageCount = 5
+      if (this.allPages < 5) {
+        for (let i = 1; i <= this.allPages; i++) {
+          arr.push(i)
+        }
+      } else if (this.current <= 2) {
+        for (let i = 1; i <= pageCount; i++) {
+          arr.push(i)
+        }
+      } else if (this.current > 2 && this.current < this.allPages - 2) {
+        for (let i = this.current - 2; i <= this.current + 2; i++) {
+          arr.push(i)
+        }
+      } else if (this.current >= this.allPages - 2) {
+        for (let i = this.allPages - 4; i <= this.allPages; i++) {
+          arr.push(i)
+        }
+      }
+      return arr
     }
   }
 }

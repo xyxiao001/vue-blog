@@ -49,6 +49,7 @@ export default {
         this.loading = false
       }, (response) => {
         console.error('请求失败！')
+        this.loading = false
       })
     },
     clear (data) {
