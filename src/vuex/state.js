@@ -18,7 +18,7 @@ const state = {
     },
     {
       name: '/movies',
-      text: '电影票房',
+      text: '电影',
       icon: 'icon-movie'
     },
     {
