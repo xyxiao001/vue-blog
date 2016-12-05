@@ -54,7 +54,7 @@ export default {
     margin-bottom: 50px;
 
     article {
-      width: 30%;
+      width: 29%;
       height: auto;
       margin: 10px;
       margin-left: 1.6%;
@@ -161,7 +161,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 1480px) {
+  @media screen and (max-width: 1200px) {
     .a-list {
       article {
         width: 45%;
