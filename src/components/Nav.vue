@@ -96,8 +96,8 @@ export default {
     transform: translate3d(0, 0, 0);
     z-index: 1000;
     &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 0px;
+      height: 0px;
       background-color: #202020;
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;

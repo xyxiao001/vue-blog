@@ -96,7 +96,7 @@
               @mouseout="jumpLeave">
               <div class="line"></div>
               <div class="lineTo" :style="{'width': jump * 100 + '%'}"></div>
-              <div class="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
+              <div class="lineIn" ref="lineIn" :style="{'width': (nowTime / allTime) * 100 + '%'}">
                 <i class="iconfont icon-dot" @mousedown="drap($event)" @touchstart="drap($event)"></i>
               </div>
             </div>
@@ -156,6 +156,7 @@ export default {
       jump: 0,
       nowX: 0,
       oldX: 0,
+      nowLine: 0,
       muted: false,
       volume: 0,
       search: '',
@@ -229,11 +230,20 @@ export default {
           // 处理数据
           this.onLinelists = response.body.showapi_res_body.pagebean.contentlist
           this.newLists = this.onLinelists
-          if (this.newLists.length > 0) {
-            this.nowTime = 0
-            this.now = 1
-            this.playItem(0)
+          if (response.body.showapi_res_body.pagebean.allPages > 2) {
+            this.$http.get('https://route.showapi.com/213-1?page=2&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=' + this.search).then((nextRes) => {
+              this.onLinelists = this.onLinelists.concat(nextRes.body.showapi_res_body.pagebean.contentlist)
+              this.newLists = this.onLinelists
+            }, (response) => {
+              console.error('请求失败！')
+            })
           }
+          // 搜索结束不要播放
+          // if (this.newLists.length > 0) {
+          //   this.nowTime = 0
+          //   this.now = 1
+          //   this.playItem(0)
+          // }
         }, (response) => {
           console.error('请求失败！')
         })
@@ -263,6 +273,7 @@ export default {
       if (this.now !== this.preList[this.preList.length - 1]) {
         this.preList.push(this.now)
       }
+      this.now = this.now > this.newLists.length - 1 ? 0 : this.now
       this.musicSrc = this.newLists[this.now].url ? this.newLists[this.now].url : this.newLists[this.now].m4a
       this.bg = this.newLists[this.now].albumpic_big
       this.songName = this.newLists[this.now].songname
@@ -447,7 +458,11 @@ export default {
       e.preventDefault()
       this.pause()
       this.oldX = e.clientX ? e.clientX : e.touches[0].clientX
+      this.nowLine = window.getComputedStyle(this.$refs.lineIn).width
+      this.nowLine = this.nowLine.replace('px', '')
+      this.$refs.lineIn.style.transitionDuration = '0s'
       window.addEventListener('mousemove', this.move)
+      window.addEventListener('touchmove', this.move)
       window.addEventListener('mouseup', this.leave)
       window.addEventListener('touchend', this.leave)
     },
@@ -456,7 +471,7 @@ export default {
       var all = window.getComputedStyle(this.$refs.progress).width
       all = all.replace('px', '')
       this.nowX = e.clientX ? e.clientX : e.touches[0].clientX
-      var end = parseInt(this.nowX - this.oldX)
+      var end = Number(this.nowX - this.oldX) + Number(this.nowLine)
       end = end > all ? all : end < 0 ? 0 : end
       this.nowTime = Number(((end / all) * this.allTime).toFixed(2))
     },
@@ -464,6 +479,7 @@ export default {
       if (this.oldX !== 0) {
         this.oldX = 0
         this.$refs.music.currentTime = this.nowTime
+        this.$refs.lineIn.style.transitionDuration = '0.05s'
       }
       window.removeEventListener('mousemove', this.move)
       window.removeEventListener('touchmove', this.move)
@@ -477,12 +493,26 @@ export default {
     this.all()
     // 绑定事件
     window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 32) {
-        if (this.playing === true) {
-          this.pause()
-        } else {
-          this.play()
-        }
+      switch (e.keyCode) {
+        case 32:
+          if (this.playing === true) {
+            this.pause()
+          } else {
+            this.play()
+          }
+          break
+        case 37:
+          if (this.playing === true) {
+            this.goPre()
+          }
+          break
+        case 39:
+          if (this.playing === true) {
+            this.goNext()
+          }
+          break
+        default:
+          return false
       }
     })
   },
@@ -840,7 +870,7 @@ export default {
         margin-bottom: 10px;
         input {
           width: 140px;;
-          line-height: 30px;
+          line-height: 31px;
           border: 0;
           font-size: 18px;
           outline: inherit;
@@ -849,8 +879,9 @@ export default {
         }
 
         select {
+          display: inline-block;
           width: 80px;;
-          height: 31px;
+          height: 32px;
           border: 0;
           font-size: 18px;
           outline: inherit;
@@ -1017,6 +1048,12 @@ export default {
           width: 50%;
           margin-top: 15px;
           margin-left: 0;
+
+          .lineIn {
+            i {
+              top: -18px;
+            }
+          }
         }
 
         .volume {
