@@ -64,6 +64,15 @@ const state = {
       time: '2016-10-26 15:55:11',
       pre: `就在刚刚过去的九月，作为 FED 团队的代表有幸参加了美国纽约的 Velocity Web 性能和敏捷运维大会。在大约一周的行程中，会议团队组织了十分丰富的行程，会议团队也在内部对于 Velocity 的演讲内容做了多次讨论。整个行程在我看来是十分圆满的。
       Velocity @ NYCVelocity 作为 O’Reilly 旗下的老牌会议品牌，从 2008 年开始专著 Web 性能、DevOp`
+    },
+    {
+      id: '3',
+      title: 'test3？',
+      tag: 'Web开发',
+      img: 'http://img.alicdn.com/tfs/TB1H9LFNFXXXXb_aXXXXXXXXXXX-900-500.jpg',
+      time: '2016-10-26 15:55:11',
+      pre: `就在刚刚过去的九月，作为 FED 团队的代表有幸参加了美国纽约的 Velocity Web 性能和敏捷运维大会。在大约一周的行程中，会议团队组织了十分丰富的行程，会议团队也在内部对于 Velocity 的演讲内容做了多次讨论。整个行程在我看来是十分圆满的。
+      Velocity @ NYCVelocity 作为 O’Reilly 旗下的老牌会议品牌，从 2008 年开始专著 Web 性能、DevOp`
     }
   ],
   tags: [
