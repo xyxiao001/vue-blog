@@ -164,11 +164,12 @@ export default {
           padding: 10px;
           font-size: 14px;
           color: rgba(255, 255, 255, 0.8);
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.6);
           -webkit-transform: translate3d(0, 100px, 0);
           -moz-transform: translate3d(0, 100px, 0);
           transform: translate3d(0, 100px, 0);
-          transition: 0.3s transform ease-out;
+          transition: 0.3s all ease-out;
+          opacity: 0.8;
 
           p {
             width: 95%;
@@ -178,6 +179,7 @@ export default {
 
         &:hover {
           .m-bottom {
+            opacity: 1;
             -webkit-transform: translate3d(0, 0, 0);
             -moz-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
@@ -185,4 +187,62 @@ export default {
         }
      }
   }
+
+  @media screen and (max-width: 1600px) {
+    .m-list {
+      width: 1000px;
+
+      .m-item {
+        margin-left: 3%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .m-list {
+      width: 800px;
+
+      .m-item {
+        margin-left: 5%;
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 850px) {
+    .m-list {
+      width: 100%;
+
+      .m-item {
+        display: block;
+        margin: 20px auto;
+
+        .m-bottom {
+          opacity: 1;
+          -webkit-transform: translate3d(0, 0, 0);
+          -moz-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .m-title {
+      h3 {
+        font-size: 25px;
+      }
+    }
+    .m-list {
+      .m-item {
+        display: block;
+        width: 260px;
+        height: 350px;
+        margin: 20px auto;
+      }
+    }
+  }
+
+
+
 </style>
