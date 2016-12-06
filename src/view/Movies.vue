@@ -34,7 +34,7 @@ import Loading from '../components/Loading'
 export default {
   data () {
     return {
-      loading: false,
+      loading: true,
       url: 'https://api.douban.com/v2/movie/top250?start=',
       movies: {},
       lists: []
@@ -53,7 +53,16 @@ export default {
     this.$http.jsonp(this.url + this.start).then((response) => {
       this.movies = response.body
       this.loading = false
-      this.lists = this.movies.subjects
+      var l = this.movies.subjects.length
+      var i = 0
+      var set = setInterval(() => {
+        if (i < l) {
+          this.lists.push(this.movies.subjects[i])
+          i += 1
+        } else {
+          clearTimeout(set)
+        }
+      }, 100)
     }, (response) => {
       console.log('请求失败!')
     })
@@ -90,6 +99,17 @@ export default {
       margin: 40px 0 0 2%;
       overflow: hidden;
       cursor: pointer;
+      animation: show-m .5s ease-out 1;
+
+      @keyframes show-m {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
 
         .m-img {
           width: 100%;
@@ -128,7 +148,7 @@ export default {
           -webkit-transform: translate3d(0, 100px, 0);
           -moz-transform: translate3d(0, 100px, 0);
           transform: translate3d(0, 100px, 0);
-          transition: 0.3s transform ease;
+          transition: 0.3s transform ease-out;
 
           p {
             width: 95%;
