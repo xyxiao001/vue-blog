@@ -54,11 +54,11 @@ export default {
     margin-bottom: 50px;
 
     article {
-      width: 29%;
+      width: 30%;
       height: auto;
-      margin: 10px;
-      margin-left: 1.6%;
-      padding: 5px;
+      margin-left: 1%;
+      margin-bottom: 20px;
+      padding: 1%;
       box-shadow: 0 15px 45px rgba(0,0,0,0.15);
       animation: showA 1s ease-out 1;
 
