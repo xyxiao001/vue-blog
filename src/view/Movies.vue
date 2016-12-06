@@ -101,6 +101,26 @@ export default {
       cursor: pointer;
       animation: show-m .5s ease-out 1;
 
+      @-webkit-keyframes show-m {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes show-m {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
       @keyframes show-m {
         from {
           opacity: 0;
