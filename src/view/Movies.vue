@@ -2,6 +2,7 @@
   <div class="wraper">
     <NavBar></NavBar>
     <Loading :loading="loading"></Loading>
+    <Top></Top>
     <div class="content" v-show="this.loading === false">
       <div class="m-title">
         <h3>豆瓣电影TOP250</h3>
@@ -38,6 +39,7 @@
 <script>
 import NavBar from '../components/Nav'
 import Loading from '../components/Loading'
+import Top from '../components/Top'
 export default {
   data () {
     return {
@@ -77,7 +79,8 @@ export default {
   },
   components: {
     NavBar,
-    Loading
+    Loading,
+    Top
   },
   mounted () {
     this.getMovie()
@@ -246,14 +249,13 @@ export default {
           bottom: 0;
           left: 0;
           width: 100%;
-          height: 230px;
           padding: 10px;
           font-size: 14px;
           color: rgba(255, 255, 255, 0.8);
           background-color: rgba(0, 0, 0, 0.6);
-          -webkit-transform: translate3d(0, 100px, 0);
-          -moz-transform: translate3d(0, 100px, 0);
-          transform: translate3d(0, 100px, 0);
+          -webkit-transform: translate3d(0, 110px, 0);
+          -moz-transform: translate3d(0, 110px, 0);
+          transform: translate3d(0, 110px, 0);
           transition: 0.3s all ease-out;
           opacity: 0.8;
 
