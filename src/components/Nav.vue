@@ -136,6 +136,7 @@ export default {
         width: 140px;
         display: block;
         margin: 0 auto;
+        transition: all 6s ease-out;
 
         img {
           width: 140px;
@@ -145,16 +146,7 @@ export default {
         }
 
         &:hover {
-          animation: show 6s linear infinite;
-        }
-
-        @keyframes show {
-          0% {
-            transform: rotate3d(0, 0, 0, 0deg);
-          }
-          100% {
-            transform: rotate3d(0, 0, 1, 360deg);
-          }
+          transform: rotate3d(0, 0, 1, 360deg);
         }
       }
 

@@ -28,9 +28,9 @@
         class="add-more btn"
         @click="goNext()"
         v-if="this.lists.length >= 20 && this.lists.length <= 250 && this.add === false">
-        点击加载更多....
+        点击加载更多....</i>
       </button>
-      <button class="add-more btn disabled" v-else>加载中...</button>
+      <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
     </div>
   </div>
 </template>
@@ -118,6 +118,43 @@ export default {
     cursor: not-allowed;
   }
 
+  i.i-loading {
+    position: absolute;
+    -webkit-animation: loading 2s linear infinite;
+    -moz-animation: loading 2s linear infinite;
+    animation: loading 2s linear infinite;
+  }
+
+  @-webkit-keyframes loading {
+    from {
+      -webkit-transform: rotate3d(0, 0, 0, 360deg);
+    }
+
+    to {
+      -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    }
+  }
+
+  @-moz-keyframes loading {
+    from {
+      -moz-transform: rotate3d(0, 0, 0, 360deg);
+    }
+
+    to {
+      -moz-transform: rotate3d(0, 0, 1, 360deg);
+    }
+  }
+
+  @keyframes loading {
+    from {
+      transform: rotate3d(0, 0, 0, 360deg);
+    }
+
+    to {
+      transform: rotate3d(0, 0, 1, 360deg);
+    }
+  }
+
   .m-title {
     width: 100%;
     padding-left: 30px;
@@ -146,6 +183,8 @@ export default {
       margin: 40px 0 0 2%;
       overflow: hidden;
       cursor: pointer;
+      -webkit-animation: show-m .5s ease-out 1;
+      -moz-animation: show-m .5s ease-out 1;
       animation: show-m .5s ease-out 1;
 
       @-webkit-keyframes show-m {
@@ -207,7 +246,7 @@ export default {
           bottom: 0;
           left: 0;
           width: 100%;
-          height: 200px;
+          height: 230px;
           padding: 10px;
           font-size: 14px;
           color: rgba(255, 255, 255, 0.8);
