@@ -2,7 +2,7 @@
   <div class="wraper">
     <NavBar></NavBar>
     <Loading :loading="loading"></Loading>
-    <div class="content">
+    <div class="content" v-show="this.loading === false">
       <div class="m-title">
         <h3>豆瓣电影TOP250</h3>
       </div>
