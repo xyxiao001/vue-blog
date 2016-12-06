@@ -24,6 +24,13 @@
           </div>
         </div>
       </div>
+      <button
+        class="add-more btn"
+        @click="goNext()"
+        v-if="this.lists.length >= 20 && this.lists.length <= 250 && this.add === false">
+        点击加载更多....
+      </button>
+      <button class="add-more btn disabled" v-else>加载中...</button>
     </div>
   </div>
 </template>
@@ -35,14 +42,37 @@ export default {
   data () {
     return {
       loading: true,
+      add: false,
+      start: 0,
       url: 'https://api.douban.com/v2/movie/top250?start=',
       movies: {},
       lists: []
     }
   },
-  computed: {
-    current () {
-      return this.$route.query.page ? this.$route.query.page : 1
+  methods: {
+    getMovie () {
+      this.$http.jsonp(this.url + this.start).then((response) => {
+        this.movies = response.body
+        this.loading = false
+        var l = this.movies.subjects.length
+        var i = 0
+        var set = setInterval(() => {
+          if (i < l) {
+            this.lists.push(this.movies.subjects[i])
+            i += 1
+          } else {
+            clearTimeout(set)
+            this.add = false
+          }
+        }, 100)
+      }, (response) => {
+        console.log('请求失败!')
+      })
+    },
+    goNext () {
+      this.add = true
+      this.start += 20
+      this.getMovie()
     }
   },
   components: {
@@ -50,27 +80,44 @@ export default {
     Loading
   },
   mounted () {
-    this.$http.jsonp(this.url + this.start).then((response) => {
-      this.movies = response.body
-      this.loading = false
-      var l = this.movies.subjects.length
-      var i = 0
-      var set = setInterval(() => {
-        if (i < l) {
-          this.lists.push(this.movies.subjects[i])
-          i += 1
-        } else {
-          clearTimeout(set)
-        }
-      }, 100)
-    }, (response) => {
-      console.log('请求失败!')
-    })
+    this.getMovie()
   }
 }
 </script>
 
 <style lang="scss">
+  .btn {
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #c0ccda;
+    color: #1f2d3d;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 9px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #50bfff;
+    border-color: #50bfff;
+    transition: all 0.2s ease;
+
+    &:hover {
+      opacity: 0.8
+    }
+  }
+
+  button.disabled {
+    cursor: not-allowed;
+  }
+
   .m-title {
     width: 100%;
     padding-left: 30px;
@@ -187,6 +234,14 @@ export default {
         }
      }
   }
+
+  .add-more {
+    display: block;
+    margin: 10px auto 50px auto;
+    width: 200px;
+    cursor: pointer;
+  }
+
 
   @media screen and (max-width: 1600px) {
     .m-list {
