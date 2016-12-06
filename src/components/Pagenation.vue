@@ -57,11 +57,8 @@ export default {
       goPage: 1
     }
   },
-  props: ['allPages'],
+  props: ['allPages', 'current'],
   computed: {
-    current () {
-      return this.$route.query.page ? ~~(this.$route.query.page) : 1
-    },
     pages () {
       var arr = []
       var pageCount = 5

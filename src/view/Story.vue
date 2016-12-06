@@ -6,7 +6,7 @@
       <div class="s-list">
         <Sitem v-for="list in lists" :item="list"></Sitem>
       </div>
-      <Pagenation :allPages="allPages"></Pagenation>
+      <Pagenation :allPages="allPages" :current="current"></Pagenation>
     </div>
   </div>
 </template>
