@@ -150,20 +150,21 @@ export default {
 
   @media screen and (max-width: 500px) {
     .pagenation {
-      width: 100%;
+      width: 80%;
+      margin: auto;
 
       .pre {
-        // margin-bottom: 10px;
+        margin-bottom: 10px;
       }
 
       ul {
-        // width: 100%;
-        // float: left;
+        width: 100%;
+        float: left;
       }
 
       .next {
-        // display: block;
-        // margin-top: 10px;
+        display: block;
+        margin-top: 10px;
       }
 
       a.pages {
