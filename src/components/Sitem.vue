@@ -107,8 +107,8 @@ export default {
   @media screen and (max-width: 500px) {
     .s-item {
       width: 100%;
-      height: 105px;
       margin: 5px;
+      height: 108px;
 
       .left {
         float: left;
