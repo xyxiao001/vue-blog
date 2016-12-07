@@ -93,6 +93,7 @@ export default {
     overflow-x: hidden;
     z-index: 1;
     color: #999;
+    opacity: 0.9;
     -webkit-overflow-scrolling: touch;
     transition: all 0.5s ease-out;
     transform: translate3d(0, 0, 0);
@@ -317,8 +318,8 @@ export default {
       .menus {
         li {
           font-size: 15px;
-          height: 38px;
-          line-height: 38px;
+          height: 40px;
+          line-height: 40px;
 
           a i {
             font-size: 16px;
