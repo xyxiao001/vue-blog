@@ -52,9 +52,9 @@ export default {
       span.row1 {
         left: 0px;
         background-color: #e14545;
+        animation: row1 1s ease-out infinite;
         -webkit-animation: row1 1s ease-out infinite;
         -moz-animation: row1 1s ease-out infinite;
-        animation: row1 1s ease-out infinite;
       }
 
       span.row2 {
@@ -75,9 +75,9 @@ export default {
       span.row5 {
         left: 100px;
         background-color: #5e5b9b;
+        animation: row5 1s ease-out infinite;
         -webkit-animation: row5 1s ease-out infinite;
         -moz-animation: row5 1s ease-out infinite;
-        animation: row5 1s ease-out infinite;
       }
 
       @-webkit-keyframes row1 {
