@@ -107,12 +107,12 @@ export default {
   @media screen and (max-width: 500px) {
     .s-item {
       width: 100%;
+      height: 105px;
       margin: 5px;
 
       .left {
         float: left;
         width: 30%;
-        height: 125px;
 
         img {
           width: 100%;

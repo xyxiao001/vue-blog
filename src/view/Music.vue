@@ -979,17 +979,19 @@ export default {
       margin-left: 0;
       padding-left: 1%;
       .left {
-        width: 100%;
-        height: 280px;
+        width: 105%;
+        height: 302px;
 
         table {
           td {
-              line-height: 25px;
-              height: 25px;
+              line-height: 30px;
+              max-width: 70px;
+              text-align: center;
           }
 
           td:first-child {
-            max-width: 200px;
+            max-width: 150px;
+            text-align: left;
           }
 
           td.control {
@@ -1026,6 +1028,7 @@ export default {
       .controls {
         width: 100%;
         bottom: 0px;
+        font-size: 12px;
 
         .control-label {
           width: 35%;
@@ -1061,6 +1064,12 @@ export default {
           display: none;
         }
       }
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .music .show-music .left table td:first-child {
+      max-width: 190px;
     }
   }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="wraper">
     <NavBar></NavBar>
+    <Top></Top>
     <div class="content photo-c">
       <Loading :loading="loading"></Loading>
       <div class="photo-list" ref="photoList">
@@ -27,6 +28,7 @@
 
 <script>
 import NavBar from '../components/Nav'
+import Top from '../components/Top'
 import Loading from '../components/Loading'
 import Mloading from '../components/Mloading'
 export default {
@@ -73,7 +75,8 @@ export default {
   components: {
     NavBar,
     Loading,
-    Mloading
+    Mloading,
+    Top
   },
   mounted () {
     this.start()

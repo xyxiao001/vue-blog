@@ -25,13 +25,13 @@
       </li>
     </ul>
     <router-link
-      v-show="current < allPages"
-      :to="{path: this.$route.path, query: { page: current + 1 }}"
+      v-if="~~(current) < ~~(allPages)"
+      :to="{path: this.$route.path, query: { page: ~~(current) + 1 }}"
       class="next pages" exact>下一页
     </router-link>
     <a
       class="next pages disabled"
-      v-show="current >= allPages"
+      v-else
       >下一页
     </a>
     <div class="go">
@@ -71,7 +71,7 @@ export default {
           arr.push(i)
         }
       } else if (this.current > 2 && this.current < this.allPages - 2) {
-        for (let i = this.current - 2; i <= this.current + 2; i++) {
+        for (let i = this.current - 2; i <= ~~(this.current) + 2; i++) {
           arr.push(i)
         }
       } else if (this.current >= this.allPages - 2) {
@@ -150,20 +150,20 @@ export default {
 
   @media screen and (max-width: 500px) {
     .pagenation {
-      width: 80%;
+      width: auto;
 
       .pre {
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
       }
 
       ul {
-        width: 100%;
-        float: left;
+        // width: 100%;
+        // float: left;
       }
 
       .next {
-        display: block;
-        margin-top: 10px;
+        // display: block;
+        // margin-top: 10px;
       }
 
       a.pages {

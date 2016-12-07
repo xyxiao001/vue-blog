@@ -1,24 +1,29 @@
 <template>
-  <nav id="slider-bar" ref="slider">
-    <div class="top-bar" @click="open">
-      <i class="iconfont" :class="icon"></i>
-    </div>
-    <div class="profile">
-      <a href="https://github.com/xyxiao001" target="_blank">
-         <img :src="touxiang" alt="goodboy blog">
-       </a>
-      <span>goodboy 博客</span>
-    </div>
-    <ul class="menus">
-      <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
-        <router-link :to="{path: menu.name}" exact>
-          <i :class="menu.icon" class="iconfont"></i>
-          <span>{{ menu.text }}</span>
-        </router-link>
-        <div class="ripple" :class="{animated: index === now}" :style="{ 'top': top, 'left': left }"></div>
-      </li>
-    </ul>
-  </nav>
+  <section>
+    <nav id="slider-bar" ref="slider">
+      <div class="profile">
+        <a href="https://github.com/xyxiao001" target="_blank">
+           <img :src="touxiang" alt="goodboy blog">
+         </a>
+        <span>goodboy 博客</span>
+      </div>
+      <ul class="menus">
+        <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
+          <router-link :to="{path: menu.name}" exact>
+            <i :class="menu.icon" class="iconfont"></i>
+            <span>{{ menu.text }}</span>
+          </router-link>
+          <div class="ripple" :class="{animated: index === now}" :style="{ 'top': top, 'left': left }"></div>
+        </li>
+      </ul>
+    </nav>
+    <nav class="navTop">
+      <p>
+        <i class="iconfont icon-menu" @click="open"></i>
+        <span>goodboy</span>
+      </p>
+    </nav>
+  </section>
 </template>
 
 <script>
@@ -37,9 +42,6 @@ export default {
     menus () {
       return store.getters.getMenus
     },
-    icon () {
-      return this.drop === true ? 'icon-left' : 'icon-right'
-    },
     top () {
       return store.getters.getNavTop
     },
@@ -50,7 +52,7 @@ export default {
   methods: {
     open () {
       if (this.drop) {
-        this.$refs.slider.style.transform = 'translate3d(-220px, 0, 0)'
+        this.$refs.slider.style.transform = 'translate3d(-250px, 0, 0)'
         this.drop = false
       } else {
         this.$refs.slider.style.transform = 'translate3d(0, 0, 0)'
@@ -109,23 +111,6 @@ export default {
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px;
-    }
-
-    .top-bar {
-      position: absolute;
-      top: 5px;
-      left: 220px;
-      display: block;
-      z-index: 999;
-      color: white;
-      width: 30px;
-      height: 30px;
-      display: none;
-
-      i {
-        font-size: 28px;
-        cursor: pointer;
-      }
     }
 
     .profile {
@@ -270,12 +255,37 @@ export default {
   	}
   }
 
+
+  .navTop {
+    display: none;
+  }
+
   @media screen and (max-width: 1000px){
     #slider-bar {
-      transform: translate3d(-220px, 0, 0);
+      top: 40px;
+      transform: translate3d(-250px, 0, 0);
+    }
 
-      .top-bar {
-        display: block;
+    .navTop {
+      display: block;
+      position: fixed;
+      width: 100%;
+      height: 40px;
+      background-color: #202020;
+
+      p {
+        color: white;
+        text-align: center;
+        line-height: 40px;
+        font-size: 18px;
+
+        i {
+          cursor: pointer;
+          position: absolute;
+          display: inline-block;
+          left: 10px;
+          font-size: 18px;
+        }
       }
     }
   }

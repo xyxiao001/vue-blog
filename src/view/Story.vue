@@ -40,10 +40,11 @@ export default {
   methods: {
     start () {
       this.$http.get(this.url + this.current).then((response) => {
+        this.loading = false
         const data = response.body.showapi_res_body.pagebean
         this.allPages = data.allPages ? data.allPages : 0
         this.lists = data.contentlist
-        this.loading = false
+        window.scroll(0, 0)
       }, (response) => {
         this.loading = false
         console.error('请求失败！')
