@@ -20,7 +20,7 @@
     <nav class="navTop">
       <p>
         <i class="iconfont icon-menu" @click="open"></i>
-        <span>goodboy</span>
+        <router-link :to="{path: '/'}" exact><span>goodboy</span></router-link>
       </p>
     </nav>
   </section>
@@ -279,6 +279,11 @@ export default {
         text-align: center;
         line-height: 40px;
         font-size: 18px;
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
 
         i {
           cursor: pointer;
