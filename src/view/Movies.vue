@@ -123,37 +123,37 @@ export default {
 
   i.i-loading {
     position: absolute;
+    animation: loading 2s linear infinite;
     -webkit-animation: loading 2s linear infinite;
     -moz-animation: loading 2s linear infinite;
-    animation: loading 2s linear infinite;
   }
 
   @-webkit-keyframes loading {
-    from {
+    0% {
       -webkit-transform: rotate3d(0, 0, 0, 360deg);
     }
 
-    to {
+    100% {
       -webkit-transform: rotate3d(0, 0, 1, 360deg);
     }
   }
 
   @-moz-keyframes loading {
-    from {
+    0% {
       -moz-transform: rotate3d(0, 0, 0, 360deg);
     }
 
-    to {
+    100% {
       -moz-transform: rotate3d(0, 0, 1, 360deg);
     }
   }
 
   @keyframes loading {
-    from {
+    0% {
       transform: rotate3d(0, 0, 0, 360deg);
     }
 
-    to {
+    100% {
       transform: rotate3d(0, 0, 1, 360deg);
     }
   }
@@ -191,31 +191,31 @@ export default {
       animation: show-m .5s ease-out 1;
 
       @-webkit-keyframes show-m {
-        from {
+        0% {
           opacity: 0;
         }
 
-        to {
+        100% {
           opacity: 1;
         }
       }
 
       @-moz-keyframes show-m {
-        from {
+        0% {
           opacity: 0;
         }
 
-        to {
+        100% {
           opacity: 1;
         }
       }
 
       @keyframes show-m {
-        from {
+        0% {
           opacity: 0;
         }
 
-        to {
+        100% {
           opacity: 1;
         }
       }
@@ -315,9 +315,9 @@ export default {
 
         .m-bottom {
           opacity: 1;
+          transform: translate3d(0, 0, 0);
           -webkit-transform: translate3d(0, 0, 0);
           -moz-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
         }
       }
     }
