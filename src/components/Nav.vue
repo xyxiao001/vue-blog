@@ -262,7 +262,7 @@ export default {
 
   @media screen and (max-width: 1000px){
     #slider-bar {
-      top: 40px;
+      top: 60px;
       transform: translate3d(-250px, 0, 0);
     }
 
@@ -270,15 +270,15 @@ export default {
       display: block;
       position: fixed;
       width: 100%;
-      height: 40px;
+      height: 60px;
       background-color: #202020;
       z-index: 9999;
 
       p {
         color: white;
         text-align: center;
-        line-height: 40px;
-        font-size: 18px;
+        line-height: 60px;
+        font-size: 20px;
 
         a {
           color: white;
@@ -290,7 +290,7 @@ export default {
           position: absolute;
           display: inline-block;
           left: 10px;
-          font-size: 18px;
+          font-size: 25px;
         }
       }
     }
