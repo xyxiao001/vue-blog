@@ -142,7 +142,7 @@ export default {
     .loading {
       .show-loading {
         position: absolute;
-        left: 40%;
+        left: 35%;
         top: 30%;
         width: 200px;
         height: 100px;
