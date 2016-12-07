@@ -186,7 +186,7 @@ export default {
       -webkit-column-count: 1;
       -moz-column-count: 1;
       column-count: 1;
-      margin: 0;
+      margin: 3px 0 0 0;
 
       .photo-item {
         width: 96%;

@@ -150,7 +150,7 @@ export default {
 
   @media screen and (max-width: 500px) {
     .pagenation {
-      width: auto;
+      width: 100%;
 
       .pre {
         // margin-bottom: 10px;

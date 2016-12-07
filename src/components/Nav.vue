@@ -121,7 +121,7 @@ export default {
         width: 140px;
         display: block;
         margin: 0 auto;
-        transition: all 6s ease-out;
+        transition: transform 6s ease-out;
 
         img {
           width: 140px;
@@ -272,6 +272,7 @@ export default {
       width: 100%;
       height: 40px;
       background-color: #202020;
+      z-index: 9999;
 
       p {
         color: white;
@@ -285,6 +286,38 @@ export default {
           display: inline-block;
           left: 10px;
           font-size: 18px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px){
+    #slider-bar {
+      .profile {
+        padding-top: 20px;
+        a {
+          width: 80px;
+
+          img {
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        span {
+          display: none;
+        }
+      }
+
+      .menus {
+        li {
+          font-size: 15px;
+          height: 38px;
+          line-height: 38px;
+
+          a i {
+            font-size: 16px;
+          }
         }
       }
     }
