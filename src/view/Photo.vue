@@ -15,12 +15,12 @@
     <div
       class="l-show"
       v-show="large"
-      @click="large = false"
-      :style="{'background-image': 'url('+ this.minBack +')'}">
+      @click="large = false">
+      <img :src="this.minBack">
         <div class="t-show"
           v-show="large"
-          @click="large = false"
-          :style="{'background-image': 'url('+ this.maxBack +')'}">
+          @click="large = false">
+          <img :src="this.maxBack">
         </div>
     </div>
   </div>
@@ -137,11 +137,18 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 100;
     cursor: zoom-out;
     background-position: center center;
     background-size: cover;
+
+    img {
+      display: block;
+      margin: 2% auto;
+      max-width: 90%;
+      height: 90%;
+    }
   }
 
   .t-show {
@@ -155,6 +162,13 @@ export default {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+
+    img {
+      display: block;
+      margin: 2% auto;
+      max-width: 90%;
+      height: 90%;
+    }
   }
 
   @media screen and (max-width: 1400px) {
@@ -196,6 +210,22 @@ export default {
           width: 100%;
           height: auto;
         }
+      }
+    }
+
+    .l-show {
+      img {
+        width: 90%;
+        height: auto;
+        margin-top: 40%;
+      }
+    }
+
+    .t-show {
+      img {
+        width: 90%;
+        height: auto;
+        margin-top: 40%;
       }
     }
   }
