@@ -2,7 +2,7 @@
   <div class="wraper">
     <NavBar></NavBar>
     <Top></Top>
-    <div class="content photo-c">
+    <div class="content photo-c" v-show="!loading">
       <Loading :loading="loading"></Loading>
       <div class="photo-list" ref="photoList">
         <div class="photo-item" v-for="(photo, index) in photos">
