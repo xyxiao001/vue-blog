@@ -82,7 +82,7 @@ export default {
     border-radius: 3px;
     padding: 0 20px;
     padding-bottom: 40px;
-    font: 14px/2.5 "Microsoft YaHei";
+    font: 17px/3 "Microsoft YaHei";
   }
 
   .story-tag {
@@ -112,6 +112,8 @@ export default {
     }
 
     .story-tag {
+      width: 100%;
+      margin: 0;
 
       .tag-item {
         font-size: 14px;

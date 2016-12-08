@@ -93,7 +93,7 @@ export default {
     overflow-x: hidden;
     z-index: 1;
     color: #999;
-    opacity: 0.9;
+    opacity: 1;
     -webkit-overflow-scrolling: touch;
     transition: all 0.5s ease-out;
     transform: translate3d(0, 0, 0);
@@ -299,6 +299,8 @@ export default {
 
   @media screen and (max-width: 500px){
     #slider-bar {
+      opacity: 0.9;
+      
       .profile {
         padding-top: 20px;
         a {
