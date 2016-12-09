@@ -1021,7 +1021,7 @@ export default {
             height: 100px;
 
             p {
-              opacity: 0.4;
+              opacity: 0.6;
 
               &.on {
                 opacity: 1;
