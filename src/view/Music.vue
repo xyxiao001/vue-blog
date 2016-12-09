@@ -731,7 +731,7 @@ export default {
             p {
               text-align: center;
               line-height: 35px;
-              transition: all 0.5s ease-out;
+              transition: all 0.38s ease-out;
 
               &.on {
                 color: #31c27c;
@@ -980,7 +980,7 @@ export default {
       padding-left: 1%;
       .left {
         width: 105%;
-        height: 302px;
+        height: 202px;
 
         table {
           td {
@@ -1005,22 +1005,28 @@ export default {
 
       .right {
         width: 100%;
-        height: 35px;
+        height: 105px;
         line-height: 35px;
         text-align: left;
 
         .l-box {
-          margin-left: -10%;
-          height: 35px;
+          height: 105px;
 
           .show-img {
             display: none;
           }
 
           .show-lyr {
-            margin-top: 0;
+            margin-top: 10px;
             height: 100px;
-            margin-top: -35px;
+
+            p {
+              opacity: 0.4;
+
+              &.on {
+                opacity: 1;
+              }
+            }
           }
         }
       }

@@ -50,6 +50,11 @@ export default {
     vertical-align: baseline;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
+
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
   .content {
     background-color: #fff;
     padding-left: 250px;
