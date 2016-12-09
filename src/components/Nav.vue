@@ -263,7 +263,7 @@ export default {
 
   @media screen and (max-width: 1000px){
     #slider-bar {
-      top: 60px;
+      top: 50px;
       transform: translate3d(-250px, 0, 0);
     }
 
@@ -271,14 +271,14 @@ export default {
       display: block;
       position: fixed;
       width: 100%;
-      height: 60px;
+      height: 50px;
       background-color: #202020;
       z-index: 9999;
 
       p {
         color: white;
         text-align: center;
-        line-height: 60px;
+        line-height: 50px;
         font-size: 20px;
 
         a {
@@ -300,7 +300,7 @@ export default {
   @media screen and (max-width: 500px){
     #slider-bar {
       opacity: 0.9;
-      
+
       .profile {
         padding-top: 20px;
         a {

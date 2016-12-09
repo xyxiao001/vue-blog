@@ -65,7 +65,7 @@ export default {
   @media screen and (max-width: 1000px) {
     .content {
       padding-left: 0px;
-      padding-top: 60px;
+      padding-top: 50px;
     }
   }
 </style>
