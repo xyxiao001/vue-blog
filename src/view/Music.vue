@@ -550,8 +550,8 @@ export default {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
-      -webkit-filter: blur(60px);
-      filter: blur(60px);
+      filter: blur(35px);
+      -webkit-filter: blur(35px);
       opacity: .8;
     }
 
