@@ -1,27 +1,29 @@
 <template>
   <section>
     <nav id="slider-bar" ref="slider">
-      <div class="profile">
-        <a href="https://github.com/xyxiao001" target="_blank">
-           <img :src="touxiang" alt="goodboy blog">
-         </a>
-        <span>goodboy 博客</span>
+      <div class="slider-content">
+        <div class="profile">
+          <a href="https://github.com/xyxiao001" target="_blank">
+             <img :src="touxiang" alt="goodboy blog">
+           </a>
+          <span>goodboy 博客</span>
+        </div>
+        <ul class="menus">
+          <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
+            <router-link :to="{path: menu.name}" exact>
+              <i :class="menu.icon" class="iconfont"></i>
+              <span>{{ menu.text }}</span>
+            </router-link>
+            <div class="ripple" :class="{animated: index === now}" :style="{ 'top': top, 'left': left }"></div>
+          </li>
+        </ul>
+      </nav>
+      <nav class="navTop">
+        <p>
+          <i class="iconfont icon-menu" @click="open"></i>
+          <router-link :to="{path: '/'}" exact><span>goodboy</span></router-link>
+        </p>
       </div>
-      <ul class="menus">
-        <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
-          <router-link :to="{path: menu.name}" exact>
-            <i :class="menu.icon" class="iconfont"></i>
-            <span>{{ menu.text }}</span>
-          </router-link>
-          <div class="ripple" :class="{animated: index === now}" :style="{ 'top': top, 'left': left }"></div>
-        </li>
-      </ul>
-    </nav>
-    <nav class="navTop">
-      <p>
-        <i class="iconfont icon-menu" @click="open"></i>
-        <router-link :to="{path: '/'}" exact><span>goodboy</span></router-link>
-      </p>
     </nav>
   </section>
 </template>
@@ -300,6 +302,13 @@ export default {
   @media screen and (max-width: 500px){
     #slider-bar {
       opacity: 0.9;
+
+      .slider-content {
+        position: relative;
+        width: 100%;
+        height: 600px;
+        overflow: auto;
+      }
 
       .profile {
         padding-top: 20px;
