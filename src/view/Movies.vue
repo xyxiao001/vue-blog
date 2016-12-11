@@ -55,7 +55,7 @@ export default {
     getMovie () {
       this.$http.jsonp(this.url + this.start).then((response) => {
         this.movies = response.body
-        this.loading = false
+        // this.loading = false
         var l = this.movies.subjects.length
         var i = 0
         var set = setInterval(() => {
