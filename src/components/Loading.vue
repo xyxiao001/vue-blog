@@ -6,7 +6,7 @@
       <span class="row3"></span>
       <span class="row4"></span>
       <span class="row5"></span>
-      <p>加载中...</p>
+      <p>全力加载中...</p>
     </div>
   </div>
 </template>
@@ -46,7 +46,37 @@ export default {
       p {
         color: white;
         margin-top: 30px;
-        margin-left: 25px;
+        margin-left: 10px;
+        word-break:keep-all;
+        white-space:nowrap;
+        text-overflow: clip;
+        overflow: hidden;
+        animation: showText 5s ease-in infinite;
+        -webkit-animation: showText 5s ease-in infinite;
+      }
+
+      @keyframes showText {
+        0% {
+          width: 100px;
+        }
+        50% {
+          width: 0%;
+        }
+        100% {
+          width: 100px;
+        }
+      }
+
+      @-webkit-keyframes showText {
+        0% {
+          width: 100px;
+        }
+        50% {
+          width: 0%;
+        }
+        100% {
+          width: 100px;
+        }
       }
 
       span.row1 {
@@ -134,6 +164,14 @@ export default {
         100% {
           transform: translate3d(10px, -30px, 0);
         }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .loading {
+      .show-loading {
+        left: 45%;
       }
     }
   }
