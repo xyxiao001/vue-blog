@@ -123,9 +123,9 @@ export default {
 
   i.i-loading {
     position: absolute;
-    animation: loading 2s linear infinite;
     -webkit-animation: loading 2s linear infinite;
     -moz-animation: loading 2s linear infinite;
+    animation: loading 2s linear infinite;
   }
 
   @-webkit-keyframes loading {
