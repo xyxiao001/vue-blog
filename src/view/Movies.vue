@@ -124,6 +124,7 @@ export default {
 
   i.i-loading {
     position: absolute;
+    padding: -2px;
     -webkit-animation: loading 2s linear infinite;
     animation: loading 2s linear infinite;
   }
