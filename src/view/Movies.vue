@@ -110,6 +110,7 @@ export default {
     color: #fff;
     background-color: #50bfff;
     border-color: #50bfff;
+    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 
     &:hover {
@@ -124,7 +125,6 @@ export default {
   i.i-loading {
     position: absolute;
     -webkit-animation: loading 2s linear infinite;
-    -moz-animation: loading 2s linear infinite;
     animation: loading 2s linear infinite;
   }
 
@@ -138,23 +138,15 @@ export default {
     }
   }
 
-  @-moz-keyframes loading {
-    0% {
-      -moz-transform: rotate3d(0, 0, 0, 360deg);
-    }
-
-    100% {
-      -moz-transform: rotate3d(0, 0, 1, 360deg);
-    }
-  }
-
   @keyframes loading {
     0% {
-      transform: rotate3d(0, 0, 0, 360deg);
+      -webkit-transform: rotate3d(0, 0, 0, 360deg);
+              transform: rotate3d(0, 0, 0, 360deg);
     }
 
     100% {
-      transform: rotate3d(0, 0, 1, 360deg);
+      -webkit-transform: rotate3d(0, 0, 1, 360deg);
+              transform: rotate3d(0, 0, 1, 360deg);
     }
   }
 
@@ -187,20 +179,9 @@ export default {
       overflow: hidden;
       cursor: pointer;
       -webkit-animation: show-m .5s ease-out 1;
-      -moz-animation: show-m .5s ease-out 1;
       animation: show-m .5s ease-out 1;
 
       @-webkit-keyframes show-m {
-        0% {
-          opacity: 0;
-        }
-
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @-moz-keyframes show-m {
         0% {
           opacity: 0;
         }
@@ -223,7 +204,8 @@ export default {
         .m-img {
           width: 100%;
           height: 100%;
-          transform: scale(1.04);
+          -webkit-transform: scale(1.04);
+                  transform: scale(1.04);
           -webkit-transfrom: scale(1.04);
           -moz-webkit-transfrom: scale(1.04)
         }
@@ -254,8 +236,8 @@ export default {
           color: rgba(255, 255, 255, 0.8);
           background-color: rgba(0, 0, 0, 0.6);
           -webkit-transform: translate3d(0, 110px, 0);
-          -moz-transform: translate3d(0, 110px, 0);
           transform: translate3d(0, 110px, 0);
+          -webkit-transition: 0.3s all ease-out;
           transition: 0.3s all ease-out;
           opacity: 0.8;
 
@@ -269,7 +251,6 @@ export default {
           .m-bottom {
             opacity: 1;
             -webkit-transform: translate3d(0, 0, 0);
-            -moz-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
           }
         }
@@ -338,7 +319,4 @@ export default {
       }
     }
   }
-
-
-
 </style>

@@ -97,22 +97,20 @@ export default {
     color: #999;
     opacity: 1;
     -webkit-overflow-scrolling: touch;
+    -webkit-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out;
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
     z-index: 1000;
     &::-webkit-scrollbar {
       width: 0px;
       height: 0px;
       background-color: #202020;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
       border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb {
       background-color: rgba(235,87,86,.73);
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
       border-radius: 4px;
     }
 
@@ -124,7 +122,10 @@ export default {
         width: 140px;
         display: block;
         margin: 0 auto;
+        -webkit-transition: -webkit-transform 6s ease-out;
+        transition: -webkit-transform 6s ease-out;
         transition: transform 6s ease-out;
+        transition: transform 6s ease-out, -webkit-transform 6s ease-out;
 
         img {
           width: 140px;
@@ -134,7 +135,8 @@ export default {
         }
 
         &:hover {
-          transform: rotate3d(0, 0, 1, 360deg);
+          -webkit-transform: rotate3d(0, 0, 1, 360deg);
+                  transform: rotate3d(0, 0, 1, 360deg);
         }
       }
 
@@ -203,59 +205,28 @@ export default {
     height: 100px;
     width: 100px;
     -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    -ms-transform: scale(0);
     transform: scale(0);
   }
 
   .ripple.animated {
     -webkit-animation: ripple 1s linear;
-    -moz-animation: ripple 1s linear;
     animation: ripple 1s linear;
   }
 
   @-webkit-keyframes ripple {
-  	100% {
-  		-webkit-transform: scale(12);
-  		-moz-transform: scale(12);
-  		-ms-transform: scale(12);
-  		-o-transform: scale(12);
-  		transform: scale(12);
-  		background-color: transparent;
-  	}
-  }
-
-  @-moz-keyframes ripple {
-  	100% {
-  		-webkit-transform: scale(12);
-  		-moz-transform: scale(12);
-  		-ms-transform: scale(12);
-  		-o-transform: scale(12);
-  		transform: scale(12);
-  		background-color: transparent;
-  	}
-  }
-
-  @-o-keyframes ripple {
-  	100% {
-  		-webkit-transform: scale(12);
-  		-moz-transform: scale(12);
-  		-ms-transform: scale(12);
-  		-o-transform: scale(12);
-  		transform: scale(12);
-  		background-color: transparent;
-  	}
+    100% {
+      -webkit-transform: scale(12);
+      transform: scale(12);
+      background-color: transparent;
+    }
   }
 
   @keyframes ripple {
-  	100% {
-  		-webkit-transform: scale(12);
-  		-moz-transform: scale(12);
-  		-ms-transform: scale(12);
-  		-o-transform: scale(12);
-  		transform: scale(12);
-  		background-color: transparent;
-  	}
+    100% {
+      -webkit-transform: scale(12);
+      transform: scale(12);
+      background-color: transparent;
+    }
   }
 
 
@@ -266,7 +237,8 @@ export default {
   @media screen and (max-width: 1000px){
     #slider-bar {
       top: 50px;
-      transform: translate3d(-250px, 0, 0);
+      -webkit-transform: translate3d(-250px, 0, 0);
+              transform: translate3d(-250px, 0, 0);
     }
 
     .navTop {

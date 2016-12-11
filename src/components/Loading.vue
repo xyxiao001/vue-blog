@@ -126,15 +126,18 @@ export default {
 
       @keyframes row1 {
         0% {
-          transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+                  transform: translate3d(0, 0, 0);
         }
 
         50% {
-          transform: translate3d(-10px, -30px, 0);
+          -webkit-transform: translate3d(-10px, -30px, 0);
+                  transform: translate3d(-10px, -30px, 0);
         }
 
         100% {
-          transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+                  transform: translate3d(0, 0, 0);
         }
       }
 
@@ -154,15 +157,18 @@ export default {
 
       @keyframes row5 {
         0% {
-          transform: translate3d(10px, -30px, 0);
+          -webkit-transform: translate3d(10px, -30px, 0);
+                  transform: translate3d(10px, -30px, 0);
         }
 
         50% {
-          transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+                  transform: translate3d(0, 0, 0);
         }
 
         100% {
-          transform: translate3d(10px, -30px, 0);
+          -webkit-transform: translate3d(10px, -30px, 0);
+                  transform: translate3d(10px, -30px, 0);
         }
       }
     }
