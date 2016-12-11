@@ -37,161 +37,182 @@ export default {
 </script>
 
 <style lang="scss">
-  .a-list {
-    width: 100%;
+.a-list {
+  width: 100%;
 
-    /*flex布局（作用于容器）*/
-    display: flex;
+  /*flex布局（作用于容器）*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 
-    /*两端对齐（作用于容器）*/
-    justify-content: flex-start;
+  /*两端对齐（作用于容器）*/
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 
-    /*侧轴方向对齐方式（作用于容器）*/
-    align-items: flex-start;
+  /*侧轴方向对齐方式（作用于容器）*/
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 
-    /*换行（作用于容器）*/
-    flex-wrap: wrap;
-    margin-bottom: 50px;
+  /*换行（作用于容器）*/
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 50px;
 
-    article {
-      width: 30%;
-      height: auto;
-      margin-left: 1%;
-      margin-bottom: 20px;
-      padding: 1%;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
-      animation: showA 1s ease-out 1;
+  article {
+    width: 30%;
+    height: auto;
+    margin-left: 1%;
+    margin-bottom: 20px;
+    padding: 1%;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    -webkit-animation: showA 1s ease-out 1;
+            animation: showA 1s ease-out 1;
 
-      @keyframes showA {
-        0% {
-          opacity: 0;
-          transform: translate3d(0, 50px, 0);
-        }
+    @-webkit-keyframes showA {
+      0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 50px, 0);
+                transform: translate3d(0, 50px, 0);
+      }
 
-        100% {
+      100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes showA {
+      0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 50px, 0);
+                transform: translate3d(0, 50px, 0);
+      }
+
+      100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .article {
+
+      a.photo {
+        height: 0;
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 10px;
+        padding-bottom: 55.71%;
+        cursor: pointer;
+
+        span {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
           opacity: 1;
-          transform: translate3d(0, 0, 0);
+          background-size: cover;
+          background-position: center;
+          -webkit-transition: opacity 0.3s ease-in;
+          transition: opacity 0.3s ease-in;
         }
       }
+
+      .article-meta {
+        height: 23px;
+        line-height: 23px;
+        overflow: hidden;
+
+        p {
+          float: left;
+          color: #bbb;
+        }
+
+        a {
+          text-decoration: none;
+          color: #62bbc3;
+        }
+
+        .article-link {
+          margin-right: 6px;
+        }
+      }
+
+      .article-title {
+        margin-bottom: 10px;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.5em;
+        word-wrap: break-word;
+        overflow: hidden;
+        height: 33px;
+
+        a {
+          text-decoration: none;
+          color: #444;
+          -webkit-transition: color 0.3s ease-in;
+          transition: color 0.3s ease-in;
+        }
+      }
+
+      .article-excerpt {
+        position: relative;
+        color: #aaa;
+        font-size: 16px;
+        line-height: 20px;
+        overflow: hidden;
+        height: 80px;
+      }
+    }
+
+    &:hover {
+      a.photo span {
+        opacity: 0.7;
+      }
+
+      .article-title a {
+        color: #62bbc3;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .a-list {
+    article {
+      width: 45%;
+      height: auto;;
 
       .article {
-
-        a.photo {
-          height: 0;
-          width: 100%;
-          display: block;
-          overflow: hidden;
-          position: relative;
-          margin-bottom: 10px;
-          padding-bottom: 55.71%;
-          cursor: pointer;
-
-          span {
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            background-position: center;
-            -webkit-transition: opacity 0.3s ease-in;
-            -moz-transition: opacity 0.3s ease-in;
-            -ms-transition: opacity 0.3s ease-in;
-            transition: opacity 0.3s ease-in;
-          }
-        }
-
-        .article-meta {
-          height: 23px;
-          line-height: 23px;
-          overflow: hidden;
-
-          p {
-            float: left;
-            color: #bbb;
-          }
-
-          a {
-            text-decoration: none;
-            color: #62bbc3;
-          }
-
-          .article-link {
-            margin-right: 6px;
-          }
-        }
-
-        .article-title {
-          margin-bottom: 10px;
-          font-size: 22px;
-          font-weight: 400;
-          line-height: 1.5em;
-          word-wrap: break-word;
-          overflow: hidden;
-          height: 33px;
-
-          a {
-            text-decoration: none;
-            color: #444;
-            transition: color 0.3s ease-in;
-          }
-        }
-
         .article-excerpt {
-          position: relative;
-          color: #aaa;
-          font-size: 16px;
-          line-height: 20px;
-          overflow: hidden;
-          height: 80px;
+          font-size: 14px;
         }
       }
+    }
+  }
+}
 
-      &:hover {
-        a.photo span {
-          opacity: 0.7;
+@media screen and (max-width: 700px) {
+  .a-list {
+    article {
+      width: 95%;
+      height: auto;
+
+      .article {
+        .article-excerpt {
+          font-size: 15px;
         }
 
         .article-title a {
-          color: #62bbc3;
+          font-size: 18px;
         }
       }
     }
   }
-
-  @media screen and (max-width: 1200px) {
-    .a-list {
-      article {
-        width: 45%;
-        height: auto;;
-
-        .article {
-          .article-excerpt {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 700px) {
-    .a-list {
-      article {
-        width: 95%;
-        height: auto;
-
-        .article {
-          .article-excerpt {
-            font-size: 15px;
-          }
-
-          .article-title a {
-            font-size: 18px;
-          }
-        }
-      }
-    }
-  }
+}
 </style>
