@@ -63,6 +63,8 @@ export default {
       })
     },
     showLarge (index) {
+      this.minBack = ''
+      this.maxBack = ''
       this.large = true
       // 小图
       this.minBack = this.photos[index].urls.small

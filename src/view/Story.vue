@@ -1,8 +1,8 @@
 <template>
   <div class="wraper">
     <NavBar></NavBar>
-    <div class="content">
-      <Loading :loading="loading"></Loading>
+    <Loading :loading="loading"></Loading>
+    <div class="content" v-show="!loading">
       <div class="s-list">
         <Sitem v-for="list in lists" :item="list"></Sitem>
       </div>
