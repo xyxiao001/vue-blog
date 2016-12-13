@@ -550,8 +550,7 @@ export default {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
-      filter: blur(35px);
-      -webkit-filter: blur(35px);
+      filter: blur(60px);
       opacity: .8;
     }
 
@@ -844,6 +843,7 @@ export default {
         .volume {
           float: right;
           position: relative;
+          margin-top: -10px;
           width: 120px;
 
           i {
