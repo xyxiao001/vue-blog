@@ -16,37 +16,31 @@
             <button v-show="onLine" @click="searchMusic">搜索</button>
           </div>
           <div class="left">
-            <table>
-              <thead>
-                <tr>
-                  <td>歌曲</td>
-                  <td></td>
-                  <td>歌手</td>
-                  <td v-show="!onLine">时长</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
+            <ul>
+                <li>
+                  <span class="sing-name">歌曲</span>
+                  <span class="control"></span>
+                  <span class="singer-name">歌手</span>
+                  <span class="sing-time" v-show="!onLine">时长</span>
+                </li>
+                <li
                   v-for="(list, index) in newLists"
                   :key="list.songid"
                   @click="playItem(index)"
                   :class="{on: list.songname === songName && list.singername === singer}">
-                  <td><span class="clip" :title="list.songname">{{ index + 1 }}. {{ list.songname }}</span></td>
-                  <td class="control">
-                    <span class="clip">
-                      <span class="living"></span>
-                      <i
-                        class="iconfont"
-                        :class="{'icon-pauseMusic': index === now && playing === true,
-                         'icon-playMusic': index !== now || (index === now && playing === false)}">
-                      </i>
-                    </span>
-                  </td>
-                  <td><span class="clip">{{ list.singername }}</span></td>
-                  <td v-show="!onLine"><span class="clip">{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</span></td>
-                </tr>
-              </tbody>
-            </table>
+                  <span class="sing-name" :title="list.songname">{{ index + 1 }}. {{ list.songname }}</span>
+                  <span class="control">
+                    <span class="living"></span>
+                    <i
+                      class="iconfont"
+                      :class="{'icon-pauseMusic': index === now && playing === true,
+                       'icon-playMusic': index !== now || (index === now && playing === false)}">
+                    </i>
+                  </span>
+                  <span class="singer-name">{{ list.singername }}</span>
+                  <span class="sing-time" v-show="!onLine">{{ ~~(list.seconds / 60) + ':' + list.seconds % 60 }}</span>
+                </li>
+            </ul>
           </div>
           <div class="right">
             <div class="l-box">
@@ -601,30 +595,44 @@ export default {
           border-radius: 4px;
         }
 
-        table {
+        ul {
           display: block;
           width: 100%;
           height: 100%;
 
-          td {
-            height: 40px;
-            line-height: 40px;
+          li {
+            line-height: 42px;
             text-align: left;
             cursor: pointer;
 
-            &:first-child {
-              max-width: 300px;
+            span {
+              display: inline-block;
+              line-height: 100%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space:nowrap;
+            }
+
+            span.sing-name {
+              width: 50%;
+            }
+
+            span.singer-name {
+              width: 20%;
+            }
+
+            span.sing-time {
+              width: 10%;
             }
           }
 
-          td.control {
-            width: 130px;
-            padding-top: 0;
+          span.control {
+            width: 10%;
             opacity: 0;
 
             i {
               font-size: 18px;
-              line-height: 30px;
+              line-height: 100%;
               margin-right: 5px;
             }
 
@@ -641,20 +649,20 @@ export default {
             background-image: url(http://y.gtimg.cn/mediastyle/yqq/img/wave.gif?max_age=2592000&v=78979d47cc7dc55cab5d36b4c96168d5);
           }
 
-          tr.on td {
+          li.on span {
             color: white;
           }
 
-          tr.on td.control {
+          li.on span.control {
             opacity: 1;
           }
 
-          tr.on .living {
+          li.on .living {
             display: inline-block;
           }
 
-          tr:hover {
-            td.control {
+          li:hover {
+            span.control {
               opacity: 1
             }
           }
@@ -928,13 +936,11 @@ export default {
 
       .left {
         height: 340px;
-        table {
-          td {
-            width: 70px;
-            font-size: 14px;
 
-            &:first-child {
-              max-width: 250px;
+        ul {
+          li {
+            span.control {
+              width: 15%;
             }
           }
         }
@@ -978,7 +984,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     .music .show-music {
       width: 100%;
       margin-left: 0;
@@ -986,26 +992,6 @@ export default {
       .left {
         width: 105%;
         height: 202px;
-
-        table {
-          td {
-              line-height: 30px;
-              max-width: 70px;
-              text-align: center;
-          }
-
-          td:first-child {
-            max-width: 150px;
-            text-align: left;
-          }
-
-          td.control {
-            i {
-              font-size: 16px;
-              margin-right: 5px;
-            }
-          }
-        }
       }
 
       .right {
