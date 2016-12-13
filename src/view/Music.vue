@@ -629,6 +629,7 @@ export default {
           span.control {
             width: 10%;
             opacity: 0;
+            user-select: none;
 
             i {
               font-size: 18px;
@@ -881,14 +882,23 @@ export default {
 
       .serach-music {
         margin-bottom: 10px;
+
         input {
           width: 140px;;
           line-height: 31px;
           border: 0;
+          background: none;
+          border-bottom: 1px solid white;
           font-size: 18px;
           outline: inherit;
           z-index: 1;
           padding-left: 5px;
+          color: white;
+          width: 150px;
+          transition: width 1s ease-out;
+
+          &:focus {
+          }
         }
 
         select {
@@ -919,7 +929,7 @@ export default {
           -webkit-user-select: none;
           -ms-user-select: none;
           padding: 9px 15px;
-          font-size: 14px;
+          font-size: 15px;
           border-radius: 4px;
           color: #fff;
           background-color: #50bfff;
