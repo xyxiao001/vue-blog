@@ -227,6 +227,7 @@ export default {
           this.newLists = this.onLinelists
           if (response.body.showapi_res_body.pagebean.allPages > 2) {
             this.$http.get('https://route.showapi.com/213-1?page=2&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=' + this.search).then((nextRes) => {
+              this.now = 1000
               this.onLinelists = this.onLinelists.concat(nextRes.body.showapi_res_body.pagebean.contentlist)
               this.newLists = this.onLinelists
             }, (response) => {
