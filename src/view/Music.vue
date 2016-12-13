@@ -51,9 +51,7 @@
           <div class="right">
             <div class="l-box">
               <div class="show-img">
-                  <img :src="bg" :alt="songName" class="show-img"
-                    :class="{'animate-img': playing}"
-                  >
+                  <img :src="bg" :alt="songName" class="show-img animate-img" ref="singImg">
               </div>
               <div style="display: none" v-html="lyr" ref="lyr"></div>
               <div class="show-lyr" ref="showLyr"  @mouseover="inLyr" @mouseleave="outLyr">
@@ -186,6 +184,9 @@ export default {
           return (item.songname.indexOf(this.search) !== -1 || item.singername.indexOf(this.search) !== -1)
         })
       }
+    },
+    playing () {
+      this.playing === true ? this.$refs.singImg.style.animationPlayState = 'running' : this.$refs.singImg.style.animationPlayState = 'paused'
     }
   },
   methods: {
