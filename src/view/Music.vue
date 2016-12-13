@@ -366,12 +366,14 @@ export default {
       }
     },
     outLyr () {
-      if (this.lyrIn === true) {
-        this.$refs.lyrList.style.transitionDuration = '0s'
-        this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
-        this.$refs.showLyr.scrollTop = 0
-        this.lyrIn = false
-      }
+      setTimeout(() => {
+        if (this.lyrIn === true) {
+          this.$refs.lyrList.style.transitionDuration = '0s'
+          this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
+          this.$refs.showLyr.scrollTop = 0
+          this.lyrIn = false
+        }
+      }, 1000)
     },
     // 算出时间
     sumTime (v) {
@@ -446,6 +448,7 @@ export default {
     // 改变音量
     changeVolume (event) {
       var volume = ((event.offsetX) / 80).toFixed(2)
+      volume = volume > 1 ? 1 : volume
       this.volume = volume
       this.$refs.music.volume = volume
     },
@@ -841,7 +844,7 @@ export default {
             position: absolute;
             width: 85px;
             top: 20px;
-            left: 35px;
+            left: 30px;
             height: 4px;
             background: rgba(255,255,255,.2);
             z-index: 1;
@@ -851,7 +854,7 @@ export default {
           .volume-to {
             position: absolute;
             top: 20px;
-            left: 35px;
+            left: 30px;
             height: 4px;
             background: rgba(255,255,255, 0.8);
             z-index: 2;
@@ -882,7 +885,7 @@ export default {
         select {
           display: inline-block;
           width: 80px;;
-          height: 32px;
+          height: 33px;
           border: 0;
           font-size: 18px;
           outline: inherit;
