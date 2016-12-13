@@ -137,6 +137,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 100%;
+    padding-left: 100px;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.8);
@@ -147,9 +148,10 @@ export default {
 
     img {
       display: block;
-      margin: 2% auto;
-      max-width: 90%;
-      height: 90%;
+      margin: auto;
+      padding-top: 10px;
+      max-width: 95%;
+      height: 80%;
     }
   }
 
@@ -157,6 +159,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 100%;
+    padding-left: 100px;
     top: 0;
     left: 0;
     z-index: 200;
@@ -167,9 +170,10 @@ export default {
 
     img {
       display: block;
-      margin: 2% auto;
-      max-width: 90%;
-      height: 90%;
+      margin: auto;
+      padding-top: 10px;
+      max-width: 95%;
+      height: 80%;
     }
   }
 
@@ -194,6 +198,16 @@ export default {
       -moz-column-count: 2;
       column-count: 2;
     }
+
+    .l-show {
+      padding: 0;
+      margin-top: 50px;
+    }
+
+    .t-show {
+      padding: 0;
+      margin-top: 50px;
+    }
   }
 
   @media screen and (max-width: 500px) {
@@ -217,17 +231,15 @@ export default {
 
     .l-show {
       img {
-        width: 90%;
+        width: 95%;
         height: auto;
-        margin-top: 40%;
       }
     }
 
     .t-show {
       img {
-        width: 90%;
+        width: 95%;
         height: auto;
-        margin-top: 40%;
       }
     }
   }
