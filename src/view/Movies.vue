@@ -306,6 +306,7 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 
     .movie-pos {
       position: relative;
