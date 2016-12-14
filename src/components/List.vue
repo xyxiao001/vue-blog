@@ -67,34 +67,18 @@ export default {
     margin-bottom: 20px;
     padding: 0.5%;
     box-shadow: 0 15px 45px rgba(0,0,0,0.15);
-    -webkit-animation: showA 1s ease-out 1;
-            animation: showA 1s ease-out 1;
+    animation: showA .5s ease-out 1;
 
-    @-webkit-keyframes showA {
-      0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, 50px, 0);
-                transform: translate3d(0, 50px, 0);
-      }
-
-      100% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-      }
-    }
 
     @keyframes showA {
       0% {
         opacity: 0;
-        -webkit-transform: translate3d(0, 50px, 0);
-                transform: translate3d(0, 50px, 0);
+        transform: translate3d(-10px, -50px, 0);
       }
 
       100% {
         opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
       }
     }
 
