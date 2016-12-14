@@ -45,7 +45,7 @@
           <div class="right">
             <div class="l-box">
               <div class="show-img">
-                  <img :src="bg" :alt="songName" class="show-img animate-img" ref="singImg">
+                  <img :src="bg" :alt="songName" class="show-img animate-img" ref="singImg" :class="{'paused': !playing}">
               </div>
               <div style="display: none" v-html="lyr" ref="lyr"></div>
               <div class="show-lyr" ref="showLyr"  @mouseover="inLyr" @mouseleave="outLyr">
@@ -178,9 +178,6 @@ export default {
           return (item.songname.indexOf(this.search) !== -1 || item.singername.indexOf(this.search) !== -1)
         })
       }
-    },
-    playing () {
-      this.playing === true ? this.$refs.singImg.style.animationPlayState = 'running' : this.$refs.singImg.style.animationPlayState = 'paused'
     }
   },
   methods: {
@@ -576,7 +573,7 @@ export default {
       .left {
         float: left;
         width: 40%;
-        height: 425px;
+        height: 410px;
         overflow-y: scroll;
         overflow-x: hidden;
         &::-webkit-scrollbar {
@@ -673,7 +670,7 @@ export default {
       .right {
         float: left;
         width: 40%;
-        height: 425px;
+        height: 415px;
         overflow-x: hidden;
         overflow-y: hidden;
         &::-webkit-scrollbar {
@@ -718,6 +715,10 @@ export default {
 
             img.animate-img {
               animation: showImg 35s linear infinite
+            }
+
+            img.paused {
+              animation-play-state: paused;
             }
           }
           @keyframes showImg {
@@ -882,7 +883,7 @@ export default {
       }
 
       .serach-music {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
 
         input {
           width: 140px;;
@@ -897,6 +898,7 @@ export default {
           color: white;
           width: 150px;
           transition: width 1s ease-out;
+          opacity: 1;
 
           &:focus {
           }
@@ -987,6 +989,7 @@ export default {
   @media screen and (max-width: 1000px) {
     .music .show-music {
       .left {
+        width: 50%;
       }
 
       .right {
