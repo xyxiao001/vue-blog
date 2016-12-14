@@ -33,9 +33,9 @@
       </button>
       <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
     </div>
-    <div class="movie-bg" v-show="detailIn" @click="detailIn = false">
+    <div class="movie-bg" v-show="detailIn" @click.self="detailIn = false">
       <div class="movie-pos">
-        <div class="movie-detail" @click="detailBody($event)">
+        <div class="movie-detail">
           <div class="movie-header">
             <i class="iconfont icon-close"></i>
             <h4>电影详情</h4>
@@ -108,9 +108,6 @@ export default {
       this.detailIn = true
       this.detailId = id
       this.detail()
-    },
-    detailBody (e) {
-      e.preventDefault()
     }
   },
   components: {
