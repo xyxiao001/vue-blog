@@ -63,9 +63,9 @@ export default {
   article {
     width: 30%;
     height: auto;
-    margin-left: 1%;
+    margin-left: 1.5%;
     margin-bottom: 20px;
-    padding: 1%;
+    padding: 0.5%;
     box-shadow: 0 15px 45px rgba(0,0,0,0.15);
     -webkit-animation: showA 1s ease-out 1;
             animation: showA 1s ease-out 1;
