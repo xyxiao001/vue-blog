@@ -29,7 +29,7 @@ export default {
     position: fixed;
     right: 1%;
     bottom: 50px;
-    z-index: 999;
+    z-index: 9999;
 
     i {
       font-size: 40px;

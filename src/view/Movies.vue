@@ -8,7 +8,7 @@
         <h3>豆瓣电影TOP250</h3>
       </div>
       <div class="m-list">
-        <div class="m-item" v-for="(item, $index) in lists" :data-id="item.id">
+        <div class="m-item" v-for="(item, $index) in lists" :data-id="item.id" @click="showDetail(item.id)">
           <img :src="item.images.large" :alt="item.images.alt" class="m-img" />
           <div class="m-top">
             <p>{{ item.title }}</p>
@@ -47,8 +47,11 @@ export default {
       add: false,
       start: 0,
       url: 'https://api.douban.com/v2/movie/top250?start=',
+      url2: 'https://api.douban.com/v2/movie/subject/',
       movies: {},
-      lists: []
+      lists: [],
+      detailId: 0,
+      details: {}
     }
   },
   methods: {
@@ -68,6 +71,7 @@ export default {
           }
         }, 100)
       }, (response) => {
+        this.loading = false
         console.log('请求失败!')
       })
     },
@@ -75,6 +79,17 @@ export default {
       this.add = true
       this.start += 20
       this.getMovie()
+    },
+    detail () {
+      this.$http.jsonp(this.url2 + this.detailId).then((response) => {
+        this.details = response.body
+      }, (response) => {
+        console.log('请求失败!')
+      })
+    },
+    showDetail (id) {
+      this.detailId = id
+      this.detail()
     }
   },
   components: {

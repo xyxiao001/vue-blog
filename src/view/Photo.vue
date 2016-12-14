@@ -46,7 +46,13 @@ export default {
       maxBack: ''
     }
   },
-  computed: {
+  watch: {
+    large () {
+      if (this.large !== true) {
+        this.minBack = ''
+        this.maxBack = ''
+      }
+    }
   },
   methods: {
     start () {
@@ -63,8 +69,6 @@ export default {
       })
     },
     showLarge (index) {
-      this.minBack = ''
-      this.maxBack = ''
       this.large = true
       // 小图
       this.minBack = this.photos[index].urls.small
