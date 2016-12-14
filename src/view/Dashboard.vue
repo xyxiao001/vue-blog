@@ -62,6 +62,10 @@ export default {
     overflow-x: hidden;
   }
 
+  .model-open {
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 1000px) {
     .content {
       padding-left: 0px;

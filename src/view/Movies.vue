@@ -33,6 +33,16 @@
       </button>
       <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
     </div>
+    <div class="movie-bg" v-show="detailIn" @click="detailIn = false">
+      <div class="movie-pos">
+        <div class="movie-detail" @click="detailBody($event)">
+          <div class="movie-header">
+            <i class="iconfont icon-close"></i>
+            <h4>电影详情</h4>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,8 +60,15 @@ export default {
       url2: 'https://api.douban.com/v2/movie/subject/',
       movies: {},
       lists: [],
+      detailIn: false,
       detailId: 0,
       details: {}
+    }
+  },
+  watch: {
+    detailIn () {
+      this.detailIn === true ? document.querySelector('body').classList.add('model-open')
+      : document.querySelector('body').classList.remove('model-open')
     }
   },
   methods: {
@@ -88,8 +105,12 @@ export default {
       })
     },
     showDetail (id) {
+      this.detailIn = true
       this.detailId = id
       this.detail()
+    },
+    detailBody (e) {
+      e.preventDefault()
     }
   },
   components: {
@@ -280,6 +301,51 @@ export default {
     cursor: pointer;
   }
 
+  .movie-bg {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-x: hidden;
+
+    .movie-pos {
+      position: relative;
+      display: block;
+      width: 100%;
+      margin-left: -125px;
+      margin-top: 50px;
+      margin-bottom: 100px;
+      background: none;
+
+      .movie-detail {
+        position: relative;
+        width: 60%;
+        min-height: 800px;
+        margin: auto;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 1);
+        transition: all .3s ease-out;
+
+        .movie-header {
+          padding: 5px 10px;
+          height: 40px;
+          border-bottom: 1px solid rgba(103, 106, 108, 0.5);
+
+          i {
+            float: right;
+            font-size: 16px;
+            cursor: pointer;
+          }
+
+          h4 {
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
 
   @media screen and (max-width: 1600px) {
     .m-list {
@@ -297,6 +363,22 @@ export default {
 
       .m-item {
         margin-left: 5%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .movie-bg {
+      left: 0;
+
+      .movie-pos {
+        margin-left: 0;
+        margin-top: 100px;
+
+        .movie-detail {
+          position: relative;
+          width: 80%;
+        }
       }
     }
   }

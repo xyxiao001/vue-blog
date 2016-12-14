@@ -51,6 +51,9 @@ export default {
       if (this.large !== true) {
         this.minBack = ''
         this.maxBack = ''
+        document.querySelector('body').classList.remove('model-open')
+      } else {
+        document.querySelector('body').classList.add('model-open')
       }
     }
   },
@@ -122,7 +125,7 @@ export default {
       float: left;
       display: inline-block;
       margin: 0px  3px;
-      transition: all 1s ease-out;
+      transition: all 0.3s ease-out;
 
       img {
         width: 100%;
@@ -153,7 +156,7 @@ export default {
     img {
       display: block;
       margin: auto;
-      padding-top: 10px;
+      padding-top: 30px;
       max-width: 95%;
       height: 80%;
     }
@@ -175,7 +178,7 @@ export default {
     img {
       display: block;
       margin: auto;
-      padding-top: 10px;
+      padding-top: 30px;
       max-width: 95%;
       height: 80%;
     }
