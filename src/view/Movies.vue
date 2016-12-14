@@ -33,11 +33,11 @@
       </button>
       <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
     </div>
-    <div class="movie-bg" v-show="detailIn" @click.self="detailIn = false">
-      <div class="movie-pos">
+    <div class="movie-bg" v-show="detailIn">
+      <div class="movie-pos" @click.self="detailIn = false">
         <div class="movie-detail">
           <div class="movie-header">
-            <i class="iconfont icon-close"></i>
+            <i class="iconfont icon-close" @click="detailIn = false"></i>
             <h4>电影详情</h4>
           </div>
         </div>
@@ -312,8 +312,8 @@ export default {
       display: block;
       width: 100%;
       margin-left: -125px;
-      margin-top: 50px;
-      margin-bottom: 100px;
+      padding-top: 50px;
+      padding-bottom: 100px;
       background: none;
 
       .movie-detail {
@@ -332,7 +332,8 @@ export default {
 
           i {
             float: right;
-            font-size: 16px;
+            padding-top: 5px;
+            font-size: 20px;
             cursor: pointer;
           }
 

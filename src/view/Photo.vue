@@ -51,9 +51,9 @@ export default {
       if (this.large !== true) {
         this.minBack = ''
         this.maxBack = ''
-        document.querySelector('body').className = ''
+        document.querySelector('body').classList.remove('model-open')
       } else {
-        document.querySelector('body').className = 'model-open'
+        document.querySelector('body').classList.add('model-open')
       }
     }
   },

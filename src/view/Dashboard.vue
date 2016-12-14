@@ -63,6 +63,7 @@ export default {
   }
 
   .model-open {
+    height: 100%;
     overflow: hidden;
   }
 
