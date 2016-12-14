@@ -67,8 +67,13 @@ export default {
   },
   watch: {
     detailIn () {
-      this.detailIn === true ? document.querySelector('body').classList.add('model-open')
-      : document.querySelector('body').classList.remove('model-open')
+      if (this.detailIn) {
+        document.querySelector('html').classList.add('model-open')
+        document.querySelector('body').classList.add('model-open')
+      } else {
+        document.querySelector('html').classList.remove('model-open')
+        document.querySelector('body').classList.remove('model-open')
+      }
     }
   },
   methods: {

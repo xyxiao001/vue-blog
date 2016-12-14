@@ -51,8 +51,10 @@ export default {
       if (this.large !== true) {
         this.minBack = ''
         this.maxBack = ''
+        document.querySelector('html').classList.remove('model-open')
         document.querySelector('body').classList.remove('model-open')
       } else {
+        document.querySelector('html').classList.add('model-open')
         document.querySelector('body').classList.add('model-open')
       }
     }
