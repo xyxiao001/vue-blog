@@ -404,6 +404,17 @@ export default {
         }
       }
     }
+
+    .movie-bg {
+      .movie-pos {
+        margin-top: 10px;
+        width: 100%;
+
+        .movie-detail {
+          width: 90%;
+        }
+      }
+    }
   }
 
   @media screen and (max-width: 320px) {
