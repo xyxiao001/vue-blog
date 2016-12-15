@@ -221,18 +221,7 @@ export default {
       margin: 40px 0 0 2%;
       overflow: hidden;
       cursor: pointer;
-      -webkit-animation: show-m .5s ease-out 1;
       animation: show-m .5s ease-out 1;
-
-      @-webkit-keyframes show-m {
-        0% {
-          opacity: 0;
-        }
-
-        100% {
-          opacity: 1;
-        }
-      }
 
       @keyframes show-m {
         0% {
