@@ -111,6 +111,10 @@ export default {
           this.add = false
         }
       }, 100)
+      window.localStorage.setItem('photo', JSON.stringify({
+        page: this.page,
+        lists: this.photos
+      }))
     }
   },
   components: {
@@ -122,10 +126,19 @@ export default {
     WaterfallSlot
   },
   mounted () {
-    this.start()
-    // 请求第二页
-    this.page += 1
-    this.start()
+    // 把图片数据保存在本地的localstorange
+    var local = window.localStorage.getItem('photo')
+    if (local.lists > 20) {
+      this.loading = false
+      var data = JSON.parse(local)
+      this.photos = data.lists
+      this.page = data.page
+    } else {
+      this.start()
+      // 请求第二页
+      this.page += 1
+      this.start()
+    }
     // 滚动加载
     window.onscroll = () => {
       window.scrollY > 600 ? this.showTop = true : this.showTop = false
