@@ -119,10 +119,17 @@ export default {
     // 把图片数据保存在本地的localstorange
     var local = window.localStorage.getItem('photo')
     var data = JSON.parse(local)
-    if (data.lists.length >= 20) {
-      this.loading = false
-      this.photos = data.lists
-      this.page = data.page
+    if (data) {
+      if (data.lists.length >= 20) {
+        this.loading = false
+        this.photos = data.lists
+        this.page = data.page
+      } else {
+        this.start()
+        // 请求第二页
+        this.page += 1
+        this.start()
+      }
     } else {
       this.start()
       // 请求第二页
