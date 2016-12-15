@@ -9,12 +9,11 @@
           <span>goodboy 博客</span>
         </div>
         <ul class="menus">
-          <li v-for="(menu, index) in menus" @click="ripple($event, index)" class="menu">
+          <li v-for="(menu, index) in menus" class="menu">
             <router-link :to="{path: menu.name}" exact>
               <i :class="menu.icon" class="iconfont"></i>
               <span>{{ menu.text }}</span>
             </router-link>
-            <div class="ripple" :class="{animated: index === now}" :style="{ 'top': top, 'left': left }"></div>
           </li>
         </ul>
       </nav>
@@ -43,12 +42,6 @@ export default {
     },
     menus () {
       return store.getters.getMenus
-    },
-    top () {
-      return store.getters.getNavTop
-    },
-    left () {
-      return store.getters.getNavLeft
     }
   },
   methods: {
@@ -60,15 +53,6 @@ export default {
         this.$refs.slider.style.transform = 'translate3d(0, 0, 0)'
         this.drop = true
       }
-    },
-    ripple (e, index) {
-      store.dispatch({
-        type: 'setNav',
-        payload: {
-          left: e.offsetX,
-          top: e.offsetY
-        }
-      })
     }
   },
   mounted () {
@@ -196,40 +180,6 @@ export default {
       }
     }
   }
-
-  .ripple {
-    display: block;
-    position: absolute;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 100%;
-    height: 100px;
-    width: 100px;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-
-  .ripple.animated {
-    -webkit-animation: ripple 1s linear;
-    animation: ripple 1s linear;
-  }
-
-  @-webkit-keyframes ripple {
-    100% {
-      -webkit-transform: scale(12);
-      transform: scale(12);
-      background-color: transparent;
-    }
-  }
-
-  @keyframes ripple {
-    100% {
-      -webkit-transform: scale(12);
-      transform: scale(12);
-      background-color: transparent;
-    }
-  }
-
-
   .navTop {
     display: none;
   }
