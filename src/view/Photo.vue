@@ -105,6 +105,7 @@ export default {
         page: this.page,
         lists: this.photos
       }))
+      this.mloading = false
     }
   },
   components: {
