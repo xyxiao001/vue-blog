@@ -4,22 +4,11 @@
     <Top v-show="showTop"></Top>
     <Loading :loading="loading"></Loading>
     <div class="content photo-c" v-show="!loading">
-      <!-- <div class="photo-list" ref="photoList">
+      <div class="photo-list" ref="photoList">
         <div class="photo-item" v-for="(photo, index) in photos">
           <img :src="photo.urls.small" :alt="photo.id" @click="showLarge(index)">
         </div>
-      </div> -->
-      <waterfall :line-gap="300" :watch="photos">
-        <waterfall-slot
-          v-for="(item, index) in photos"
-          :width="item.width/50"
-          :height="item.height/50"
-          :order="index"
-          :key="item.id"
-          >
-          <img :src="item.urls.small" :alt="item.id" @click="showLarge(index)">
-      </waterfall-slot>
-      </waterfall>
+      </div>
       <Mloading :loading="mloading"></Mloading>
       <p class="error">{{ this.error }}</p>
     </div>
@@ -42,13 +31,11 @@ import NavBar from '../components/Nav'
 import Top from '../components/Top'
 import Loading from '../components/Loading'
 import Mloading from '../components/Mloading'
-import Waterfall from 'vue-waterfall/lib/waterfall'
-import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 export default {
   data () {
     return {
       loading: true,
-      mloading: false,
+      mloading: true,
       url: 'https://api.unsplash.com/photos?client_id=80f66654628683dc7a20a3f2b44a93f8a9f0afaa41be7c7c392c5648dc6bb035&page=',
       photos: [],
       page: 1,
@@ -57,8 +44,7 @@ export default {
       large: false,
       minBack: '',
       maxBack: '',
-      showTop: false,
-      add: false
+      showTop: false
     }
   },
   watch: {
@@ -83,11 +69,13 @@ export default {
       this.$http.get(this.url + this.page).then((response) => {
         this.first === true ? this.loading = false : this.mloading = false
         this.first = false
-        this.waterFall(response.body)
+        response.body.forEach((val) => {
+          this.photos.push(val)
+        })
       }, (response) => {
         this.first === true ? this.loading = false : this.mloading = false
         console.error('请求失败！')
-        this.error = ''
+        this.error = '请求失败了！ 忧伤!'
       })
     },
     showLarge (index) {
@@ -98,28 +86,13 @@ export default {
       this.maxBack = this.photos[index].urls.regular
       // this.maxBack = this.photos[index].urls.full
       // this.maxBack = this.photos[index].urls.raw
-    },
-    waterFall (data) {
-      var l = data.length
-      var i = 0
-      var set = setInterval(() => {
-        if (i < l) {
-          this.photos.push(data[i])
-          i += 1
-        } else {
-          clearTimeout(set)
-          this.add = false
-        }
-      }, 100)
     }
   },
   components: {
     NavBar,
     Loading,
     Mloading,
-    Top,
-    Waterfall,
-    WaterfallSlot
+    Top
   },
   mounted () {
     this.start()
@@ -145,17 +118,34 @@ export default {
 </script>
 
 <style lang="scss">
-  .vue-waterfall {
-    width: 1500px;
+  .photo-list {
     margin: auto;
+    margin-top: 30px;
+    width: 80%;
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+    -moz-column-gap: 0px; /* Firefox */
+    -webkit-column-gap: 0px; /* Safari and Chrome */
+    column-gap: 0px;
+
+    .photo-item {
+      float: left;
+      display: inline-block;
+      margin: 0px  3px;
+      transition: all 0.3s ease-out;
+
+      img {
+        width: 100%;
+        cursor: zoom-in;
+      }
+    }
   }
 
-  .vue-waterfall .vue-waterfall-slot {
-    padding: 2px;
-  }
-
-  .vue-waterfall-slot img {
-    width: 100%;
+  .error {
+    text-align: center;
+    color: red;
+    font-size: 20px;
   }
 
   .l-show {
@@ -174,7 +164,7 @@ export default {
     img {
       display: block;
       margin: auto;
-      padding-top: 50px;
+      padding-top: 30px;
       max-width: 95%;
       height: 80%;
     }
@@ -196,32 +186,34 @@ export default {
     img {
       display: block;
       margin: auto;
-      padding-top: 50px;
+      padding-top: 30px;
       max-width: 95%;
       height: 80%;
     }
   }
 
-  @media screen and (max-width: 1670px) {
-    .vue-waterfall {
-      width: 1200px;
-    }
-  }
-
-  @media screen and (max-width: 1470px) {
-    .vue-waterfall {
-      width: 900px;
-    }
-  }
-
-  @media screen and (max-width: 1170px) {
-    .vue-waterfall {
-      width: 600px;
+  @media screen and (max-width: 1400px) {
+    .photo-list {
+      margin: auto;
+      margin-top: 15px;
+      width: 80%;
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+      -moz-column-gap: 0px; /* Firefox */
+      -webkit-column-gap: 0px; /* Safari and Chrome */
+      column-gap: 0px;
     }
   }
 
 
   @media screen and (max-width: 1000px) {
+    .photo-list {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+
     .l-show {
       padding: 0;
     }
@@ -231,16 +223,22 @@ export default {
     }
   }
 
-  @media screen and (max-width: 600px) {
-    .vue-waterfall {
+  @media screen and (max-width: 500px) {
+    .photo-list {
       width: 100%;
+      -webkit-column-count: 1;
+      -moz-column-count: 1;
+      column-count: 1;
+      margin: 3px 0 0 0;
 
-      .vue-waterfall-slot {
-        position: relative !important;
-        top: 0!important;
-        margin: 1px 0;
-        width: 100%!important;
-        height: auto!important;
+      .photo-item {
+        width: 96%;
+        margin: 0 2%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
       }
     }
 

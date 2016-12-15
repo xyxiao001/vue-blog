@@ -18,6 +18,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.0",
     "vue-style-loader": "^1.0.0",
+    "vue-waterfall": "^1.0.5",
     "vuex": "^2.0.0"
   },
   "devDependencies": {

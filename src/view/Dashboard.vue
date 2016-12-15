@@ -61,7 +61,7 @@ export default {
     background-color: #fff;
     padding-left: 250px;
     width: auto;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   .model-open {
