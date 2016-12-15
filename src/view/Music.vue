@@ -536,7 +536,7 @@ export default {
     font-size: 14px;
     line-height: 1.5;
     font-family: poppin,'PingFang SC',Tahoma,Arial,\5FAE\8F6F\96C5\9ED1,sans-serif;
-    color: rgba(225,225,225,.8);
+    color: rgba(225,225,225, 0.9);
 
     .bg {
       position: absolute;
@@ -714,7 +714,8 @@ export default {
             }
 
             img.animate-img {
-              animation: showImg 35s linear infinite
+              animation: showImg 35s linear infinite;
+              animation-play-state: running;
             }
 
             img.paused {
