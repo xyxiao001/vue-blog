@@ -100,17 +100,7 @@ export default {
       // this.maxBack = this.photos[index].urls.raw
     },
     waterFall (data) {
-      var l = data.length
-      var i = 0
-      var set = setInterval(() => {
-        if (i < l) {
-          this.photos.push(data[i])
-          i += 1
-        } else {
-          clearTimeout(set)
-          this.add = false
-        }
-      }, 100)
+      this.photos = this.photos.concat(data)
       window.localStorage.setItem('photo', JSON.stringify({
         page: this.page,
         lists: this.photos
@@ -128,9 +118,9 @@ export default {
   mounted () {
     // 把图片数据保存在本地的localstorange
     var local = window.localStorage.getItem('photo')
-    if (local.lists > 20) {
+    var data = JSON.parse(local)
+    if (data.lists.length >= 20) {
       this.loading = false
-      var data = JSON.parse(local)
       this.photos = data.lists
       this.page = data.page
     } else {
