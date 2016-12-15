@@ -1,7 +1,7 @@
 <template>
   <div class="wraper">
     <NavBar></NavBar>
-    <Top></Top>
+    <Top v-show="showTop"></Top>
     <Loading :loading="loading"></Loading>
     <div class="content photo-c" v-show="!loading">
       <div class="photo-list" ref="photoList">
@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       loading: true,
-      mloading: false,
+      mloading: true,
       url: 'https://api.unsplash.com/photos?client_id=80f66654628683dc7a20a3f2b44a93f8a9f0afaa41be7c7c392c5648dc6bb035&page=',
       photos: [],
       page: 1,
@@ -43,19 +43,24 @@ export default {
       error: '',
       large: false,
       minBack: '',
-      maxBack: ''
+      maxBack: '',
+      showTop: false
     }
   },
   watch: {
     large () {
+      var body = document.querySelector('body')
       if (this.large !== true) {
         this.minBack = ''
         this.maxBack = ''
-        document.querySelector('html').classList.remove('model-open')
-        document.querySelector('body').classList.remove('model-open')
+        body.classList.remove('model-open')
+        var top = body.style.top
+        top = top.replace('px', '')
+        document.body.scrollTop = -top
+        body.style.top = 0
       } else {
-        document.querySelector('html').classList.add('model-open')
-        document.querySelector('body').classList.add('model-open')
+        body.style.top = -(document.body.scrollTop) + 'px'
+        body.classList.add('model-open')
       }
     }
   },
@@ -78,8 +83,8 @@ export default {
       // 小图
       this.minBack = this.photos[index].urls.small
       // 中等
-      // this.maxBack = this.photos[index].urls.regular
-      this.maxBack = this.photos[index].urls.full
+      this.maxBack = this.photos[index].urls.regular
+      // this.maxBack = this.photos[index].urls.full
       // this.maxBack = this.photos[index].urls.raw
     }
   },
@@ -96,6 +101,7 @@ export default {
     this.start()
     // 滚动加载
     window.onscroll = () => {
+      window.scrollY > 600 ? this.showTop = true : this.showTop = false
       if (this.mloading === false) {
         var d = document.body.clientHeight
         // 记录滚动条高度
@@ -210,12 +216,10 @@ export default {
 
     .l-show {
       padding: 0;
-      margin-top: 50px;
     }
 
     .t-show {
       padding: 0;
-      margin-top: 50px;
     }
   }
 

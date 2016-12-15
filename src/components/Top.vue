@@ -1,5 +1,5 @@
 <template>
-  <div class="go-top" v-show="show" @click="goTop()">
+  <div class="go-top" v-show="showTop" @click="goTop()">
     <i class="iconfont icon-top"></i>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   data () {
     return {
-      show: false
+      showTop: false
     }
   },
   methods: {
@@ -18,7 +18,7 @@ export default {
   },
   mounted () {
     window.onscroll = () => {
-      window.scrollY > 600 ? this.show = true : this.show = false
+      window.scrollY > 600 ? this.showTop = true : this.showTop = false
     }
   }
 }

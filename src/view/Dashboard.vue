@@ -52,6 +52,7 @@ export default {
   }
 
   body {
+    width: 100%;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -63,8 +64,10 @@ export default {
   }
 
   .model-open {
-    height: 100%;
-    overflow: hidden;
+    zoom: 1;
+    position: fixed;
+    width: 100%;
+    top: 0;
   }
 
   @media screen and (max-width: 1000px) {

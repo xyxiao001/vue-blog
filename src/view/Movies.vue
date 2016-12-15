@@ -67,12 +67,16 @@ export default {
   },
   watch: {
     detailIn () {
+      var body = document.querySelector('body')
       if (this.detailIn) {
-        document.querySelector('html').classList.add('model-open')
-        document.querySelector('body').classList.add('model-open')
+        body.style.top = -(document.body.scrollTop) + 'px'
+        body.classList.add('model-open')
       } else {
-        document.querySelector('html').classList.remove('model-open')
-        document.querySelector('body').classList.remove('model-open')
+        body.classList.remove('model-open')
+        var top = body.style.top
+        top = top.replace('px', '')
+        document.body.scrollTop = -top
+        body.style.top = 0
       }
     }
   },

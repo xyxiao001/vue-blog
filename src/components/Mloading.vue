@@ -125,4 +125,11 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    .m-loading {
+      position: relative;
+      margin-left: 45%;
+    }
+  }
 </style>
