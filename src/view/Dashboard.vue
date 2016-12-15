@@ -53,6 +53,7 @@ export default {
 
   body {
     width: 100%;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
 
