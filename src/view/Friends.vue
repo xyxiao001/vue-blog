@@ -82,14 +82,12 @@ export default {
 
 <style lang="scss">
 .friends {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  padding-left: 250px;
+  min-height: 1000px;
   background-image: url('http://ofyaji162.bkt.clouddn.com/bg1.webp');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-x: hidden;
 
   .title {
     margin: 50px;
@@ -98,7 +96,8 @@ export default {
   }
 
   .f-list {
-    width: 70%;
+    position: relative;
+    width: 80%;
     height: auto;
     margin: auto;
   }
@@ -121,14 +120,14 @@ export default {
 
     .line {
       position: absolute;
-      top: 100px;
+      top: 119px;
       left: 50%;
       margin-left: -20px;
       width: 20px;
-      height: 100px;
+      height: 80px;
       border-radius: 30%;
       border-right: 2px solid rgba(128, 64, 0, 0.9);
-      z-index: -1;
+      z-index: 1;
     }
 
     .des {
