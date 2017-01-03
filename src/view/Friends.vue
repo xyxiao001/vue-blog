@@ -29,7 +29,7 @@ export default {
       lists: [
         {
           name: '好宅',
-          url: 'http://funnycoder.lofter.com/',
+          url: 'http://funnycoder.lofter.com',
           des: '这里是一只宅，励志成为一名有趣的Coder~',
           avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
         },
@@ -42,8 +42,32 @@ export default {
         {
           name: '鱼大佬',
           url: 'https://blog.wanan.me',
-          des: '听说是个死胖子~',
+          des: '听说是个死胖子~ 可是他有女朋友。',
           avatar: 'http://www.gravatar.com/avatar/7151791be6ac667ad65ba0a3ba7fd99c?s=250&d=mm&r=x'
+        },
+        {
+          name: '兔哥',
+          url: 'http://noder.club',
+          des: '一个很会玩妖姬的node大佬',
+          avatar: 'https://ws3.sinaimg.cn/large/7d051389gw1fbdeilrksgj202s02st8i.jpg'
+        },
+        {
+          name: '夜喵',
+          url: '',
+          des: '据说是铲屎喵的女朋友，技术宅，车队的头号种子选手。',
+          avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
+        },
+        {
+          name: '铲屎喵',
+          url: '',
+          des: '据说是夜喵喵的男朋友, 叶苗苗的铲屎官',
+          avatar: 'http://ofyaji162.bkt.clouddn.com/can.jpg'
+        },
+        {
+          name: '银马座_废喵',
+          url: 'https://yinmazuo.github.io',
+          des: '不乱于心，不困于情，不畏将来，不念过往。',
+          avatar: 'http://ofyaji162.bkt.clouddn.com/yin.jpg'
         }
       ]
     }
@@ -61,6 +85,7 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
+  padding-left: 250px;
   background-image: url('http://ofyaji162.bkt.clouddn.com/bg1.webp');
   background-position: 50%;
   background-repeat: no-repeat;
@@ -73,10 +98,9 @@ export default {
   }
 
   .f-list {
-    width: 100%;
+    width: 70%;
+    height: auto;
     margin: auto;
-    padding-left: 10%;
-    overflow-y: scroll;
   }
 
   .f-item {
@@ -87,6 +111,7 @@ export default {
     display: inline-block;
 
     .avatar {
+      margin: auto;
       width: 120px;
       height: 120px;
       border-radius: 50%;
@@ -97,7 +122,8 @@ export default {
     .line {
       position: absolute;
       top: 100px;
-      left: 40px;
+      left: 50%;
+      margin-left: -20px;
       width: 20px;
       height: 100px;
       border-radius: 30%;
@@ -108,7 +134,8 @@ export default {
     .des {
       position: absolute;
       top: 201px;
-      left: -20px;
+      left: 50%;
+      margin-left: -90px;
       width: 180px;
       background-color: white;
       color: black;
