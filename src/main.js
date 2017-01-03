@@ -4,7 +4,7 @@ import App from './components/App'
 import Store from './vuex/store'
 import VueResource from 'vue-resource'
 
-import Self from './view/Self'
+// import Self from './view/Self'
 import Dashboard from './view/Dashboard'
 import Archives from './view/Archives'
 import Tags from './view/Tags'
@@ -30,7 +30,7 @@ const router = new VueRouter({
   // mode: 'history',
   linkActiveClass: 'active',
   routes: [
-    { path: '/', component: Self },
+    { path: '/', component: About },
     { path: '/dashboard', component: Dashboard },
     { path: '/archives', component: Archives },
     { path: '/tags', component: Tags },

@@ -7,6 +7,11 @@ const state = {
     //   icon: 'icon-index'
     // },
     {
+      name: '/story',
+      text: '鬼故事',
+      icon: 'icon-mogui'
+    },
+    {
       name: '/music',
       text: '听听歌',
       icon: 'icon-music'
@@ -32,15 +37,10 @@ const state = {
       icon: 'icon-photo'
     },
     {
-      name: '/story',
-      text: '鬼故事',
-      icon: 'icon-mogui'
-    },
-    {
       name: '/friends',
       text: '朋友们',
       icon: 'icon-wodedangan'
-    }
+    },
     // {
     //   name: '/tags',
     //   text: '标签',
@@ -51,11 +51,11 @@ const state = {
     //   text: '归档',
     //   icon: 'icon-wodedangan'
     // },
-    // {
-    //   name: '/about',
-    //   text: '关于',
-    //   icon: 'icon-xiaolian'
-    // }
+    {
+      name: '/about',
+      text: '关于我',
+      icon: 'icon-xiaolian'
+    }
   ],
   NavTop: 0,
   NavLeft: 0,

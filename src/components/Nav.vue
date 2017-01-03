@@ -6,7 +6,7 @@
           <a href="https://github.com/xyxiao001" target="_blank" class="my-img">
              <img :src="touxiang" alt="goodboy blog">
            </a>
-          <router-link :to="{path: '/'}"><span>goodboy</span></router-link>
+          <span>goodboy</span>
         </div>
         <ul class="menus">
           <li v-for="(menu, index) in menus" class="menu">
