@@ -4,7 +4,7 @@
     <div class="content self">
       <div class="m-box">
         <div class="box-head">
-          <p class="box-name">goodboy</p>
+          <p class="box-name"></p>
         </div>
         <div class="box-content">
           <p class="title">叩首为梦 码梦为生</p>
