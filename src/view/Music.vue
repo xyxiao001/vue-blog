@@ -999,6 +999,10 @@ export default {
   }
 
   @media screen and (max-width: 800px) {
+    .music .bg {
+      filter: none;
+    }
+
     .music .show-music {
       width: 100%;
       margin-left: 0;
