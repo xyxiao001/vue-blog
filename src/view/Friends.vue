@@ -10,10 +10,7 @@
           target="_blank">
           <a :href="item.url" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
           <span class="line"></span>
-          <div class="des"
-          :style="{
-            'transform': 'rotate3d(0, 0,' + -Math.random() * 10 + ', 1deg) translateZ(0)',
-            }">
+          <div class="des">
             <p class="name">{{ item.name }}</p>
             <p>{{ item.des }}</p>
           </div>
@@ -124,17 +121,18 @@ export default {
       position: absolute;
       top: 119px;
       left: 50%;
-      margin-left: -20px;
-      width: 20px;
+      margin-left: -10px;
+      width: 10px;
       height: 80px;
       border-radius: 30%;
       border-right: 2px solid rgba(128, 64, 0, 0.9);
       z-index: 1;
+      cursor: pointer;
     }
 
     .des {
       position: absolute;
-      top: 201px;
+      top: 198px;
       left: 50%;
       margin-left: -90px;
       width: 180px;
@@ -144,11 +142,6 @@ export default {
       padding: 5px;
       font-size: 14px;
       backface-visibility: hidden;
-
-      p {
-        backface-visibility: hidden;
-        transform: rotate3d(0, 0, 1, 1deg) translateZ(0);
-      }
 
       .name {
         font-size: 16px;
