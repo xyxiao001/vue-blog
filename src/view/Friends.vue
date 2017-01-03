@@ -4,18 +4,20 @@
     <div class="content friends">
       <p class="title">志同道合的朋友们:</p>
       <div class="f-list">
-        <a
+        <div
           class="f-item"
           v-for="item in lists"
-          :href="item.url"
           target="_blank">
-          <div class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
+          <a :href="item.url" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
           <span class="line"></span>
-          <div class="des">
+          <div class="des"
+          :style="{
+            'transform': 'rotate3d(0, 0,' + -Math.random() * 10 + ', 1deg) translateZ(0)',
+            }">
             <p class="name">{{ item.name }}</p>
             <p>{{ item.des }}</p>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +45,7 @@ export default {
           name: '鱼大佬',
           url: 'https://blog.wanan.me',
           des: '听说是个死胖子~ 可是他有女朋友。',
-          avatar: 'http://www.gravatar.com/avatar/7151791be6ac667ad65ba0a3ba7fd99c?s=250&d=mm&r=x'
+          avatar: 'https://avatars3.githubusercontent.com/u/7876498'
         },
         {
           name: '兔哥',
@@ -97,19 +99,19 @@ export default {
 
   .f-list {
     position: relative;
-    width: 80%;
     height: auto;
     margin: auto;
   }
 
   .f-item {
     position: relative;
-    width: 300px;
+    width: 250px;
     height: 300px;
     border-radius: 50%;
     display: inline-block;
 
     .avatar {
+      display: block;
       margin: auto;
       width: 120px;
       height: 120px;
@@ -141,6 +143,12 @@ export default {
       border-radius: 5px;
       padding: 5px;
       font-size: 14px;
+      backface-visibility: hidden;
+
+      p {
+        backface-visibility: hidden;
+        transform: rotate3d(0, 0, 1, 1deg) translateZ(0);
+      }
 
       .name {
         font-size: 16px;
@@ -148,6 +156,13 @@ export default {
         line-height: 30px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .friends .f-item {
+    margin: auto;
+    display: block;
   }
 }
 </style>
