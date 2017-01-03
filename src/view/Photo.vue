@@ -4,11 +4,6 @@
     <Top v-show="showTop"></Top>
     <Loading :loading="loading"></Loading>
     <div class="content photo-c" v-show="!loading">
-      <!-- <div class="photo-list" ref="photoList">
-        <div class="photo-item" v-for="(photo, index) in photos">
-          <img :src="photo.urls.small" :alt="photo.id" @click="showLarge(index)">
-        </div>
-      </div> -->
       <waterfall :line-gap="300" :watch="photos">
         <waterfall-slot
           v-for="(item, index) in photos"
@@ -27,6 +22,7 @@
       class="l-show"
       v-show="large"
       @click="large = false">
+      <a class="download btn" :href="downBack" target="_blank">超清原图</a>
       <img :src="this.minBack">
         <div class="t-show"
           v-show="large"
@@ -57,6 +53,7 @@ export default {
       large: false,
       minBack: '',
       maxBack: '',
+      downBack: '',
       showTop: false,
       add: false
     }
@@ -96,12 +93,14 @@ export default {
       this.minBack = this.photos[index].urls.small
       // 中等
       this.maxBack = this.photos[index].urls.regular
-      // this.maxBack = this.photos[index].urls.full
+      this.downBack = this.photos[index].urls.full
       // this.maxBack = this.photos[index].urls.raw
     },
     waterFall (data) {
       this.photos = this.photos.concat(data)
+      // 把图片数据保存在本地的localstorange
       window.localStorage.setItem('photo', JSON.stringify({
+        date: (new Date()).toDateString(),
         page: this.page,
         lists: this.photos
       }))
@@ -117,11 +116,12 @@ export default {
     WaterfallSlot
   },
   mounted () {
-    // 把图片数据保存在本地的localstorange
+    // 读取本地数据
     var local = window.localStorage.getItem('photo')
     var data = JSON.parse(local)
+    var date = (new Date()).toDateString()
     if (data) {
-      if (data.lists.length >= 20) {
+      if (data.lists.length >= 20 && date === data.date) {
         this.loading = false
         this.photos = data.lists
         this.page = data.page
@@ -182,6 +182,18 @@ export default {
     background-position: center center;
     background-size: cover;
 
+    .download {
+      display: inline-block;
+      position: absolute;
+      width: 100px;
+      margin-left: 0px;
+      text-align: center;
+      z-index: 999;
+      left: 50%;
+      top: 10px;
+      color: white;
+    }
+
     img {
       display: block;
       margin: auto;
@@ -234,11 +246,23 @@ export default {
 
   @media screen and (max-width: 1000px) {
     .l-show {
+      .download {
+        margin-left: -50px;
+        top: 60px;
+      }
       padding: 0;
+
+      img {
+        padding-top: 100px;
+      }
     }
 
     .t-show {
-      padding: 0;
+      padding: 0px;
+
+      img {
+        padding-top: 100px;
+      }
     }
   }
 
@@ -256,6 +280,7 @@ export default {
     }
 
     .l-show {
+
       img {
         width: 95%;
         height: auto;

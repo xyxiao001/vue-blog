@@ -3,10 +3,10 @@
     <nav id="slider-bar" ref="slider">
       <div class="slider-content">
         <div class="profile">
-          <a href="https://github.com/xyxiao001" target="_blank">
+          <a href="https://github.com/xyxiao001" target="_blank" class="my-img">
              <img :src="touxiang" alt="goodboy blog">
            </a>
-          <span>goodboy 博客</span>
+          <router-link :to="{path: '/'}"><span>goodboy</span></router-link>
         </div>
         <ul class="menus">
           <li v-for="(menu, index) in menus" class="menu">
@@ -103,6 +103,10 @@ export default {
       padding-bottom: 10px;
 
       a {
+        text-decoration: none;
+      }
+
+      .my-img {
         width: 140px;
         display: block;
         margin: 0 auto;

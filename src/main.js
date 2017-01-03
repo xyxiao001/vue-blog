@@ -4,6 +4,7 @@ import App from './components/App'
 import Store from './vuex/store'
 import VueResource from 'vue-resource'
 
+import Self from './view/Self'
 import Dashboard from './view/Dashboard'
 import Archives from './view/Archives'
 import Tags from './view/Tags'
@@ -17,6 +18,7 @@ import Music from './view/Music'
 import Video from './view/Video'
 import News from './view/News'
 import Movies from './view/Movies'
+import Friends from './view/Friends'
 import NotFound from './view/404'
 
 Vue.use(VueRouter)
@@ -28,7 +30,8 @@ const router = new VueRouter({
   // mode: 'history',
   linkActiveClass: 'active',
   routes: [
-    { path: '/', component: Dashboard },
+    { path: '/', component: Self },
+    { path: '/dashboard', component: Dashboard },
     { path: '/archives', component: Archives },
     { path: '/tags', component: Tags },
     { path: '/tags/:name', component: TagDetail },
@@ -42,6 +45,7 @@ const router = new VueRouter({
     { path: '/video', component: Video },
     { path: '/news', component: News },
     { path: '/movies', component: Movies },
+    { path: '/friends', component: Friends },
     { path: '*', component: NotFound }
   ]
 })

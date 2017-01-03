@@ -898,7 +898,6 @@ export default {
           padding-left: 5px;
           color: white;
           width: 150px;
-          transition: width 1s ease-out;
           opacity: 1;
 
           &:focus {

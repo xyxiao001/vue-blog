@@ -49,6 +49,7 @@ export default {
     -webkit-tap-highlight-color:rgba(255,255,255,0);
     vertical-align: baseline;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-decoration: none;
   }
 
   body {

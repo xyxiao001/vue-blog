@@ -1,24 +1,24 @@
 const state = {
   touxiang: 'http://ofyaji162.bkt.clouddn.com/touxiang.jpg',
   menus: [
-    {
-      name: '/',
-      text: '首页',
-      icon: 'icon-index'
-    },
+    // {
+    //   name: '/dashboard',
+    //   text: '文章',
+    //   icon: 'icon-index'
+    // },
     {
       name: '/music',
       text: '听听歌',
       icon: 'icon-music'
     },
-    {
-      name: '/news',
-      text: '看看报',
-      icon: 'icon-news'
-    },
+    // {
+    //   name: '/news',
+    //   text: '看看报',
+    //   icon: 'icon-news'
+    // },
     {
       name: '/movies',
-      text: '电影',
+      text: '电影排行',
       icon: 'icon-movie'
     },
     {
@@ -37,20 +37,25 @@ const state = {
       icon: 'icon-mogui'
     },
     {
-      name: '/tags',
-      text: '标签',
-      icon: 'icon-tags'
-    },
-    {
-      name: '/archives',
-      text: '归档',
+      name: '/friends',
+      text: '朋友们',
       icon: 'icon-wodedangan'
-    },
-    {
-      name: '/about',
-      text: '关于',
-      icon: 'icon-xiaolian'
     }
+    // {
+    //   name: '/tags',
+    //   text: '标签',
+    //   icon: 'icon-tags'
+    // }
+    // {
+    //   name: '/archives',
+    //   text: '归档',
+    //   icon: 'icon-wodedangan'
+    // },
+    // {
+    //   name: '/about',
+    //   text: '关于',
+    //   icon: 'icon-xiaolian'
+    // }
   ],
   NavTop: 0,
   NavLeft: 0,
