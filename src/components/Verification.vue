@@ -12,7 +12,7 @@
           <div class="w-box">
             <div class="w-show">
               <div class="w-start" ref="wStart" :style="{'transform': 'translate3d('+ end +'px, 0, 0)'}"></div>
-              <div class="w-end"></div>
+              <div class="w-end" :style="{'left': success + 'px'}"></div>
             </div>
           </div>
           <div class="w-bottom"></div>
@@ -40,7 +40,7 @@ export default {
       open: true,
       running: false,
       x: 0,
-      success: 180,
+      success: ~~(Math.random() * 100) + 100,
       end: 0,
       go: false
     }
