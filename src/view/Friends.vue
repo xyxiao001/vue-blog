@@ -6,9 +6,8 @@
       <div class="f-list">
         <div
           class="f-item"
-          v-for="item in lists"
-          target="_blank">
-          <a :href="item.url" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
+          v-for="item in lists">
+          <a :href="item.url"   target="_blank" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
           <span class="line"></span>
           <div class="des">
             <p class="name">{{ item.name }}</p>
