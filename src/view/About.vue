@@ -53,6 +53,16 @@ export default {
   background: #fff;
   border-radius: 4px;
   opacity: 0.9;
+  animation: mBox 0.5s ease-out 1;
+}
+
+@keyframes mBox {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.9;
+  }
 }
 
 .box-head {
