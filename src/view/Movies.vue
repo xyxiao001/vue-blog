@@ -87,6 +87,12 @@ export default {
         this.loading = false
         var l = this.movies.subjects.length
         var i = 0
+        // 把图片数据保存在本地的localstorange
+        window.localStorage.setItem('movies', JSON.stringify({
+          date: (Date.parse(new Date())),
+          start: this.lists.length + l,
+          lists: this.lists.concat(this.movies.subjects)
+        }))
         var set = setInterval(() => {
           if (i < l) {
             this.lists.push(this.movies.subjects[i])
@@ -125,7 +131,21 @@ export default {
     Top
   },
   mounted () {
-    this.getMovie()
+    // 读取本地数据
+    var local = window.localStorage.getItem('movies')
+    var data = JSON.parse(local)
+    var date = Date.parse(new Date())
+    if (data) {
+      if (data.lists.length >= 20 && (date - data.date) / 3600000 <= 5 && data.start > 0) {
+        this.loading = false
+        this.lists = data.lists
+        this.start = data.start
+      } else {
+        this.getMovie()
+      }
+    } else {
+      this.getMovie()
+    }
   }
 }
 </script>
