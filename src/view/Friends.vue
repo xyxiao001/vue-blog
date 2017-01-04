@@ -66,6 +66,12 @@ export default {
           url: 'https://yinmazuo.github.io',
           des: '不乱于心，不困于情，不畏将来，不念过往。',
           avatar: 'http://ofyaji162.bkt.clouddn.com/yin.jpg'
+        },
+        {
+          name: '油俊',
+          url: 'www.chjsun.top',
+          des: '据说也是一个胖子，但是他没女朋友',
+          avatar: 'https://avatar.duoshuo.com/avatar-50/857/303954.jpg'
         }
       ]
     }
