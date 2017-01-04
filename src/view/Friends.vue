@@ -81,7 +81,7 @@ export default {
 <style lang="scss">
 .friends {
   min-height: 1000px;
-  background-image: url('http://ofyaji162.bkt.clouddn.com/bg1.webp');
+  background-image: url('http://ofyaji162.bkt.clouddn.com/bg1.jpg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -107,22 +107,27 @@ export default {
     display: inline-block;
 
     .avatar {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -60px;
       display: block;
-      margin: auto;
       width: 120px;
       height: 120px;
       border-radius: 50%;
       background-repeat: no-repeat;
       background-size: cover;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: 9;
     }
 
     .line {
       position: absolute;
-      top: 119px;
+      top: 115px;
       left: 50%;
       margin-left: -10px;
       width: 10px;
-      height: 80px;
+      height: 90px;
       border-radius: 30%;
       border-right: 2px solid rgba(128, 64, 0, 0.9);
       z-index: 1;
@@ -137,10 +142,11 @@ export default {
       width: 180px;
       background-color: white;
       color: black;
-      border-radius: 5px;
+      border-radius: 10px;
       padding: 5px;
       font-size: 14px;
       backface-visibility: hidden;
+      z-index: 2;
 
       .name {
         font-size: 16px;

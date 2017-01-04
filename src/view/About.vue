@@ -36,7 +36,7 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-image: url('http://ofyaji162.bkt.clouddn.com/bg2.webp');
+  background-image: url('http://ofyaji162.bkt.clouddn.com/bg2.jpg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -69,7 +69,7 @@ export default {
   position: relative;
   width: 100%;
   height: 65%;
-  background: url(http://ofyaji162.bkt.clouddn.com/bg1.webp) center no-repeat;
+  background: url(http://ofyaji162.bkt.clouddn.com/bg1.jpg) center no-repeat;
   background-size: cover;
   border-radius: 4px 4px 0 0;
   text-align: center;
