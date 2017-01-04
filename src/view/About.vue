@@ -91,7 +91,7 @@ export default {
 
 @media screen and (max-width: 640px) {
   .m-box {
-    top: 53%;
+    top: 60%;
     margin-left: -49%;
     width: 98%;
     height: 400px;

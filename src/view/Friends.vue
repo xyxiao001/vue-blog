@@ -102,7 +102,7 @@ export default {
 
   .f-item {
     position: relative;
-    width: 250px;
+    width: 20%;
     height: 300px;
     border-radius: 50%;
     display: inline-block;
@@ -152,10 +152,25 @@ export default {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1400px) {
   .friends .f-item {
-    margin: auto;
-    display: block;
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .friends .f-item {
+    width: 33%;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .friends .f-item {
+    width: 50%;
+    .des {
+      width: 130px;
+      margin-left: -70px;
+    }
   }
 }
 </style>

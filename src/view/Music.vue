@@ -259,6 +259,9 @@ export default {
       this.allTime = this.$refs.music.duration
       this.$refs.music.play()
       this.playing = true
+      if (this.lyrIn) {
+        this.outLyr()
+      }
     },
     // 改变后播放
     playNext () {
@@ -366,7 +369,7 @@ export default {
           this.$refs.showLyr.scrollTop = 0
           this.lyrIn = false
         }
-      }, 1000)
+      }, 500)
     },
     // 算出时间
     sumTime (v) {
