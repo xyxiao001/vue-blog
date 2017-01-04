@@ -45,7 +45,12 @@
           <div class="right">
             <div class="l-box">
               <div class="show-img">
-                  <img :src="bg" :alt="songName" class="show-img animate-img" ref="singImg" :class="{'paused': !playing}">
+                  <img
+                    :src="bg"
+                    :alt="songName"
+                    class="show-img animate-img"
+                    ref="singImg"
+                    :style="{'animation-play-state': playing === true ? 'running' : 'paused'}">
               </div>
               <div style="display: none" v-html="lyr" ref="lyr"></div>
               <div class="show-lyr" ref="showLyr"  @mouseover="inLyr" @mouseleave="outLyr">
@@ -718,11 +723,6 @@ export default {
 
             img.animate-img {
               animation: showImg 35s linear infinite;
-              animation-play-state: running;
-            }
-
-            img.paused {
-              animation-play-state: paused;
             }
           }
           @keyframes showImg {
