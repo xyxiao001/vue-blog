@@ -6,10 +6,23 @@
       <div class="f-list">
         <div
           class="f-item"
-          v-for="item in lists">
+          v-for="(item, $index) in lists">
           <a :href="item.url"   target="_blank" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
-          <span class="line"></span>
-          <div class="des">
+          <span
+            class="line line1"
+            @click="cut($index, $event)"
+            :style="{'top': 115 + item.offset + item.cut + 'px', 'opacity': -(item.cut / 100) + 0.8}"></span>
+          <span
+            class="line line2"
+            @click="cut($index, $event)"
+            :style="{'top': 115 + 'px', 'height': item.offset + 'px'}">
+          </span>
+          <div class="des"
+            :style="{
+              'transform': 'translate3d(0,'+ item.cut +'px, 0)',
+              'z-index': item.cut + 1,
+              'opacity': -(item.cut / 100) + 1
+              }">
             <p class="name">{{ item.name }}</p>
             <p>{{ item.des }}</p>
           </div>
@@ -26,48 +39,64 @@ export default {
     return {
       lists: [
         {
+          cut: 0,
+          offset: 0,
           name: '好宅',
           url: 'http://funnycoder.lofter.com',
           des: '这里是一只宅，励志成为一名有趣的Coder~',
           avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '清真',
           url: 'http://zhaoyuxiang.cn',
           des: '霸气的天道寺, 不敢见人，怕生的帅哥~',
           avatar: 'https://ooo.0o0.ooo/2016/12/20/5858bbde6e8ac.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '鱼大佬',
           url: 'https://blog.wanan.me',
           des: '听说是个死胖子~ 可是他有女朋友。',
           avatar: 'https://avatars3.githubusercontent.com/u/7876498'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '兔哥',
           url: 'http://noder.club',
           des: '一个很会玩妖姬的node大佬',
           avatar: 'https://ws3.sinaimg.cn/large/7d051389gw1fbdeilrksgj202s02st8i.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '夜喵',
           url: '',
           des: '据说是铲屎喵的女朋友，技术宅，车队的头号种子选手。',
           avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '铲屎喵',
           url: '',
           des: '据说是夜喵喵的男朋友, 叶苗苗的铲屎官',
           avatar: 'http://ofyaji162.bkt.clouddn.com/can.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '银马座_废喵',
           url: 'https://yinmazuo.github.io',
           des: '不乱于心，不困于情，不畏将来，不念过往。',
           avatar: 'http://ofyaji162.bkt.clouddn.com/yin.jpg'
         },
         {
+          cut: 0,
+          offset: 0,
           name: '油俊',
           url: 'http://www.chjsun.top',
           des: '据说也是一个胖子，但是他没女朋友',
@@ -80,6 +109,20 @@ export default {
   },
   components: {
     NavBar
+  },
+  methods: {
+    cut (index, event) {
+      // 记录从哪里剪断
+      this.lists[index].offset = event.offsetY
+      clearInterval(set)
+      var set = setInterval(() => {
+        if (this.lists[index].cut < 100) {
+          this.lists[index].cut += 1
+        } else {
+          clearInterval(set)
+        }
+      }, 60)
+    }
   }
 }
 </script>
