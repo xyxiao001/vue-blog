@@ -136,7 +136,7 @@ export default {
     var data = JSON.parse(local)
     var date = Date.parse(new Date())
     if (data) {
-      if (data.lists.length >= 20 && (date - data.date) / 3600000 <= 5 && data.start > 0) {
+      if (data.lists.length >= 20 && (date - data.date) / (24 * 3600000) <= 5 && data.start > 0) {
         this.loading = false
         this.lists = data.lists
         this.start = data.start

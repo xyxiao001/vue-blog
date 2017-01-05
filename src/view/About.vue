@@ -1,8 +1,8 @@
 <template>
   <div class="wraper">
     <NavBar></NavBar>
-    <div class="content self">
-      <div class="m-box">
+    <div class="content self"  @click="hide">
+      <div class="m-box" :style="{'opacity': opacity}">
         <div class="box-head">
           <p class="box-name"></p>
         </div>
@@ -21,9 +21,15 @@ import NavBar from '../components/Nav'
 export default {
   data () {
     return {
+      opacity: 0.9
     }
   },
   computed: {
+  },
+  methods: {
+    hide () {
+      this.opacity === 0.9 ? this.opacity = 0 : this.opacity = 0.9
+    }
   },
   components: {
     NavBar
@@ -51,14 +57,25 @@ export default {
   left: 50%;
   margin-left: -310px;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 10px;
   opacity: 0.9;
   animation: mBox 0.5s ease-out 1;
+  transition: opacity 0.5s ease;
 }
 
 @keyframes mBox {
   0% {
     opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+  }
+  25% {
+    transform: translate3d(10px, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  75% {
+    transform: translate3d(10px, 0, 0);
   }
   100% {
     opacity: 0.9;
