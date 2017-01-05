@@ -3,7 +3,9 @@
     <NavBar></NavBar>
     <div class="content">
       <Verification  @successEvent="successVer"></Verification>
-      <div class="ver" v-show="go">{{ msg }}</div>
+      <div class="ver" v-show="go">
+        <p>{{ msg }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +58,17 @@ export default {
     font-size: 18px;
     padding-top: 20px;
     border-radius: 30px;
+    opacity: 1;
+    animation: showVer 1s ease-out 1;
+  }
+
+  @keyframes showVer {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+    }
   }
 
   @media screen and (max-width: 1000px) {

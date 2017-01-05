@@ -167,6 +167,7 @@ export default {
 
   .vue-waterfall-slot img {
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   .l-show {
