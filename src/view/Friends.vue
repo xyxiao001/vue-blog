@@ -11,7 +11,11 @@
           <span
             class="line line1"
             @click="cut($index, $event)"
-            :style="{'top': 115 + item.offset + item.cut + 'px', 'opacity': -(item.cut / 100) + 0.8, 'height': 90 - item.offset + 'px'}"></span>
+            :style="{
+              'top': 115 + item.offset + 'px',
+              'opacity': -(item.cut / 100) + 0.8,
+              'transform': 'translate3d(0,'+ item.cut +'px, 0)',
+              'height': 90 - item.offset + 'px'}"></span>
           <span
             class="line line2"
             @click="cut($index, $event)"
@@ -116,13 +120,15 @@ export default {
       if (this.lists[index].cut === 0) {
         this.lists[index].offset = event.offsetY
         clearInterval(set)
+        var t = 0
         var set = setInterval(() => {
           if (this.lists[index].cut < 100) {
-            this.lists[index].cut += 1
+            t += 1
+            this.lists[index].cut += t
           } else {
             clearInterval(set)
           }
-        }, 60)
+        }, 120)
       }
     }
   }
@@ -185,6 +191,10 @@ export default {
       cursor: pointer;
     }
 
+    .line1 {
+      transition: transform 0.2s linear;
+    }
+
     .des {
       position: absolute;
       top: 198px;
@@ -198,6 +208,7 @@ export default {
       font-size: 14px;
       backface-visibility: hidden;
       z-index: 2;
+      transition: all 0.2s linear;
 
       .name {
         font-size: 16px;
