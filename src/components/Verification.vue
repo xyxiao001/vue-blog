@@ -11,8 +11,8 @@
           <div class="w-top"></div>
           <div class="w-box">
             <div class="w-show">
-              <div class="w-start" ref="wStart" :style="{'transform': 'translate3d('+ end +'px, 0, 0)'}"></div>
-              <div class="w-end" :style="{'left': success + 'px'}"></div>
+              <div class="w-start" ref="wStart" :style="{'transform': 'translate3d('+ end +'px, 0, 0)', 'top': y + 'px'}"></div>
+              <div class="w-end" :style="{'left': success + 'px', 'top': y + 'px'}"></div>
             </div>
           </div>
           <div class="w-bottom"></div>
@@ -40,6 +40,7 @@ export default {
       open: true,
       running: false,
       x: 0,
+      y: ~~(Math.random() * 50 + 10),
       success: ~~(Math.random() * 100) + 100,
       end: 0,
       go: false
@@ -69,7 +70,8 @@ export default {
       if (other >= -2 && other <= 2) {
         this.go = true
         this.open = false
-        console.log('验证通过')
+        // 执行父组件的方法
+        this.$emit('successEvent', 'success')
       } else {
         this.$refs.control.style.transitionDuration = '1s'
         this.$refs.wStart.style.transitionDuration = '1s'
@@ -82,6 +84,8 @@ export default {
       window.removeEventListener('mouseup', this.leave)
       window.removeEventListener('touchend', this.leave)
     }
+  },
+  mounted () {
   }
 }
 </script>
