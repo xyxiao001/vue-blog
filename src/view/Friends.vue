@@ -11,7 +11,7 @@
           <span
             class="line line1"
             @click="cut($index, $event)"
-            :style="{'top': 115 + item.offset + item.cut + 'px', 'opacity': -(item.cut / 100) + 0.8}"></span>
+            :style="{'top': 115 + item.offset + item.cut + 'px', 'opacity': -(item.cut / 100) + 0.8, 'height': 90 - item.offset + 'px'}"></span>
           <span
             class="line line2"
             @click="cut($index, $event)"
@@ -113,15 +113,17 @@ export default {
   methods: {
     cut (index, event) {
       // 记录从哪里剪断
-      this.lists[index].offset = event.offsetY
-      clearInterval(set)
-      var set = setInterval(() => {
-        if (this.lists[index].cut < 100) {
-          this.lists[index].cut += 1
-        } else {
-          clearInterval(set)
-        }
-      }, 60)
+      if (this.lists[index].cut === 0) {
+        this.lists[index].offset = event.offsetY
+        clearInterval(set)
+        var set = setInterval(() => {
+          if (this.lists[index].cut < 100) {
+            this.lists[index].cut += 1
+          } else {
+            clearInterval(set)
+          }
+        }, 60)
+      }
     }
   }
 }
@@ -177,7 +179,7 @@ export default {
       margin-left: -10px;
       width: 10px;
       height: 90px;
-      border-radius: 30%;
+      border-radius: 20%;
       border-right: 2px solid rgba(128, 64, 0, 0.9);
       z-index: 1;
       cursor: pointer;
