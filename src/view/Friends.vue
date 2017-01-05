@@ -10,7 +10,8 @@
           <a :href="item.url"   target="_blank" class="avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></a>
           <span
             class="line line1"
-            @click="cut($index, $event)"
+            @mouseover="cut($index, $event)"
+            @touchstart="cut($index, $event)"
             :style="{
               'top': 115 + item.offset + 'px',
               'opacity': -(item.cut / 100) + 0.8,
@@ -18,7 +19,6 @@
               'height': 90 - item.offset + 'px'}"></span>
           <span
             class="line line2"
-            @click="cut($index, $event)"
             :style="{'top': 115 + 'px', 'height': item.offset + 'px'}">
           </span>
           <div class="des"
