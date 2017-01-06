@@ -8,7 +8,7 @@
         <h3>豆瓣电影TOP250</h3>
       </div>
       <div class="m-list">
-        <div class="m-item" v-for="(item, $index) in lists" :data-id="item.id" @click="showDetail(item.id)">
+        <div class="m-item" v-for="(item, $index) in lists" :data-id="item.id" @click="showDetail(item.id, $index)">
           <img :src="item.images.large" :alt="item.images.alt" class="m-img" />
           <div class="m-top">
             <p>{{ item.title }}</p>
@@ -33,12 +33,30 @@
       </button>
       <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
     </div>
-    <div class="movie-bg" v-show="detailIn">
+    <div class="movie-bg" v-show="detailIn" ref="content">
       <div class="movie-pos" @click.self="detailIn = false">
         <div class="movie-detail">
           <div class="movie-header">
             <i class="iconfont icon-close" @click="detailIn = false"></i>
             <h4>电影详情</h4>
+          </div>
+          <div class="movie-body">
+            <div class="m-left">
+              <img :src="details.images.large">
+            </div>
+            <div class="m-right">
+              <h1 class="title">{{ details.title }} <span v-show="details.title !== details.original_title">({{ details.original_title }})<span></h1>
+              <P>别名: <span v-for="item in details.aka">{{ item }}</span></p>
+              <p>排名: <span>{{ now + 1 }}</span></p>
+              <p>上映时间: <span>{{ details.year }} 年</span></p>
+              <p>评分: <span>{{ details.rating.average }} 分</span></p>
+              <p>短评: <span>{{ details.comments_count }} 条</span><a class="btn" :href="details.alt + 'comments?status=P'" target="_blank">查看短评</a></p>
+              <p>影评: <span>{{ details.reviews_count }} 条</span><a class="btn" :href="details.alt + '/reviews'" target="_blank">查看影评</a</p>
+              <p>收藏人数: <span>{{ details.collect_count }} 人</span></p>
+              <p>看过人数: <span>{{ details.comments_count }} 人</span></p>
+              <p>想看人数: <span>{{ details.wish_count }} 人</span></p>
+              <p>打分人数: <span>{{ details.ratings_count }} 人</span></p>
+            </div>
           </div>
         </div>
       </div>
@@ -56,17 +74,36 @@ export default {
       loading: true,
       add: false,
       start: 0,
+      now: 0,
       url: 'https://api.douban.com/v2/movie/top250?start=',
       url2: 'https://api.douban.com/v2/movie/subject/',
       movies: {},
       lists: [],
       detailIn: false,
       detailId: 0,
-      details: {}
+      details: {
+        title: '',
+        original_title: '',
+        rating: {
+          average: 0
+        },
+        images: {
+          large: ''
+        },
+        aka: [],
+        comments_count: 0,
+        collect_count: 0,
+        ratings_count: 0,
+        reviews_count: 0,
+        wish_count: 0,
+        alt: '',
+        year: 0
+      }
     }
   },
   watch: {
     detailIn () {
+      this.$refs.content.scrollTop = 0
       var body = document.querySelector('body')
       if (this.detailIn) {
         body.style.top = -(document.body.scrollTop) + 'px'
@@ -119,9 +156,10 @@ export default {
         console.log('请求失败!')
       })
     },
-    showDetail (id) {
+    showDetail (id, index) {
       this.detailIn = true
       this.detailId = id
+      this.now = index
       this.detail()
     }
   },
@@ -341,7 +379,7 @@ export default {
         min-height: 800px;
         margin: auto;
         border-radius: 5px;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, 0.95);
         transition: all .3s ease-out;
 
         .movie-header {
@@ -358,6 +396,49 @@ export default {
 
           h4 {
             line-height: 40px;
+          }
+        }
+
+        .movie-body {
+          .m-left {
+            width: 30%;
+            float: left;
+            margin: 20px 2%;
+
+            img {
+              max-width: 100%;
+              display: block;
+              margin: auto;
+            }
+          }
+
+          .m-right {
+            width: 65%;
+            float: left;
+            margin-top: 20px;
+
+            .title {
+              text-align: center;
+              font-size: 20px;
+              line-height: 40px;
+              font-weight: 600;
+            }
+
+            p {
+              padding-left: 3px;
+              line-height: 30px;
+
+              span {
+                font-size: 14px;
+                padding-left: 7px;
+              }
+
+              .btn {
+                font-size: 13px;
+                margin-left: 10px;
+                padding: 1px 2px;
+              }
+            }
           }
         }
       }
@@ -425,6 +506,18 @@ export default {
 
         .movie-detail {
           width: 90%;
+
+          .movie-body {
+            .m-left {
+              margin: 10px 0;
+              width: 100%;
+            }
+
+            .m-right {
+              float: none;
+              width: 100%;
+            }
+          }
         }
       }
     }

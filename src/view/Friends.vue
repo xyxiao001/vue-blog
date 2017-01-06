@@ -182,8 +182,8 @@ export default {
       position: absolute;
       top: 115px;
       left: 50%;
-      margin-left: -10px;
-      width: 10px;
+      margin-left: -5px;
+      width: 5px;
       height: 90px;
       border-radius: 20%;
       border-right: 2px solid rgba(128, 64, 0, 0.9);
