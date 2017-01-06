@@ -422,8 +422,8 @@ export default {
           }
 
           .m-left {
-            width: 30%;
             float: left;
+            width: 30%;
             margin: 25px 2%;
 
             img {
@@ -434,8 +434,8 @@ export default {
           }
 
           .m-right {
+            display: inline-block;
             width: 65%;
-            float: left;
             margin-top: 20px;
 
             p {
