@@ -40,14 +40,19 @@
             <i class="iconfont icon-close" @click="detailIn = false"></i>
             <h4>电影详情</h4>
           </div>
-          <div class="movie-body">
+          <div class="movie-body" v-show="dLoading">
+            加载中..
+          </div>
+          <div class="movie-body"  v-show="!dLoading">
+            <h1 class="title">{{ details.title }} <span v-show="details.title !== details.original_title">({{ details.original_title }})<span></h1>
             <div class="m-left">
               <img :src="details.images.large">
             </div>
             <div class="m-right">
-              <h1 class="title">{{ details.title }} <span v-show="details.title !== details.original_title">({{ details.original_title }})<span></h1>
-              <P>别名: <span v-for="item in details.aka">{{ item }}</span></p>
+              <P>别名: <span v-for="item in details.aka">{{ item }} </span></p>
               <p>排名: <span>{{ now + 1 }}</span></p>
+              <P>导演: <span v-for="item in details.directors">{{ item.name }} </span></p>
+              <P>主演: <span v-for="item in details.casts">{{ item.name }} </span></p>
               <p>上映时间: <span>{{ details.year }} 年</span></p>
               <p>评分: <span>{{ details.rating.average }} 分</span></p>
               <p>短评: <span>{{ details.comments_count }} 条</span><a class="btn" :href="details.alt + 'comments?status=P'" target="_blank">查看短评</a></p>
@@ -56,6 +61,7 @@
               <p>看过人数: <span>{{ details.comments_count }} 人</span></p>
               <p>想看人数: <span>{{ details.wish_count }} 人</span></p>
               <p>打分人数: <span>{{ details.ratings_count }} 人</span></p>
+              <p>简介: <span>{{ details.summary }}</span></p>
             </div>
           </div>
         </div>
@@ -72,6 +78,7 @@ export default {
   data () {
     return {
       loading: true,
+      dLoading: true,
       add: false,
       start: 0,
       now: 0,
@@ -97,7 +104,11 @@ export default {
         reviews_count: 0,
         wish_count: 0,
         alt: '',
-        year: 0
+        year: 0,
+        summary: '',
+        directors: [],
+        casts: [],
+        countries: []
       }
     }
   },
@@ -152,6 +163,7 @@ export default {
     detail () {
       this.$http.jsonp(this.url2 + this.detailId).then((response) => {
         this.details = response.body
+        this.dLoading = false
       }, (response) => {
         console.log('请求失败!')
       })
@@ -159,6 +171,7 @@ export default {
     showDetail (id, index) {
       this.detailIn = true
       this.detailId = id
+      this.dLoading = true
       this.now = index
       this.detail()
     }
@@ -400,10 +413,18 @@ export default {
         }
 
         .movie-body {
+          .title {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 40px;
+            font-weight: 600;
+          }
+
           .m-left {
             width: 30%;
             float: left;
-            margin: 20px 2%;
+            margin: 25px 2%;
 
             img {
               max-width: 100%;
@@ -416,13 +437,6 @@ export default {
             width: 65%;
             float: left;
             margin-top: 20px;
-
-            .title {
-              text-align: center;
-              font-size: 20px;
-              line-height: 40px;
-              font-weight: 600;
-            }
 
             p {
               padding-left: 3px;
@@ -515,7 +529,8 @@ export default {
 
             .m-right {
               float: none;
-              width: 100%;
+              margin: auto;
+              width: 95%;
             }
           }
         }
