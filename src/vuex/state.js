@@ -16,11 +16,11 @@ const state = {
       text: '听听歌',
       icon: 'icon-music'
     },
-    // {
-    //   name: '/news',
-    //   text: '看看报',
-    //   icon: 'icon-news'
-    // },
+    {
+      name: '/news',
+      text: '看看报',
+      icon: 'icon-news'
+    },
     {
       name: '/movies',
       text: '电影排行',
