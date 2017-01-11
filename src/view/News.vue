@@ -22,7 +22,7 @@
             </a>
             <div class="article-meta">
               <p class="category">
-                <a class="article-link">{{ list.source }}</a>
+                <a class="article-link">{{ list.source }}</a><span>{{ list.pubDate }}</span>
               </p>
               <p class="date">
                 <time>{{ list.time }}</time>
