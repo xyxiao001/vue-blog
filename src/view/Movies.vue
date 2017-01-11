@@ -40,7 +40,7 @@
             <i class="iconfont icon-close" @click="detailIn = false"></i>
             <h4>电影详情</h4>
           </div>
-          <div class="movie-body" v-show="dLoading">
+          <div class="movie-body" v-show="dLoading" style="text-align: center; padding-top: 50px;">
             加载中..
           </div>
           <div class="movie-body"  v-show="!dLoading">
