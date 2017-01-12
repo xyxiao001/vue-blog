@@ -519,7 +519,7 @@ export default {
         width: 100%;
 
         .movie-detail {
-          width: 90%;
+          width: 95%;
 
           .movie-body {
             .m-left {

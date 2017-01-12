@@ -265,5 +265,14 @@ export default {
     .news-detail {
       width: 100%;
     }
+
+    .news-body {
+      width: 90%;
+
+      p:first-child {
+        font-size: 23px;
+        line-height: 35px;
+      }
+    }
   }
 </style>
