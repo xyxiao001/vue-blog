@@ -45,6 +45,18 @@
           <button class="add-more btn disabled" v-else>加载中<i class="iconfont icon-loading i-loading"></i></button>
         </div>
       </div>
+      <div class="movie-bg" v-show="detailIn" ref="content">
+        <div class="movie-pos" @click.self="detailIn = false">
+          <div class="movie-detail">
+            <div class="movie-header">
+              <i class="iconfont icon-close" @click="detailIn = false"></i>
+              <h4>新闻详情</h4>
+            </div>
+            <div class="movie-body news-body" v-html="html">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -65,13 +77,31 @@ export default {
       id: '5572a108b3cdc86cf39001cd',
       page: 1,
       allPages: 1,
-      add: false
+      add: false,
+      detailIn: false,
+      html: ''
     }
   },
   components: {
     NavBar,
     Loading,
     Top
+  },
+  watch: {
+    detailIn () {
+      this.$refs.content.scrollTop = 0
+      var body = document.querySelector('body')
+      if (this.detailIn) {
+        body.style.top = -(document.body.scrollTop) + 'px'
+        body.classList.add('model-open')
+      } else {
+        body.classList.remove('model-open')
+        var top = body.style.top
+        top = top.replace('px', '')
+        document.body.scrollTop = -top
+        body.style.top = 0
+      }
+    }
   },
   methods: {
     getNewName () {
@@ -124,7 +154,8 @@ export default {
       this.getNewList()
     },
     showNews (index) {
-      console.log(index)
+      this.html = this.dLists[index].html
+      this.detailIn = true
     }
   },
   mounted () {
@@ -194,6 +225,28 @@ export default {
       width: 100%;
       display: block;
       margin: auto;
+    }
+  }
+
+  .news-body {
+    width: 80%;
+    margin: auto;
+
+    p {
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    p:first-child {
+      font-size: 23px;
+      line-height: 60px;
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      max-width: 100%;
     }
   }
 
