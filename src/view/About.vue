@@ -1,7 +1,7 @@
 <template>
   <div class="wraper">
     <NavBar></NavBar>
-    <div class="content self"  @click="hide">
+    <div class="content self"  @click.self="hide">
       <div class="m-box" :style="{'opacity': opacity}">
         <div class="box-head">
           <p class="box-name"></p>
