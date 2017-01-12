@@ -230,6 +230,7 @@ export default {
 
   .news-body {
     width: 80%;
+    padding: 10px;
     margin: auto;
 
     p {
