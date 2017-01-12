@@ -186,6 +186,7 @@ export default {
 
       a.photo span {
         background-image: url('http://ojdfj29yl.bkt.clouddn.com/news.jpg');
+        background-size: cover;
       }
     }
 
