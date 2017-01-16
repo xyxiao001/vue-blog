@@ -214,6 +214,12 @@ export default {
     margin-top: 2%;
     .d-item {
       cursor: pointer;
+      border-radius: 10px;
+      padding: 0;
+
+      .article {
+        padding: 2%;
+      }
 
       a.photo span {
         background-image: url('http://ojdfj29yl.bkt.clouddn.com/news.jpg');
@@ -251,7 +257,20 @@ export default {
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1400px) {
+    .news-detail .d-item {
+      width: 47%;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .n-news {
+      width: auto;
+      padding-right: 2px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
     .n-news {
       position: relative;
       float: left;
@@ -273,6 +292,12 @@ export default {
         font-size: 23px;
         line-height: 35px;
       }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .news-detail .d-item {
+      width: 97%;
     }
   }
 </style>
