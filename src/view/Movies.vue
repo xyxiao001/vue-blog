@@ -372,6 +372,7 @@ export default {
     top: 0;
     left: 250px;
     width: 100%;
+    padding-right: 2%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     overflow-x: hidden;
