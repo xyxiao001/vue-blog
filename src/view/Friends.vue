@@ -22,6 +22,7 @@
             :style="{'top': 115 + 'px', 'height': item.offset + 'px'}">
           </span>
           <div class="des"
+            :class="{'hide': item.cut + 1 === 106}"
             :style="{
               'transform': 'translate3d(0,'+ item.cut +'px, 0)',
               'z-index': item.cut + 1,
@@ -136,6 +137,9 @@ export default {
 </script>
 
 <style lang="scss">
+.hide {
+  display: none!important;
+}
 .friends {
   min-height: 1000px;
   background-image: url('http://ofyaji162.bkt.clouddn.com/bg1.jpg');
