@@ -37,6 +37,11 @@ const state = {
       icon: 'icon-photo'
     },
     {
+      name: '/biao',
+      text: '表情包',
+      icon: 'icon-biaoqing'
+    },
+    {
       name: '/friends',
       text: '朋友们',
       icon: 'icon-wodedangan'

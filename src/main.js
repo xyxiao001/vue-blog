@@ -20,6 +20,7 @@ import News from './view/News'
 import Movies from './view/Movies'
 import Friends from './view/Friends'
 import NotFound from './view/404'
+import Biao from './view/Biao'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -46,6 +47,7 @@ const router = new VueRouter({
     { path: '/news', component: News },
     { path: '/movies', component: Movies },
     { path: '/friends', component: Friends },
+    { path: '/biao', component: Biao },
     { path: '*', component: NotFound }
   ]
 })
