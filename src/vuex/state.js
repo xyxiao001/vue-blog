@@ -36,11 +36,11 @@ const state = {
       text: '风景',
       icon: 'icon-photo'
     },
-    {
-      name: '/biao',
-      text: '表情包',
-      icon: 'icon-biaoqing'
-    },
+    // {
+    //   name: '/biao',
+    //   text: '表情包',
+    //   icon: 'icon-biaoqing'
+    // },
     {
       name: '/friends',
       text: '朋友们',

@@ -2,9 +2,10 @@
   <div class="wraper">
     <NavBar></NavBar>
     <div class="content">
-      <Verification  @successEvent="successVer"></Verification>
-      <div class="ver" v-show="go">
-        <p>{{ msg }}</p>
+      <Verification @successEvent="successVer" v-show="!go"></Verification>
+      <div class="video" v-if="go === true">
+        <p>视频播放器测试</p>
+        <Xvideo></Xvideo>
       </div>
     </div>
   </div>
@@ -13,25 +14,24 @@
 <script>
 import NavBar from '../components/Nav'
 import Verification from '../components/Verification'
+import Xvideo from '../components/Xvideo'
 export default {
   data () {
     return {
-      go: false,
-      msg: '还没通过验证, 隐藏了没用',
-      smsg: '恭喜通过图片验证码， 正在全速加载视频播放器...'
+      go: true
     }
   },
   computed: {
   },
   components: {
     NavBar,
-    Verification
+    Verification,
+    Xvideo
   },
   methods: {
     successVer (data) {
       if (data === 'success') {
         this.go = true
-        this.msg = this.smsg
       }
     }
   },
@@ -60,6 +60,16 @@ export default {
     border-radius: 30px;
     opacity: 1;
     animation: showVer 1s ease-out 1;
+  }
+
+  .video {
+    padding-top: 50px;
+    width: 80%;
+    margin: auto;
+
+    p {
+      line-height: 40px;
+    }
   }
 
   @keyframes showVer {
