@@ -8,6 +8,8 @@
         :src="video"
         ref="video"
         :preload="cache === 'true' ? 'auto' : 'metadata'"
+        @loadedmetadata="loadedmetadata"
+        @seeked="seeked"
         :poster="img">
       </video>
     </div>
@@ -43,7 +45,7 @@ export default {
       nowTime: 0,
       allTime: 0,
       name: '那年那兔那些事儿 第一季 第一集',
-      cache: false,
+      cache: true,
       img: '',
       loadLength: 1,
       set: '',
@@ -57,6 +59,11 @@ export default {
       return this.two(this.nowTime) + ' / ' + this.two(this.allTime)
     }
   },
+  watch: {
+    play () {
+      this.play ? (this.$refs.video.play(), this.start()) : (this.$refs.video.pause(), this.pause())
+    }
+  },
   methods: {
     two (data) {
       var m = ~~(data / 60)
@@ -68,13 +75,9 @@ export default {
     playVideo () {
       if (this.play) {
         this.play = false
-        this.$refs.video.pause()
-        this.pause()
       } else {
         this.play = true
-        this.$refs.video.play()
         // 开始计时
-        this.start()
       }
     },
     start () {
@@ -85,6 +88,19 @@ export default {
     },
     pause () {
       clearInterval(this.set)
+    },
+    // 袁素菊加载完毕! 包含总时间
+    loadedmetadata () {
+      if (this.$refs.video) {
+        this.nowTime = this.$refs.video.currentTime
+        this.allTime = this.$refs.video.duration
+      }
+    },
+    // 跳转
+    seeked () {
+      if (this.play === false) {
+        this.play = true
+      }
     },
     goTime (event) {
       this.showTime = true
@@ -192,7 +208,7 @@ export default {
         top: 18px;
         border-radius: 10px;
         background-color: #e7e7e7;
-        transition: all 0.1s linear;
+        transition: all 0.05s linear;
       }
 
       .line-bg {
@@ -220,7 +236,7 @@ export default {
         border-radius: 10px;
         border: 1px solid #8adceb;
         z-index: 4;
-        transition: all 0.1s linear;
+        transition: all 0.05s linear;
         cursor: pointer;
       }
     }
