@@ -12,16 +12,21 @@
       </video>
     </div>
     <!-- 弹幕层 -->
-    <div class="danmu"></div>
+    <div class="danmu" @click="playVideo"></div>
     <div class="c-video">
       <div class="play">
         <i class="iconfont" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
       </div>
-      <div class="line">
+      <div class="line"
+        @mousemove="goTime($event)"
+        @mouseleave="leaveTime"
+        @click="jump()"
+        ref="bar">
+        <span class="go-time" v-show="showTime" :style="{'left': (goNowTime / allTime) * 100 + '%'}">{{ this.two(this.goNowTime) }}</span>
         <span class="line-to line-bg"></span>
         <span class="line-to line-load" :style="{'width': (loadLength / 1) * 100 + '%'}"></span>
         <span class="line-to line-now" :style="{'width': (nowTime / allTime) * 100 + '%'}"></span>
-        <span class="line-point" :style="{'left': (nowTime / allTime) * 100 + '%'}"></span>
+        <i class="line-point" :style="{'left': (nowTime / allTime) * 100 + '%'}"></i>
       </div>
       <div class="show-time">
         <p>{{ reslutTime }}</p>
@@ -40,25 +45,26 @@ export default {
       name: '那年那兔那些事儿 第一季 第一集',
       cache: false,
       img: '',
-      loadLength: 0,
-      ser: '',
+      loadLength: 1,
+      set: '',
+      showTime: false,
+      goNowTime: 0,
       video: 'http://cn-zjcz1-dx.acgvideo.com/vg1/8/51/3216790-1.mp4?expires=1484821500&ssig=fov5nc7Ouejo_UwR9DP0PA&oi=3078726935&nfa=BaDS8BUFZDb8iKo4Vfwarw==&dynamic=1'
     }
   },
   computed: {
     reslutTime () {
-      // 生成时间展示
-      var two = (data) => {
-        var m = ~~(data / 60)
-        var s = ~~(data % 60)
-        m = m > 9 ? m : '0' + m
-        s = s > 9 ? s : '0' + s
-        return m + ':' + s
-      }
-      return two(this.nowTime) + ' / ' + two(this.allTime)
+      return this.two(this.nowTime) + ' / ' + this.two(this.allTime)
     }
   },
   methods: {
+    two (data) {
+      var m = ~~(data / 60)
+      var s = ~~(data % 60)
+      m = m > 9 ? m : '0' + m
+      s = s > 9 ? s : '0' + s
+      return m + ':' + s
+    },
     playVideo () {
       if (this.play) {
         this.play = false
@@ -75,22 +81,33 @@ export default {
       this.set = setInterval(() => {
         this.nowTime = this.$refs.video.currentTime
         this.allTime = this.$refs.video.duration
-        this.loadLength = this.$refs.video.buffered.length
       }, 100)
     },
     pause () {
       clearInterval(this.set)
+    },
+    goTime (event) {
+      this.showTime = true
+      var go = 0
+      var all = window.getComputedStyle(this.$refs.bar).width
+      all = all.replace('px', '')
+      if (event.target.nodeName !== 'I') {
+        go = event.offsetX
+      } else {
+        go = event.offsetX + (this.nowTime / this.allTime) * all
+      }
+      var time = ((go / all) * this.allTime).toFixed(3)
+      this.goNowTime = time
+    },
+    leaveTime () {
+      this.showTime = false
+    },
+    jump () {
+      this.$refs.video.currentTime = this.goNowTime
+      this.nowTime = this.$refs.video.currentTime
     }
   },
   mounted () {
-    // 显示加载进度
-    var l = setInterval(() => {
-      if (this.loadLength < 1) {
-        this.loadLength = this.$refs.video.buffered.length
-      } else {
-        clearInterval(l)
-      }
-    }, 100)
   }
 }
 </script>
@@ -104,7 +121,7 @@ export default {
     width: 100%;
     text-align: center;
     background-color: #353535;
-    color: white;
+    color: #e5e9ef;
     vertical-align: middle;
   }
   .t-video {
@@ -155,6 +172,18 @@ export default {
       height: 100%;
       width: 60%;
       cursor: pointer;
+      user-select: none;
+
+      .go-time {
+        position: absolute;
+        top: -26px;
+        background-color: #a3a3a3;
+        padding: 2px 4px;
+        border-radius: 5px;
+        font-size: 14px;
+        z-index: 5;
+        margin-left: -15px;
+      }
 
       .line-to {
         position: absolute;
