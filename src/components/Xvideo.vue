@@ -17,7 +17,7 @@
 export default {
   data () {
     return {
-      name: '那些年那些事 第一集',
+      name: '那年那兔那些事儿 第一季 第一集',
       video: 'http://cn-zjcz1-dx.acgvideo.com/vg1/8/51/3216790-1.mp4?expires=1484740800&ssig=iSRFPrGyy-6gLrD65PI0XQ&oi=3078726935&nfa=BaDS8BUFZDb8iKo4Vfwarw==&dynamic=1'
     }
   }
