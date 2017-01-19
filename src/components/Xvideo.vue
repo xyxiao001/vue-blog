@@ -44,14 +44,14 @@ export default {
       play: false,
       nowTime: 0,
       allTime: 0,
-      name: '那年那兔那些事儿 第一季 第一集',
+      name: '若能绽放',
       cache: true,
       img: '',
       loadLength: 1,
       set: '',
       showTime: false,
       goNowTime: 0,
-      video: 'http://cn-zjcz1-dx.acgvideo.com/vg1/8/51/3216790-1.mp4?expires=1484821500&ssig=fov5nc7Ouejo_UwR9DP0PA&oi=3078726935&nfa=BaDS8BUFZDb8iKo4Vfwarw==&dynamic=1'
+      video: 'http://devtest.qiniudn.com/%E8%8B%A5%E8%83%BD%E7%BB%BD%E6%94%BE%E5%85%89%E8%8A%92.mp4'
     }
   },
   computed: {
