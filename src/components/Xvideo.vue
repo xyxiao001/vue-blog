@@ -3,7 +3,7 @@
     <div class="x-title">
       <p>{{ name }}</p>
     </div>
-    <div class="t-video">
+    <div class="t-video" :class="{'mid-video': midScreen, 'max-video': maxScreen}">
       <video
         :src="video"
         ref="video"
@@ -18,7 +18,7 @@
     <!-- 弹幕层 -->
     <div class="danmu" @click="playVideo"></div>
     <div class="c-video">
-      <div class="play">
+      <div class="play c-item" :data-msg="playMsg">
         <i class="iconfont" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
       </div>
       <div class="line"
@@ -35,8 +35,20 @@
       <div class="show-time">
         <p>{{ reslutTime }}</p>
       </div>
-      <div class="v-volume">
+      <div class="v-volume c-item">
         <i class="iconfont" :class="volumeIcon"></i>
+      </div>
+      <div class="v-definition c-item">
+        {{ definition }}
+      </div>
+      <div class="c-dan c-item" @click="changeBarrage" :data-msg="danMsg">
+        <i class="iconfont" :class="{'icon-open-dan': barrage, 'icon-close-dan': !barrage}"></i>
+      </div>
+      <div class="m-screen c-item" :data-msg="midScreenMsg" @click="midScreen = !midScreen">
+        <i class="iconfont icon-mid-screen"></i>
+      </div>
+      <div class="f-screen c-item" :data-msg="maxScreenMsg" @click="maxScreen = !maxScreen">
+        <i class="iconfont icon-max-screen"></i>
       </div>
     </div>
   </div>
@@ -51,7 +63,16 @@ export default {
       allTime: 0,
       buffer: true,
       name: '若能绽放',
+      definition: '超清',
+      // 弹幕
+      barrage: false,
+      // 网页全屏
+      midScreen: false,
+      // 全屏
+      maxScreen: false,
+      // 是否打开页面自动缓存
       cache: true,
+      // 音量
       volume: 50,
       img: '',
       loadLength: 0,
@@ -75,6 +96,18 @@ export default {
       } else {
         return 'icon-v-v0'
       }
+    },
+    playMsg () {
+      return this.play ? '暂停' : '播放'
+    },
+    danMsg () {
+      return this.barrage ? '关闭弹幕' : '打开弹幕'
+    },
+    midScreenMsg () {
+      return this.midScreen ? '小屏模式' : '宽屏模式'
+    },
+    maxScreenMsg () {
+      return this.maxScreen ? '退出全屏' : '全屏'
     }
   },
   watch: {
@@ -101,9 +134,6 @@ export default {
       }
       if (this.loadLength < 1) {
         this.buffered()
-      }
-      if (this.buffered < this.nowTime / this.allTime) {
-        this.buffered = Math.random(this.nowTime / this.allTime)
       }
     },
     // 开始播放
@@ -173,6 +203,14 @@ export default {
           }
         }, 1000)
       }
+    },
+    // 弹幕开关
+    changeBarrage () {
+      if (this.barrage) {
+        this.barrage = false
+      } else {
+        this.barrage = true
+      }
     }
   },
   mounted () {
@@ -188,6 +226,7 @@ export default {
   .x-video {
     position: relative;
     width: 800px;
+    overflow: hidden;
   }
   .x-title {
     width: 100%;
@@ -209,7 +248,7 @@ export default {
 
     .max-pause {
       position: absolute;
-      bottom: 80px;
+      bottom: 100px;
       right: 50px;
       font-size: 50px;
       height: 60px;
@@ -238,15 +277,20 @@ export default {
     height: 40px;
     border: 1px solid #e5e9ef;
     user-select: none;
+    color: #6d757a;
     .play {
       float: left;
       height: 100%;
+      color: #99a2aa;
       i {
-        color: #99a2aa;
         font-size: 28px;
         line-height: 40px;
         padding: 5px;
         cursor: pointer;
+      }
+
+      &:before {
+        left: -10px!important;
       }
 
       &:hover {
@@ -325,28 +369,75 @@ export default {
       color: #99a2aa;
     }
 
-    .v-volume {
+    .c-item {
+      position: relative;
       float: left;
-      padding: 0 10px;
-      width: 15px;
+      padding: 0 7px;
+      font-size: 13px;
       line-height: 40px;
-      color: #99a2aa;
       cursor: pointer;
 
       i {
         font-size: 20px;
       }
+
+      &:before {
+        display: none;
+        position: absolute;
+        top: -33px;
+        left: -20px;
+        width: 60px;
+        padding: 0 6px;
+        line-height: 30px;
+        text-align: center;
+        color: #d9d9d9;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.8);
+        content: attr(data-msg);
+        animation: fadeIn 0.2s ease-out 1;
+      }
+
       &:hover {
         background-color: #e5e9ef;
+        &:before {
+          display: block;
+        }
+      }
+    }
+
+    .v-volume {
+      i:before {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
+    }
+    .c-dan {
+      i {
+        font-size: 22px;
+      }
+    }
+
+    .f-screen {
+      &:before {
+        left: -30px;
       }
     }
   }
 
   .fade-in {
-    animation: fadeIn 0.3s ease-out 1;
+    animation: scaleIn 0.3s ease-out 1;
   }
 
   @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
     0% {
       opacity: 0;
       transform: scale3d(2, 2, 2);
