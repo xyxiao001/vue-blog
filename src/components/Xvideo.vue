@@ -83,6 +83,7 @@ export default {
     }
   },
   methods: {
+    // 转化为两位的函数
     two (data) {
       var m = ~~(data / 60)
       var s = ~~(data % 60)
@@ -90,6 +91,7 @@ export default {
       s = s > 9 ? s : '0' + s
       return m + ':' + s
     },
+    // 视频点击事件
     playVideo () {
       if (this.play) {
         this.play = false
@@ -104,12 +106,14 @@ export default {
         this.buffered = Math.random(this.nowTime / this.allTime)
       }
     },
+    // 开始播放
     start () {
       this.set = setInterval(() => {
         this.nowTime = this.$refs.video.currentTime
         this.allTime = this.$refs.video.duration
       }, 100)
     },
+    // 暂停
     pause () {
       clearInterval(this.set)
     },
@@ -120,7 +124,7 @@ export default {
         this.allTime = this.$refs.video.duration
       }
     },
-    // 跳转
+    // 跳转完成执行
     seeked () {
       if (this.play === false) {
         this.play = true
@@ -139,17 +143,20 @@ export default {
       var time = ((go / all) * this.allTime).toFixed(3)
       this.goNowTime = time
     },
+    // 移出控制台执行的
     leaveTime () {
       this.showTime = false
     },
+    // 跳转时应该进行的
     jump () {
       this.$refs.video.currentTime = this.goNowTime
       this.nowTime = this.$refs.video.currentTime
     },
     // 跳跃等待函数
     waiting () {
-      // 显示加载中
+    // 显示加载中
     },
+    // 读取加载进度
     buffered () {
       var setting = ''
       clearInterval(setting)
@@ -323,9 +330,12 @@ export default {
       padding: 0 10px;
       width: 15px;
       line-height: 40px;
-      font-size: 20px;
       color: #99a2aa;
       cursor: pointer;
+
+      i {
+        font-size: 20px;
+      }
       &:hover {
         background-color: #e5e9ef;
       }
