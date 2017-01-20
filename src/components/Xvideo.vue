@@ -10,8 +10,10 @@
         :preload="cache === 'true' ? 'auto' : 'metadata'"
         @loadedmetadata="loadedmetadata"
         @seeked="seeked"
+        @waiting="waiting"
         :poster="img">
       </video>
+      <i v-show="!play" class="iconfont max-pause fade-in" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
     </div>
     <!-- 弹幕层 -->
     <div class="danmu" @click="playVideo"></div>
@@ -33,6 +35,9 @@
       <div class="show-time">
         <p>{{ reslutTime }}</p>
       </div>
+      <div class="v-volume">
+        <i class="iconfont" :class="volumeIcon"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -44,10 +49,12 @@ export default {
       play: false,
       nowTime: 0,
       allTime: 0,
+      buffer: true,
       name: '若能绽放',
       cache: true,
+      volume: 50,
       img: '',
-      loadLength: 1,
+      loadLength: 0,
       set: '',
       showTime: false,
       goNowTime: 0,
@@ -57,6 +64,17 @@ export default {
   computed: {
     reslutTime () {
       return this.two(this.nowTime) + ' / ' + this.two(this.allTime)
+    },
+    volumeIcon () {
+      if (this.volume === 100) {
+        return 'icon-v-v3'
+      } else if (this.volume >= 50) {
+        return 'icon-v-v2'
+      } else if (this.volume > 0) {
+        return 'icon-v-v1'
+      } else {
+        return 'icon-v-v0'
+      }
     }
   },
   watch: {
@@ -78,6 +96,12 @@ export default {
       } else {
         this.play = true
         // 开始计时
+      }
+      if (this.loadLength < 1) {
+        this.buffered()
+      }
+      if (this.buffered < this.nowTime / this.allTime) {
+        this.buffered = Math.random(this.nowTime / this.allTime)
       }
     },
     start () {
@@ -121,9 +145,34 @@ export default {
     jump () {
       this.$refs.video.currentTime = this.goNowTime
       this.nowTime = this.$refs.video.currentTime
+    },
+    // 跳跃等待函数
+    waiting () {
+      // 显示加载中
+    },
+    buffered () {
+      var setting = ''
+      clearInterval(setting)
+      var buffer = this.$refs.video.buffered
+      if (buffer.length >= 1) {
+        setting = setInterval(() => {
+          buffer = this.$refs.video.buffered
+          if (buffer.end(buffer.length - 1) < this.allTime) {
+            this.loadLength = (buffer.end(buffer.length - 1) / this.allTime)
+          } else {
+            this.loadLength = 1
+            clearInterval(setting)
+            this.buffer = true
+          }
+        }, 1000)
+      }
     }
   },
   mounted () {
+    // 加载缓冲进度
+    if (this.cache) {
+      this.buffered()
+    }
   }
 }
 </script>
@@ -144,10 +193,29 @@ export default {
     width: 100%;
     height: 460px;
     background-color: black;
+    padding: 20px 0px;
     video {
       margin: 0;
       padding: 20px 2%;
       width: 96%;
+    }
+
+    .max-pause {
+      position: absolute;
+      bottom: 80px;
+      right: 50px;
+      font-size: 50px;
+      height: 60px;
+      width: 60px;
+      color: #99a2aa;
+      border: 1px solid #99a2aa;
+      border-radius: 100%;
+
+      &:before {
+        position: absolute;
+        padding-top: 8px;
+        padding-left: 8px;
+      }
     }
   }
 
@@ -155,13 +223,14 @@ export default {
     position: absolute;
     top: 40px;
     width: 100%;
-    height: 460px;
+    height: 500px;
     z-index: 2px;
   }
 
   .c-video {
     height: 40px;
     border: 1px solid #e5e9ef;
+    user-select: none;
     .play {
       float: left;
       height: 100%;
@@ -247,6 +316,34 @@ export default {
       padding-left: 8px;
       line-height: 40px;
       color: #99a2aa;
+    }
+
+    .v-volume {
+      float: left;
+      padding: 0 10px;
+      width: 15px;
+      line-height: 40px;
+      font-size: 20px;
+      color: #99a2aa;
+      cursor: pointer;
+      &:hover {
+        background-color: #e5e9ef;
+      }
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease-out 1;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale3d(2, 2, 2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale3d(1, 1, 1);
     }
   }
 </style>
