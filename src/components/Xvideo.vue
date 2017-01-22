@@ -9,14 +9,20 @@
         ref="video"
         :preload="cache === 'true' ? 'auto' : 'metadata'"
         @loadedmetadata="loadedmetadata"
+        @canplay= "canplay"
         @seeked="seeked"
         @waiting="waiting"
         :poster="img">
       </video>
       <i v-show="!play" class="iconfont max-pause fade-in" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
+      <!-- 弹幕层 -->
+      <div class="danmu" @click="playVideo"></div>
+      <!-- 加载动画 -->
+      <div class="x-loading" v-show="watting">
+        <i class="iconfont icon-v-loading"></i>
+        <p>加载中..</p>
+      </div>
     </div>
-    <!-- 弹幕层 -->
-    <div class="danmu" @click="playVideo"></div>
     <div class="c-video">
       <div class="play c-item" :data-msg="playMsg">
         <i class="iconfont" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
@@ -74,6 +80,8 @@ export default {
       cache: true,
       // 音量
       volume: 50,
+      // 等待动画
+      watting: true,
       img: '',
       loadLength: 0,
       set: '',
@@ -147,18 +155,23 @@ export default {
     pause () {
       clearInterval(this.set)
     },
-    // 袁素菊加载完毕! 包含总时间
+    // 元数据加载完毕! 包含总时间
     loadedmetadata () {
       if (this.$refs.video) {
         this.nowTime = this.$refs.video.currentTime
         this.allTime = this.$refs.video.duration
       }
     },
+    // 能够播放
+    canplay () {
+      this.watting = false
+    },
     // 跳转完成执行
     seeked () {
       if (this.play === false) {
         this.play = true
       }
+      this.watting = false
     },
     goTime (event) {
       this.showTime = true
@@ -183,8 +196,9 @@ export default {
       this.nowTime = this.$refs.video.currentTime
     },
     // 跳跃等待函数
-    waiting () {
     // 显示加载中
+    waiting () {
+      this.watting = true
     },
     // 读取加载进度
     buffered () {
@@ -236,6 +250,7 @@ export default {
     vertical-align: middle;
   }
   .t-video {
+    position: relative;
     width: 100%;
     height: 460px;
     background-color: black;
@@ -248,9 +263,9 @@ export default {
 
     .max-pause {
       position: absolute;
-      bottom: 100px;
+      bottom: 50px;
       right: 50px;
-      font-size: 50px;
+      font-size: 45px;
       height: 60px;
       width: 60px;
       color: #99a2aa;
@@ -259,18 +274,53 @@ export default {
 
       &:before {
         position: absolute;
-        padding-top: 8px;
-        padding-left: 8px;
+        padding-top: 7px;
+        padding-left: 12px;
       }
     }
   }
 
   .danmu {
     position: absolute;
-    top: 40px;
+    top: 0;
     width: 100%;
-    height: 500px;
-    z-index: 2px;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .x-loading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 10;
+
+    p {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      color: #99a2aa;
+      top: 50%;
+    }
+
+    i {
+      position: absolute;
+      font-size: 60px;
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -100px;
+      color: #99a2aa;
+      animation: turn 1s linear infinite;
+        &:before {
+          position: absolute;
+          top: 17.5px;
+          padding-left: 19.5px;
+        }
+    }
   }
 
   .c-video {
@@ -319,6 +369,7 @@ export default {
         font-size: 14px;
         z-index: 5;
         margin-left: -15px;
+        color: white;
       }
 
       .line-to {
@@ -366,7 +417,6 @@ export default {
       font-size: 14px;
       padding-left: 8px;
       line-height: 40px;
-      color: #99a2aa;
     }
 
     .c-item {
@@ -445,6 +495,15 @@ export default {
     100% {
       opacity: 1;
       transform: scale3d(1, 1, 1);
+    }
+  }
+
+  @keyframes turn {
+    0% {
+      transform: rotate3d(0, 0, 0, 180deg);
+    }
+    100% {
+      transform: rotate3d(0, 0,  4, 180deg);
     }
   }
 </style>
