@@ -445,10 +445,10 @@ export default {
 
         .line-point {
           position: absolute;
-          top: 13px;
-          margin-left: -5px;
-          width: 14px;
-          height: 14px;
+          top: 14px;
+          margin-left: -10px;
+          width: 12px;
+          height: 12px;
           background-color: white;
           border-radius: 10px;
           border: 1px solid #8adceb;
