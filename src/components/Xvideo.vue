@@ -41,20 +41,22 @@
       <div class="show-time">
         <p>{{ reslutTime }}</p>
       </div>
-      <div class="v-volume c-item">
-        <i class="iconfont" :class="volumeIcon"></i>
-      </div>
-      <div class="v-definition c-item">
-        {{ definition }}
-      </div>
-      <div class="c-dan c-item" @click="changeBarrage" :data-msg="danMsg">
-        <i class="iconfont" :class="{'icon-open-dan': barrage, 'icon-close-dan': !barrage}"></i>
-      </div>
-      <div class="m-screen c-item" :data-msg="midScreenMsg" @click="midScreen = !midScreen">
-        <i class="iconfont icon-mid-screen"></i>
-      </div>
-      <div class="f-screen c-item" :data-msg="maxScreenMsg" @click="toMax">
-        <i class="iconfont icon-max-screen"></i>
+      <div class="right-c">
+        <div class="v-volume c-item">
+          <i class="iconfont" :class="volumeIcon"></i>
+        </div>
+        <div class="v-definition c-item">
+          {{ definition }}
+        </div>
+        <div class="c-dan c-item" @click="changeBarrage" :data-msg="danMsg">
+          <i class="iconfont" :class="{'icon-open-dan': barrage, 'icon-close-dan': !barrage}"></i>
+        </div>
+        <div class="m-screen c-item" :data-msg="midScreenMsg" @click="midScreen = !midScreen">
+          <i class="iconfont icon-mid-screen"></i>
+        </div>
+        <div class="f-screen c-item" :data-msg="maxScreenMsg" @click="toMax">
+          <i class="iconfont icon-max-screen"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -286,7 +288,7 @@ export default {
 <style lang="scss">
   .x-video {
     position: relative;
-    width: 800px;
+    width: 100%;
     overflow: hidden;
 
     .x-title {
@@ -400,7 +402,7 @@ export default {
         position: relative;
         float: left;
         height: 100%;
-        width: 59%;
+        width: 60%;
         cursor: pointer;
         user-select: none;
 
@@ -463,6 +465,15 @@ export default {
         padding-left: 8px;
         line-height: 40px;
         text-align: center;
+      }
+
+      .right-c {
+        float: right;
+        width: 24%;
+
+        .c-item {
+          width: 20%;
+        }
       }
 
       .c-item {
@@ -566,6 +577,10 @@ export default {
         width: 6%;
       }
 
+      .right-c {
+        width: 10%;
+      }
+
       .c-item {
         width: 2%;
       }
@@ -605,6 +620,19 @@ export default {
     }
   }
 
+  @media screen and (max-width: 1200px) {
+    .x-video {
+      .c-video {
+        .line {
+          width: 56%;
+        }
+        .show-time {
+          width: auto;
+        }
+      }
+    }
+  }
+
   @media screen and (max-width: 1400px) {
     .mid-video {
       .c-video {
@@ -614,6 +642,10 @@ export default {
 
         .show-time {
           width: 9%;
+        }
+
+        .right-c {
+          width: 15%;
         }
 
         .c-item {

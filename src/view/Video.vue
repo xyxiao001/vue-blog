@@ -64,7 +64,7 @@ export default {
 
   .video {
     padding-top: 50px;
-    width: 80%;
+    width: 800px;
     margin: auto;
 
     p {
@@ -81,12 +81,9 @@ export default {
     }
   }
 
-  @media screen and (max-width: 1000px) {
-    .ver {
-      text-align: left;
-      width: 320px;
-      height: 250px;
-      margin-top: -100px;
+  @media screen and (max-width: 1100px) {
+    .video {
+      width: 95%;
     }
   }
 </style>
