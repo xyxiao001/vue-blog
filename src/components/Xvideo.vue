@@ -212,9 +212,7 @@ export default {
     },
     // 取消全屏事件
     cancel (e) {
-      if (e.code === 'Escape' && this.maxScreen) {
-        this.maxScreen = false
-      }
+      this.maxScreen = false
     },
       // 移出控制台执行的
     leaveTime () {
@@ -248,6 +246,22 @@ export default {
         }, 1000)
       }
     },
+    // 键盘事件
+    keyboard (e) {
+      switch (e.code) {
+        case 'Escape':
+          if (this.maxScreen) {
+            this.cancel()
+          }
+          break
+        case 'Space':
+          this.playVideo()
+          break
+        default:
+          console.log(e.code)
+          break
+      }
+    },
     // 弹幕开关
     changeBarrage () {
       if (this.barrage) {
@@ -264,7 +278,7 @@ export default {
     }
 
     // 监听esc
-    window.addEventListener('keyup', this.cancel)
+    window.addEventListener('keyup', this.keyboard)
   }
 }
 </script>
