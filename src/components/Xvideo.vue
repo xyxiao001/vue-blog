@@ -1,9 +1,9 @@
 <template>
-  <div class="x-video">
+  <div class="x-video" :class="{'mid-video': midScreen, 'max-video mid-video': maxScreen}" ref="xVideo">
     <div class="x-title">
       <p>{{ name }}</p>
     </div>
-    <div class="t-video" :class="{'mid-video': midScreen, 'max-video': maxScreen}">
+    <div class="t-video">
       <video
         :src="video"
         ref="video"
@@ -53,7 +53,7 @@
       <div class="m-screen c-item" :data-msg="midScreenMsg" @click="midScreen = !midScreen">
         <i class="iconfont icon-mid-screen"></i>
       </div>
-      <div class="f-screen c-item" :data-msg="maxScreenMsg" @click="maxScreen = !maxScreen">
+      <div class="f-screen c-item" :data-msg="maxScreenMsg" @click="toMax">
         <i class="iconfont icon-max-screen"></i>
       </div>
     </div>
@@ -185,7 +185,38 @@ export default {
       var time = ((go / all) * this.allTime).toFixed(3)
       this.goNowTime = time
     },
-    // 移出控制台执行的
+    // 全屏
+    toMax () {
+      var elem = this.$refs.xVideo
+      if (!this.maxScreen) {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen()
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen()
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen()
+        }
+      } else {
+        // 取消全屏
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        }
+      }
+      this.maxScreen = !this.maxScreen
+    },
+    // 取消全屏事件
+    cancel (e) {
+      if (e.code === 'Escape' && this.maxScreen) {
+        this.maxScreen = false
+      }
+    },
+      // 移出控制台执行的
     leaveTime () {
       this.showTime = false
     },
@@ -231,6 +262,9 @@ export default {
     if (this.cache) {
       this.buffered()
     }
+
+    // 监听esc
+    window.addEventListener('keyup', this.cancel)
   }
 }
 </script>
@@ -240,235 +274,286 @@ export default {
     position: relative;
     width: 800px;
     overflow: hidden;
-  }
-  .x-title {
-    width: 100%;
-    text-align: center;
-    background-color: #353535;
-    color: #e5e9ef;
-    vertical-align: middle;
-  }
-  .t-video {
-    position: relative;
-    width: 100%;
-    height: 460px;
-    background-color: black;
-    padding: 20px 0px;
-    video {
-      margin: 0;
-      padding: 20px 2%;
-      width: 96%;
-    }
 
-    .max-pause {
-      position: absolute;
-      bottom: 50px;
-      right: 50px;
-      font-size: 45px;
-      height: 60px;
-      width: 60px;
-      color: #99a2aa;
-      border: 1px solid #99a2aa;
-      border-radius: 100%;
-
-      &:before {
-        position: absolute;
-        padding-top: 7px;
-        padding-left: 12px;
-      }
-    }
-  }
-
-  .danmu {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-
-  .x-loading {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    z-index: 10;
-
-    p {
-      position: absolute;
+    .x-title {
       width: 100%;
       text-align: center;
-      color: #99a2aa;
-      top: 50%;
+      background-color: #353535;
+      color: #e5e9ef;
+      vertical-align: middle;
     }
+    .t-video {
+      position: relative;
+      width: 100%;
+      background-color: black;
+      video {
+        margin: 2%;
+        width: 96%;
+      }
 
-    i {
-      position: absolute;
-      font-size: 60px;
-      width: 100px;
-      height: 100px;
-      top: 50%;
-      left: 50%;
-      margin-left: -50px;
-      margin-top: -100px;
-      color: #99a2aa;
-      animation: turn 1s linear infinite;
+      .max-pause {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        font-size: 45px;
+        height: 60px;
+        width: 60px;
+        color: #99a2aa;
+        border: 1px solid #99a2aa;
+        border-radius: 100%;
+
         &:before {
           position: absolute;
-          top: 17.5px;
-          padding-left: 19.5px;
+          padding-top: 7px;
+          padding-left: 12px;
         }
+      }
+    }
+
+    .danmu {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .x-loading {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 10;
+
+      p {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: #99a2aa;
+        top: 50%;
+      }
+
+      i {
+        position: absolute;
+        font-size: 60px;
+        width: 100px;
+        height: 100px;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px;
+        margin-top: -100px;
+        color: #99a2aa;
+        animation: turn 1s linear infinite;
+          &:before {
+            position: absolute;
+            top: 17.5px;
+            padding-left: 19.5px;
+          }
+      }
+    }
+
+    .c-video {
+      height: 40px;
+      border: 1px solid #e5e9ef;
+      user-select: none;
+      color: #6d757a;
+      .play {
+        float: left;
+        height: 100%;
+        color: #99a2aa;
+        i {
+          font-size: 28px;
+          line-height: 40px;
+          padding: 5px;
+          cursor: pointer;
+        }
+
+        &:before {
+          left: -10px!important;
+        }
+
+        &:hover {
+          background-color: #e5e9ef;
+
+          i {
+            color: #6d757a;
+          }
+        }
+      }
+
+      .line {
+        position: relative;
+        float: left;
+        height: 100%;
+        width: 59%;
+        cursor: pointer;
+        user-select: none;
+
+        .go-time {
+          position: absolute;
+          top: -26px;
+          background-color: #a3a3a3;
+          padding: 2px 4px;
+          border-radius: 5px;
+          font-size: 14px;
+          z-index: 5;
+          margin-left: -15px;
+          color: white;
+        }
+
+        .line-to {
+          position: absolute;
+          width: 0;
+          height: 6px;
+          top: 18px;
+          border-radius: 10px;
+          background-color: #e7e7e7;
+          transition: all 0.05s linear;
+        }
+
+        .line-bg {
+          width: 100%;
+          z-index: 1;
+        }
+
+        .line-load {
+          z-index: 2;
+          background-color: #8adceb;
+        }
+
+        .line-now {
+          z-index: 3;
+          background-color: #00aed6;
+        }
+
+        .line-point {
+          position: absolute;
+          top: 13px;
+          margin-left: -5px;
+          width: 14px;
+          height: 14px;
+          background-color: white;
+          border-radius: 10px;
+          border: 1px solid #8adceb;
+          z-index: 4;
+          transition: all 0.05s linear;
+          cursor: pointer;
+        }
+      }
+
+      .show-time {
+        float: left;
+        width: 10%;
+        font-size: 14px;
+        padding-left: 8px;
+        line-height: 40px;
+        text-align: center;
+      }
+
+      .c-item {
+        position: relative;
+        float: left;
+        width: 5%;
+        padding: 0;
+        text-align: center;
+        font-size: 13px;
+        line-height: 40px;
+        cursor: pointer;
+
+        i {
+          font-size: 20px;
+        }
+
+        &:before {
+          display: none;
+          position: absolute;
+          top: -33px;
+          left: -20px;
+          width: 60px;
+          padding: 0 6px;
+          line-height: 30px;
+          text-align: center;
+          color: #d9d9d9;
+          border-radius: 5px;
+          background-color: rgba(0, 0, 0, 0.8);
+          content: attr(data-msg);
+          animation: fadeIn 0.2s ease-out 1;
+        }
+
+        &:hover {
+          background-color: #e5e9ef;
+          &:before {
+            display: block;
+          }
+        }
+      }
+
+      .v-volume {
+        i:before {
+          margin-top: 3px;
+          margin-left: 3px;
+        }
+      }
+      .c-dan {
+        i {
+          font-size: 22px;
+        }
+      }
+
+      .f-screen {
+        &:before {
+          left: -30px;
+        }
+      }
     }
   }
 
-  .c-video {
-    height: 40px;
-    border: 1px solid #e5e9ef;
-    user-select: none;
-    color: #6d757a;
-    .play {
-      float: left;
+  .mid-video {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 9999;
+
+    .t-video {
       height: 100%;
-      color: #99a2aa;
-      i {
-        font-size: 28px;
-        line-height: 40px;
-        padding: 5px;
-        cursor: pointer;
+      video {
+        display: block;
+        height: 80%;
+        max-height: 90%;
+        margin: auto;
+        padding-top: 3%;
       }
 
-      &:before {
-        left: -10px!important;
+      .max-pause {
+        bottom: 100px;
       }
+    }
 
-      &:hover {
-        background-color: #e5e9ef;
+    .c-video {
+      position: absolute;
+      width: 100%;
+      background: #e5e9ef;
+      bottom: 0px;
+      z-index: 10000;
 
-        i {
-          color: #6d757a;
+      .line {
+        width: 81%;
+
+        .line-bg {
+          background-color: gray;
         }
       }
-    }
 
-    .line {
-      position: relative;
-      float: left;
-      height: 100%;
-      width: 60%;
-      cursor: pointer;
-      user-select: none;
-
-      .go-time {
-        position: absolute;
-        top: -26px;
-        background-color: #a3a3a3;
-        padding: 2px 4px;
-        border-radius: 5px;
-        font-size: 14px;
-        z-index: 5;
-        margin-left: -15px;
-        color: white;
+      .show-time {
+        width: 6%;
       }
 
-      .line-to {
-        position: absolute;
-        width: 0;
-        height: 6px;
-        top: 18px;
-        border-radius: 10px;
-        background-color: #e7e7e7;
-        transition: all 0.05s linear;
-      }
-
-      .line-bg {
-        width: 100%;
-        z-index: 1;
-      }
-
-      .line-load {
-        z-index: 2;
-        background-color: #8adceb;
-      }
-
-      .line-now {
-        z-index: 3;
-        background-color: #00aed6;
-      }
-
-      .line-point {
-        position: absolute;
-        top: 13px;
-        margin-left: -5px;
-        width: 14px;
-        height: 14px;
-        background-color: white;
-        border-radius: 10px;
-        border: 1px solid #8adceb;
-        z-index: 4;
-        transition: all 0.05s linear;
-        cursor: pointer;
-      }
-    }
-
-    .show-time {
-      float: left;
-      font-size: 14px;
-      padding-left: 8px;
-      line-height: 40px;
-    }
-
-    .c-item {
-      position: relative;
-      float: left;
-      padding: 0 7px;
-      font-size: 13px;
-      line-height: 40px;
-      cursor: pointer;
-
-      i {
-        font-size: 20px;
-      }
-
-      &:before {
-        display: none;
-        position: absolute;
-        top: -33px;
-        left: -20px;
-        width: 60px;
-        padding: 0 6px;
-        line-height: 30px;
-        text-align: center;
-        color: #d9d9d9;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 0, 0.8);
-        content: attr(data-msg);
-        animation: fadeIn 0.2s ease-out 1;
-      }
-
-      &:hover {
-        background-color: #e5e9ef;
-        &:before {
-          display: block;
-        }
-      }
-    }
-
-    .v-volume {
-      i:before {
-        margin-top: 3px;
-        margin-left: 3px;
-      }
-    }
-    .c-dan {
-      i {
-        font-size: 22px;
-      }
-    }
-
-    .f-screen {
-      &:before {
-        left: -30px;
+      .c-item {
+        width: 2%;
       }
     }
   }
@@ -503,6 +588,24 @@ export default {
     }
     100% {
       transform: rotate3d(0, 0,  4, 180deg);
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .mid-video {
+      .c-video {
+        .line {
+          width: 72%;
+        }
+
+        .show-time {
+          width: 9%;
+        }
+
+        .c-item {
+          width: 3%;
+        }
+      }
     }
   }
 </style>

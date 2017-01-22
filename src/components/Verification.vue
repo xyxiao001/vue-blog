@@ -3,7 +3,7 @@
     <div class="v-bg"></div>
     <div class="v-box">
       <div class="v-header">
-        <div class="v-ready">想看小电影, 先完成拼图</div>
+        <div class="v-ready">请确定你年满18岁, 再继续滑动</div>
         <div class="v-closed"></div>
       </div>
       <div class="v-body">
