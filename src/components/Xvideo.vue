@@ -134,11 +134,10 @@ export default {
     },
     // 视频点击事件
     playVideo () {
-      if (this.play) {
-        this.play = false
-      } else {
+      if (!this.play && !this.watting) {
         this.play = true
-        // 开始计时
+      } else {
+        this.play = false
       }
       if (this.loadLength < 1) {
         this.buffered()
