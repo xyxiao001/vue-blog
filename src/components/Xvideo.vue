@@ -728,6 +728,7 @@ export default {
         }
       }
       .c-video {
+        display: none;
         .line {
           width: 45%;
         }
@@ -749,7 +750,7 @@ export default {
         }
 
         .right-c {
-          width: 20%;
+          width: 18%;
 
           .c-item {
             width: 50%;
