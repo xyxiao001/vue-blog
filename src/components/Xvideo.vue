@@ -1,9 +1,9 @@
 <template>
-  <div class="x-video" :class="{'mid-video': midScreen, 'max-video mid-video': maxScreen}" ref="xVideo">
-    <div class="x-title">
+  <div class="x-video" :class="{'mid-video': midScreen, 'max-video mid-video': maxScreen}" ref="xVideo" @mousemove="toogleMenu">
+    <div class="x-title" ref="xTitle">
       <p>{{ name }}</p>
     </div>
-    <div class="t-video">
+    <div class="t-video" @dbclick="toMax">
       <video
         :src="video"
         ref="video"
@@ -23,7 +23,7 @@
         <p>加载中..</p>
       </div>
     </div>
-    <div class="c-video">
+    <div class="c-video" ref="xControl">
       <div class="play c-item" :data-msg="playMsg">
         <i class="iconfont" :class="{'icon-v-pause': play, 'icon-v-play': !play}" @click="playVideo"></i>
       </div>
@@ -80,6 +80,9 @@ export default {
       maxScreen: false,
       // 是否打开页面自动缓存
       cache: true,
+      // 菜单隐藏时间
+      menuTime: 2,
+      setMenu: '',
       // 音量
       volume: 50,
       // 等待动画
@@ -123,6 +126,20 @@ export default {
   watch: {
     play () {
       this.play ? (this.$refs.video.play(), this.start()) : (this.$refs.video.pause(), this.pause())
+    },
+    maxScreen () {
+      if (!this.maxScreen) {
+        clearInterval(this.setMenu)
+        this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
+        this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
+      }
+    },
+    midScreen () {
+      if (!this.midScreen) {
+        clearInterval(this.setMenu)
+        this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
+        this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
+      }
     }
   },
   methods: {
@@ -216,6 +233,26 @@ export default {
     cancel (e) {
       this.maxScreen = false
     },
+    // 全屏模式菜单栏的显示
+    toogleMenu (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      // console.log(e)
+      // 每次移动先清除定时器 然后设置定时器menuTimes后关闭菜单
+      let title = this.$refs.xTitle
+      let control = this.$refs.xControl
+      if (this.maxScreen || this.midScreen) {
+        title.style.transform = 'translate3d(0, 0, 0)'
+        control.style.transform = 'translate3d(0, 0, 0)'
+        clearInterval(this.setMenu)
+        if (this.play) {
+          this.setMenu = setTimeout(() => {
+            title.style.transform = 'translate3d(0, -100%, 0)'
+            control.style.transform = 'translate3d(0, 100%, 0)'
+          }, this.menuTime * 1000)
+        }
+      }
+    },
       // 移出控制台执行的
     leaveTime () {
       this.showTime = false
@@ -254,6 +291,22 @@ export default {
         case 'Escape':
           if (this.maxScreen) {
             this.cancel()
+            clearInterval(this.setMenu)
+            this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
+            this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
+          } else if (this.midScreen) {
+            this.midScreen = !this.midScreen
+            clearInterval(this.setMenu)
+            this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
+            this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
+          }
+          break
+        case 'F11':
+          if (this.maxScreen) {
+            this.maxScreen = false
+            clearInterval(this.setMenu)
+            this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
+            this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
           }
           break
         case 'Space':
@@ -297,6 +350,7 @@ export default {
       background-color: #353535;
       color: #e5e9ef;
       vertical-align: middle;
+      transition: transform 0.5s ease-out;
     }
     .t-video {
       position: relative;
@@ -363,8 +417,8 @@ export default {
         animation: turn 1s linear infinite;
           &:before {
             position: absolute;
-            top: 17.5px;
-            padding-left: 19.5px;
+            top: 18px;
+            padding-left: 20.5px;
           }
       }
     }
@@ -374,6 +428,8 @@ export default {
       border: 1px solid #e5e9ef;
       user-select: none;
       color: #6d757a;
+      background-color: white;
+      transition: transform 0.5s ease-out;
       .play {
         float: left;
         height: 100%;
@@ -543,14 +599,25 @@ export default {
     background-color: white;
     z-index: 9999;
 
+    .x-title {
+      position: absolute;
+      top: 0;
+      z-index: 10000;
+      background-color: rgba(0, 0, 0, 0.6);
+
+      p {
+        padding-left: 50px;
+        text-align: left;
+      }
+    }
+
     .t-video {
       height: 100%;
       video {
         display: block;
-        height: 80%;
-        max-height: 90%;
+        width: 100%;
+        height: 100%;
         margin: auto;
-        padding-top: 3%;
       }
 
       .max-pause {
@@ -561,7 +628,6 @@ export default {
     .c-video {
       position: absolute;
       width: 100%;
-      background: #e5e9ef;
       bottom: 0px;
       z-index: 10000;
 
@@ -569,7 +635,6 @@ export default {
         width: 81%;
 
         .line-bg {
-          background-color: gray;
         }
       }
 

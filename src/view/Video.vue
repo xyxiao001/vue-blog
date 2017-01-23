@@ -63,7 +63,7 @@ export default {
   }
 
   .video {
-    padding-top: 50px;
+    padding-top: 5%;
     width: 800px;
     margin: auto;
 
