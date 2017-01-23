@@ -719,4 +719,51 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 700px) {
+    .x-video {
+      .x-loading {
+        i, p{
+          top: 70%;
+        }
+      }
+      .c-video {
+        .line {
+          width: 45%;
+        }
+
+        .v-volume {
+          display: none;
+        }
+
+        .v-definition {
+          display: none;
+        }
+
+        .m-screen {
+          display: none;
+        }
+
+        .show-time {
+          width: auto;
+        }
+
+        .right-c {
+          width: 20%;
+
+          .c-item {
+            width: 50%;
+          }
+        }
+
+        .c-item {
+          width: 10%;
+
+          &:hover {
+            background: none;
+          }
+        }
+      }
+    }
+  }
 </style>
