@@ -11,7 +11,12 @@
           <div class="w-top"></div>
           <div class="w-box">
             <div class="w-show">
-              <div class="w-start" ref="wStart" :style="{'transform': 'translate3d('+ end +'px, 0, 0)', 'top': y + 'px'}"></div>
+              <div class="w-start" ref="wStart"
+                :style="{
+                  'transform': 'translate3d('+ end +'px, 0, 0)',
+                  'top': y + 'px',
+                  'background-position': -success + 'px ' + -y + 'px'
+                  }"></div>
               <div class="w-end" :style="{'left': success + 'px', 'top': y + 'px'}"></div>
             </div>
           </div>
