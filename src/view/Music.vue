@@ -83,7 +83,7 @@
                 <a class="singer-name">{{ singer }}</a>
               </div>
               <div class="i-r">
-                <p>{{ reslutTime }}<p>
+                <p>{{ reslutTime }}</p>
               </div>
             </div>
             <div class="progress"

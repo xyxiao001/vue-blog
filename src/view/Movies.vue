@@ -44,7 +44,7 @@
             加载中..
           </div>
           <div class="movie-body"  v-show="!dLoading">
-            <h1 class="title">{{ details.title }} <span v-show="details.title !== details.original_title">({{ details.original_title }})<span></h1>
+            <h1 class="title">{{ details.title }} <span v-show="details.title !== details.original_title">({{ details.original_title }})</span></h1>
             <div class="m-left">
               <img :src="details.images.large">
             </div>

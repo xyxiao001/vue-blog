@@ -16,13 +16,13 @@
             </router-link>
           </li>
         </ul>
-      </nav>
-      <nav class="navTop">
-        <p>
-          <i class="iconfont icon-menu" @click="open"></i>
-          <router-link :to="{path: '/'}" exact><span>goodboy</span></router-link>
-        </p>
       </div>
+    </nav>
+    <nav class="navTop">
+      <p>
+        <i class="iconfont icon-menu" @click="open"></i>
+        <router-link :to="{path: '/'}" exact><span>goodboy</span></router-link>
+      </p>
     </nav>
   </section>
 </template>
