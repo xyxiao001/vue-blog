@@ -18,7 +18,7 @@ import Xvideo from '../components/Xvideo'
 export default {
   data () {
     return {
-      go: false
+      go: true
     }
   },
   computed: {

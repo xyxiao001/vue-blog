@@ -92,7 +92,8 @@ export default {
       set: '',
       showTime: false,
       goNowTime: 0,
-      video: 'http://devtest.qiniudn.com/%E8%8B%A5%E8%83%BD%E7%BB%BD%E6%94%BE%E5%85%89%E8%8A%92.mp4'
+      video: 'http://devtest.qiniudn.com/%E8%8B%A5%E8%83%BD%E7%BB%BD%E6%94%BE%E5%85%89%E8%8A%92.mp4',
+      oldX: 0
     }
   },
   computed: {
@@ -237,21 +238,28 @@ export default {
     toogleMenu (e) {
       e.preventDefault()
       e.stopPropagation()
-      // console.log(e)
-      // 每次移动先清除定时器 然后设置定时器menuTimes后关闭菜单
-      let title = this.$refs.xTitle
-      let control = this.$refs.xControl
-      if (this.maxScreen || this.midScreen) {
-        title.style.transform = 'translate3d(0, 0, 0)'
-        control.style.transform = 'translate3d(0, 0, 0)'
-        clearInterval(this.setMenu)
-        if (this.play) {
-          this.setMenu = setTimeout(() => {
-            title.style.transform = 'translate3d(0, -100%, 0)'
-            control.style.transform = 'translate3d(0, 100%, 0)'
-          }, this.menuTime * 1000)
+      this.oldX = this.oldX === 0 ? e.screenX : this.oldX
+      if (Math.round(this.oldX - e.screenX) === 1) {
+        this.oldX = e.screenX
+        // 每次移动先清除定时器 然后设置定时器menuTimes后关闭菜单
+        let title = this.$refs.xTitle
+        let control = this.$refs.xControl
+        if (this.maxScreen || this.midScreen) {
+          title.style.transform = 'translate3d(0, 0, 0)'
+          control.style.transform = 'translate3d(0, 0, 0)'
+          clearInterval(this.setMenu)
+          if (this.play) {
+            this.setMenu = setTimeout(() => {
+              title.style.transform = 'translate3d(0, -100%, 0)'
+              control.style.transform = 'translate3d(0, 100%, 0)'
+            }, this.menuTime * 1000)
+          }
         }
+      } else {
+        this.oldX = e.screenX
+        return false
       }
+      // console.log(e)
     },
       // 移出控制台执行的
     leaveTime () {
@@ -289,13 +297,9 @@ export default {
     keyboard (e) {
       switch (e.code) {
         case 'Escape':
-          if (this.maxScreen) {
-            this.cancel()
-            clearInterval(this.setMenu)
-            this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
-            this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
-          } else if (this.midScreen) {
-            this.midScreen = !this.midScreen
+          if (this.midScreen) {
+            this.midScreen = false
+            this.maxScreen = false
             clearInterval(this.setMenu)
             this.$refs.xTitle.style.transform = 'translate3d(0, 0, 0)'
             this.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
@@ -327,6 +331,7 @@ export default {
     }
   },
   mounted () {
+    var that = this
     // 加载缓冲进度
     if (this.cache) {
       this.buffered()
@@ -334,6 +339,15 @@ export default {
 
     // 监听esc
     window.addEventListener('keyup', this.keyboard)
+    // document.addEventListener('fullscreenchange', function (event) {
+    //   console.log(document.fullscreen)
+    // })
+    document.addEventListener('webkitfullscreenchange', function (event) {
+      if (!(document.webkitFullscreenElement === that.$refs.xVideo)) {
+        that.maxScreen = false
+        that.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
+      }
+    })
   }
 }
 </script>
