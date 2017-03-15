@@ -496,7 +496,7 @@ export default {
         position: relative;
         float: left;
         height: 100%;
-        width: 60%;
+        width: calc(100% - 350px);
         cursor: pointer;
         user-select: none;
 
@@ -554,7 +554,7 @@ export default {
 
       .show-time {
         float: left;
-        width: 10%;
+        width: 100px;
         font-size: 14px;
         padding-left: 8px;
         line-height: 40px;
@@ -563,7 +563,7 @@ export default {
 
       .right-c {
         float: right;
-        width: 24%;
+        width: 200px;
 
         .c-item {
           width: 20%;
@@ -573,7 +573,7 @@ export default {
       .c-item {
         position: relative;
         float: left;
-        width: 5%;
+        width: 40px;
         padding: 0;
         text-align: center;
         font-size: 13px;
@@ -670,22 +670,19 @@ export default {
       z-index: 10000;
 
       .line {
-        width: 81%;
 
         .line-bg {
         }
       }
 
       .show-time {
-        width: 6%;
       }
 
       .right-c {
-        width: 10%;
       }
 
       .c-item {
-        width: 2%;
+
       }
     }
   }
@@ -727,32 +724,8 @@ export default {
     .x-video {
       .c-video {
         .line {
-          width: 56%;
         }
         .show-time {
-          width: auto;
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 1400px) {
-    .mid-video {
-      .c-video {
-        .line {
-          width: 72%;
-        }
-
-        .show-time {
-          width: 9%;
-        }
-
-        .right-c {
-          width: 15%;
-        }
-
-        .c-item {
-          width: 3%;
         }
       }
     }
@@ -763,44 +736,6 @@ export default {
       .x-loading {
         i, p{
           top: 70%;
-        }
-      }
-      .c-video {
-        display: none;
-        .line {
-          width: 45%;
-        }
-
-        .v-volume {
-          display: none;
-        }
-
-        .v-definition {
-          display: none;
-        }
-
-        .m-screen {
-          display: none;
-        }
-
-        .show-time {
-          width: auto;
-        }
-
-        .right-c {
-          width: 18%;
-
-          .c-item {
-            width: 50%;
-          }
-        }
-
-        .c-item {
-          width: 10%;
-
-          &:hover {
-            background: none;
-          }
         }
       }
     }
