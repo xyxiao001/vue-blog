@@ -35,8 +35,8 @@
         <span class="go-time" v-show="showTime" :style="{'left': (goNowTime / allTime) * 100 + '%'}">{{ this.two(this.goNowTime) }}</span>
         <span class="line-to line-bg"></span>
         <span class="line-to line-load" :style="{'width': (loadLength / 1) * 100 + '%'}"></span>
-        <span class="line-to line-now" :style="{'width': (nowTime / allTime) * 100 + '%'}"></span>
-        <i class="line-point" :style="{'left': (nowTime / allTime) * 100 + '%'}"></i>
+        <span class="line-to line-now" :style="{'width': (nowTime / allTime) * 100 + '%'}" ref="lineIn"></span>
+        <i class="line-point" :style="{'left': (nowTime / allTime) * 100 + '%'}" @mousedown="drap($event)" @touchstart="drap($event)"></i>
       </div>
       <div class="show-time">
         <p>{{ reslutTime }}</p>
@@ -93,7 +93,9 @@ export default {
       showTime: false,
       goNowTime: 0,
       video: 'http://devtest.qiniudn.com/%E8%8B%A5%E8%83%BD%E7%BB%BD%E6%94%BE%E5%85%89%E8%8A%92.mp4',
-      oldX: 0
+      screenX: 0,
+      oldX: 0,
+      setting: ''
     }
   },
   computed: {
@@ -238,9 +240,9 @@ export default {
     toogleMenu (e) {
       e.preventDefault()
       e.stopPropagation()
-      this.oldX = this.oldX === 0 ? e.screenX : this.oldX
-      if (Math.round(this.oldX - e.screenX) === 1) {
-        this.oldX = e.screenX
+      this.screenX = this.screenX === 0 ? e.screenX : this.screenX
+      if (Math.round(this.screenX - e.screenX) === 1) {
+        this.screenX = e.screenX
         // 每次移动先清除定时器 然后设置定时器menuTimes后关闭菜单
         let title = this.$refs.xTitle
         let control = this.$refs.xControl
@@ -256,7 +258,7 @@ export default {
           }
         }
       } else {
-        this.oldX = e.screenX
+        this.screenX = e.screenX
         return false
       }
       // console.log(e)
@@ -270,6 +272,26 @@ export default {
       this.$refs.video.currentTime = this.goNowTime
       this.nowTime = this.$refs.video.currentTime
     },
+    // 拖拽
+    drap (e) {
+      this.pause()
+      e.preventDefault()
+      window.addEventListener('mousemove', this.move)
+      window.addEventListener('touchmove', this.move)
+      window.addEventListener('mouseup', this.leave)
+      window.addEventListener('touchend', this.leave)
+    },
+    // 开始拖拽
+    move (e) {
+    },
+    // 结束拖拽
+    leave (e) {
+      window.removeEventListener('mousemove', this.move)
+      window.removeEventListener('touchmove', this.move)
+      window.removeEventListener('mouseup', this.leave)
+      window.removeEventListener('touchend', this.leave)
+      this.start()
+    },
     // 跳跃等待函数
     // 显示加载中
     waiting () {
@@ -277,17 +299,16 @@ export default {
     },
     // 读取加载进度
     buffered () {
-      var setting = ''
-      clearInterval(setting)
+      clearInterval(this.setting)
       var buffer = this.$refs.video.buffered
       if (buffer.length >= 1) {
-        setting = setInterval(() => {
+        this.setting = setInterval(() => {
           buffer = this.$refs.video.buffered
           if (buffer.end(buffer.length - 1) < this.allTime) {
             this.loadLength = (buffer.end(buffer.length - 1) / this.allTime)
           } else {
             this.loadLength = 1
-            clearInterval(setting)
+            clearInterval(this.setting)
             this.buffer = true
           }
         }, 1000)
@@ -345,9 +366,12 @@ export default {
     document.addEventListener('webkitfullscreenchange', function (event) {
       if (!(document.webkitFullscreenElement === that.$refs.xVideo)) {
         that.maxScreen = false
-        that.$refs.xControl.style.transform = 'translate3d(0, 0, 0)'
       }
     })
+  },
+  destroyed () {
+    this.pause()
+    clearInterval(this.setting)
   }
 }
 </script>
