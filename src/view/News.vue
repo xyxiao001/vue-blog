@@ -161,6 +161,9 @@ export default {
   mounted () {
     this.getNewName()
     this.getNewList()
+  },
+  destroyed () {
+    document.querySelector('body').classList.remove('model-open')
   }
 }
 </script>

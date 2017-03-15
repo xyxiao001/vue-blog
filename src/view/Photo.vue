@@ -151,6 +151,9 @@ export default {
         }
       }
     }
+  },
+  destroyed () {
+    document.querySelector('body').classList.remove('model-open')
   }
 }
 </script>

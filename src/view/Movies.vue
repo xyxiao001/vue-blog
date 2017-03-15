@@ -197,6 +197,9 @@ export default {
     } else {
       this.getMovie()
     }
+  },
+  destroyed () {
+    document.querySelector('body').classList.remove('model-open')
   }
 }
 </script>
