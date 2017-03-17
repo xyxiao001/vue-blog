@@ -4,7 +4,7 @@
     <div class="content">
       <div class="chat-box">
         <div class="box-user">
-          <div class="user-item" v-for="msg in msgs" :class="{'activity': msg.id === now}">
+          <div class="user-item" v-for="msg in msgs" :class="{'activity': msg.id === now}" @click="changeUser(msg.id)">
             <div class="user-img">
               <img :src="msg.avatar" alt="">
             </div>
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="box-show">
-          聊天界面
+          {{ msgs[now].name }}
         </div>
       </div>
     </div>
@@ -27,10 +27,10 @@ import NavBar from '../components/Nav'
 export default {
   data () {
     return {
-      now: 1,
+      now: 0,
       msgs: [
         {
-          id: 1,
+          id: 0,
           name: '纯洁创',
           title: '我是一号机器人,代号喵',
           avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg',
@@ -42,7 +42,7 @@ export default {
           ]
         },
         {
-          id: 2,
+          id: 1,
           name: '清真',
           title: '其实，我是一个人',
           avatar: 'https://ooo.0o0.ooo/2016/12/20/5858bbde6e8ac.jpg',
@@ -57,6 +57,11 @@ export default {
     }
   },
   computed: {
+  },
+  methods: {
+    changeUser (id) {
+      this.now = id
+    }
   },
   components: {
     NavBar
