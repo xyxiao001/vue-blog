@@ -7,9 +7,14 @@ const state = {
     //   icon: 'icon-index'
     // },
     {
+      name: '/chat',
+      text: '来和我聊聊',
+      icon: 'icon-jiqiren'
+    },
+    {
       name: '/story',
       text: '鬼故事',
-      icon: 'icon-mogui'
+      icon: 'icon-gushi'
     },
     {
       name: '/music',

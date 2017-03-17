@@ -21,6 +21,7 @@ import Movies from './view/Movies'
 import Friends from './view/Friends'
 import NotFound from './view/404'
 import Biao from './view/Biao'
+import Chat from './view/Chat'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -48,6 +49,7 @@ const router = new VueRouter({
     { path: '/movies', component: Movies },
     { path: '/friends', component: Friends },
     { path: '/biao', component: Biao },
+    { path: '/chat', component: Chat },
     { path: '*', component: NotFound }
   ]
 })
