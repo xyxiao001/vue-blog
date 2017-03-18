@@ -23,7 +23,10 @@
               </div>
               <div class="love-msg" v-else>
                 <div class="item-avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
-                <div class="item-msg">{{ item.msg }}</div>
+                <div class="item-msg">
+                  {{ item.msg }}
+                  <a v-show="item.url" :href="item.url" target="_blank">{{ item.url }}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -44,6 +47,9 @@ export default {
     return {
       now: 0,
       nowMsg: '',
+      url: 'http://www.tuling123.com/openapi/api',
+      key0: '43f9c829838b4577b9645d3448e10496',
+      key1: '4dcd4c3776104a52be5e8002ee40df45',
       userInfo: {
         name: '访客',
         avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
@@ -51,13 +57,13 @@ export default {
       msgs: [
         {
           id: 0,
-          name: '纯洁创',
+          name: '夜喵喵',
           title: '我是一号机器人,代号喵',
           avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg',
           list: [
             {
               id: 'robot',
-              msg: '你好啊, 我是纯洁创, 你可以向我提问？',
+              msg: '我的是大神， 夜喵喵',
               avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
             }
           ]
@@ -70,7 +76,7 @@ export default {
           list: [
             {
               id: 'robot',
-              msg: '你好啊， 我是机器人。',
+              msg: '全宇宙最帅的真真, 为你服务',
               avatar: 'https://ooo.0o0.ooo/2016/12/20/5858bbde6e8ac.jpg'
             }
           ]
@@ -88,6 +94,7 @@ export default {
       this.now = id
       this.nowMsg = ''
     },
+    // 发送消息
     send () {
       if (this.nowMsg.length > 0) {
         this.msgs[this.now].list.push(
@@ -97,12 +104,42 @@ export default {
             msg: this.nowMsg
           }
         )
+        // 保存到本地
+        this.save()
+        this.sendMsg()
+        this.nowMsg = ''
       }
-      this.nowMsg = ''
-      // 保存到本地
-      this.save()
     },
-
+    // 发送消息请求
+    sendMsg () {
+      let that = this
+      let key = that.now === 0 ? that.key0 : that.key1
+      this.$http.get(this.url + '?key=' + key + '&&info=' + this.nowMsg)
+      .then(function (response) {
+        let msg = JSON.parse(response.body)
+        if (msg.code === 100000) {
+          that.msgs[that.now].list.push(
+            {
+              id: this.msgs[this.now].id,
+              avatar: this.msgs[this.now].avatar,
+              msg: msg.text
+            }
+          )
+        } else if (msg.code === 200000) {
+          that.msgs[that.now].list.push(
+            {
+              id: this.msgs[this.now].id,
+              avatar: this.msgs[this.now].avatar,
+              msg: msg.text,
+              url: msg.url
+            }
+          )
+        }
+        this.save()
+      }, (response) => {
+        console.error('请求失败！')
+      })
+    },
     save () {
       window.localStorage.setItem('chatMsg', JSON.stringify(this.msgs))
     }
@@ -164,7 +201,7 @@ export default {
           clear: both;
           width: 100%;
           min-height: 50px;
-          margin-top: 10px;
+          margin: 15px 0px;
 
           .love-msg {
             display: flex;
@@ -177,7 +214,7 @@ export default {
               border-radius: 100%;
             }
             .item-msg {
-              max-width: 200px;
+              max-width: 300px;
               font-size: 14px;
               line-height: 25px;
               background-color: #daf4fd;
@@ -199,7 +236,7 @@ export default {
             }
             .item-msg {
               float: right;
-              max-width: 200px;
+              max-width: 300px;
               font-size: 14px;
               background-color: #f3f3f3;
               border-radius: 5px;
