@@ -6,7 +6,7 @@
         <div class="box-user">
           <div class="user-item" v-for="msg in msgs" :class="{'activity': msg.id === now}" @click="changeUser(msg.id)">
             <div class="user-img">
-              <img :src="msg.avatar" alt="">
+              <span class="avatar" :style="{'background-image': 'url('+ msg.avatar + ')'}"></span>
             </div>
             <div class="user-info">
               <p class="user-name">{{ msg.name }}</p>
@@ -15,7 +15,22 @@
           </div>
         </div>
         <div class="box-show">
-          {{ msgs[now].name }}
+          <div class="chat-show">
+            <div class="chat-item" v-for="item in nowLists">
+              <div class="self-msg" v-if="item.id === 'user'">
+                <div class="item-avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
+                <div class="item-msg">{{ item.msg }}</div>
+              </div>
+              <div class="love-msg" v-else>
+                <div class="item-avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
+                <div class="item-msg">{{ item.msg }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-push">
+            <textarea v-model.trim="nowMsg"></textarea>
+            <button class="send btn" @click="send">发送</button>
+          </div>
         </div>
       </div>
     </div>
@@ -28,6 +43,11 @@ export default {
   data () {
     return {
       now: 0,
+      nowMsg: '',
+      userInfo: {
+        name: '访客',
+        avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
+      },
       msgs: [
         {
           id: 0,
@@ -37,7 +57,8 @@ export default {
           list: [
             {
               id: 'robot',
-              msg: '你好啊, 我是纯洁创。'
+              msg: '你好啊, 我是纯洁创, 你可以向我提问？',
+              avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
             }
           ]
         },
@@ -49,7 +70,8 @@ export default {
           list: [
             {
               id: 'robot',
-              msg: '你好啊， 我是机器人。'
+              msg: '你好啊， 我是机器人。',
+              avatar: 'https://ooo.0o0.ooo/2016/12/20/5858bbde6e8ac.jpg'
             }
           ]
         }
@@ -57,16 +79,42 @@ export default {
     }
   },
   computed: {
+    nowLists () {
+      return this.msgs[this.now].list
+    }
   },
   methods: {
     changeUser (id) {
       this.now = id
+      this.nowMsg = ''
+    },
+    send () {
+      if (this.nowMsg.length > 0) {
+        this.msgs[this.now].list.push(
+          {
+            id: 'user',
+            avatar: this.userInfo.avatar,
+            msg: this.nowMsg
+          }
+        )
+      }
+      this.nowMsg = ''
+      // 保存到本地
+      this.save()
+    },
+
+    save () {
+      window.localStorage.setItem('chatMsg', JSON.stringify(this.msgs))
     }
   },
   components: {
     NavBar
   },
   mounted () {
+    var msg = window.localStorage.getItem('chatMsg')
+    if (msg) {
+      this.msgs = JSON.parse(msg)
+    }
   }
 }
 </script>
@@ -85,10 +133,11 @@ export default {
 
   .chat-box {
     display: flex;
-    margin: 5% auto;
+    margin: 5vh auto;
     width: 98%;
     max-width: 1000px;
     height: 600px;
+    max-height: 90vh;
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.3);
@@ -100,11 +149,94 @@ export default {
       padding-right: 0px;
       width: 250px;
       border-right: 1px solid rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .box-show {
-      padding: 5px;
-      width: calc(100% - 250px)
+      width: calc(100% - 250px);
+
+      .chat-show {
+        height: calc(100% - 150px);
+        overflow-y: auto;
+
+        .chat-item {
+          clear: both;
+          width: 100%;
+          min-height: 50px;
+          margin-top: 10px;
+
+          .love-msg {
+            display: flex;
+            width: 100%;
+            .item-avatar {
+              margin: 10px;
+              width: 30px;
+              height: 30px;
+              background-size: cover;
+              border-radius: 100%;
+            }
+            .item-msg {
+              max-width: 200px;
+              font-size: 14px;
+              line-height: 25px;
+              background-color: #daf4fd;
+              border-radius: 5px;
+              margin-top: 20px;
+              padding: 10px;
+            }
+          }
+
+          .self-msg {
+            width: 100%;
+            .item-avatar {
+              float: right;
+              margin: 10px;
+              width: 30px;
+              height: 30px;
+              background-size: cover;
+              border-radius: 100%;
+            }
+            .item-msg {
+              float: right;
+              max-width: 200px;
+              font-size: 14px;
+              background-color: #f3f3f3;
+              border-radius: 5px;
+              margin-top: 20px;
+              padding: 10px;
+            }
+          }
+        }
+      }
+
+      .chat-push {
+        position: relative;
+        height: 150px;
+        border-top: 1px solid #c1c1b1;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        textarea {
+          width: 100%;
+          height: 100px;
+          // background-color: #e5e5e3;
+          font-size: 15px;
+          border: 0;
+          padding: 5px;
+          outline: none;
+        }
+
+        .send {
+          position: absolute;
+          bottom: 5px;
+          right: 10px;
+          font-size: 12px;
+          padding: 0;
+          width: 50px;
+          line-height: 25px;
+        }
+      }
     }
 
     .user-item {
@@ -121,10 +253,12 @@ export default {
         padding: 10px 15px;
         width: 60px;
 
-        img {
+        span {
+          display: inline-block;
           width: 60px;
           height: 60px;
           border-radius: 100%;
+          background-size: cover;
         }
       }
 
