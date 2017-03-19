@@ -24,8 +24,10 @@
               <div class="love-msg" v-else>
                 <div class="item-avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
                 <div class="item-msg">
-                  {{ item.msg }}
-                  <a v-show="item.url" :href="item.url" target="_blank">{{ item.url }}</a>
+                  <p>{{ item.msg }}</p>
+                  <a v-show="item.url" :href="item.url" target="_blank">
+                    <span>{{ item.url }}</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -221,6 +223,12 @@ export default {
               border-radius: 5px;
               margin-top: 20px;
               padding: 10px;
+
+              a {
+                display: inline-block;
+                max-width: 100%;
+                overflow-x: hidden;
+              }
             }
           }
 
