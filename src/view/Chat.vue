@@ -35,6 +35,7 @@
           <div class="chat-push">
             <textarea v-model.trim="nowMsg" @keyup.enter="send"></textarea>
             <button class="send btn" @click="send">发送</button>
+            <button class="send btn clear" @click="clear">清除记录</button>
           </div>
         </div>
       </div>
@@ -54,7 +55,7 @@ export default {
       key1: '4dcd4c3776104a52be5e8002ee40df45',
       userInfo: {
         name: '访客',
-        avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
+        avatar: 'http://ofyaji162.bkt.clouddn.com/can.jpg'
       },
       msgs: [
         {
@@ -65,7 +66,7 @@ export default {
           list: [
             {
               id: 'robot',
-              msg: '我的是大神， 夜喵喵',
+              msg: '我是大神， 夜喵喵',
               avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
             }
           ]
@@ -160,6 +161,11 @@ export default {
     },
     save () {
       window.localStorage.setItem('chatMsg', JSON.stringify(this.msgs))
+    },
+    // 清除记录
+    clear () {
+      this.msgs[this.now].list = []
+      this.save()
     }
   },
   components: {
@@ -296,6 +302,11 @@ export default {
           padding: 0;
           width: 50px;
           line-height: 25px;
+        }
+
+        .clear {
+          width: 80px;
+          right: 70px;
         }
       }
     }
