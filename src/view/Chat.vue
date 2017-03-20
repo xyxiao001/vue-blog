@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="box-show">
-          <div class="chat-show">
+          <div class="chat-show" ref="chatShow">
             <div class="chat-item" v-for="item in nowLists">
               <div class="self-msg" v-if="item.id === 'user'">
                 <div class="item-avatar" :style="{'background-image': 'url('+ item.avatar + ')'}"></div>
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="chat-push">
-            <textarea v-model.trim="nowMsg"></textarea>
+            <textarea v-model.trim="nowMsg" @keyup.enter="send"></textarea>
             <button class="send btn" @click="send">发送</button>
           </div>
         </div>
@@ -91,6 +91,14 @@ export default {
       return this.msgs[this.now].list
     }
   },
+  watch: {
+    msgs () {
+      this.updateScroll()
+    },
+    now () {
+      this.updateScroll()
+    }
+  },
   methods: {
     changeUser (id) {
       this.now = id
@@ -107,10 +115,17 @@ export default {
           }
         )
         // 保存到本地
+        this.updateScroll()
         this.save()
         this.sendMsg()
         this.nowMsg = ''
       }
+    },
+    // 滚动到最下面
+    updateScroll () {
+      this.$nextTick(() => {
+        this.$refs.chatShow.scrollTop = 999999
+      })
     },
     // 发送消息请求
     sendMsg () {
@@ -138,6 +153,7 @@ export default {
           )
         }
         this.save()
+        this.updateScroll()
       }, (response) => {
         console.error('请求失败！')
       })
@@ -328,6 +344,46 @@ export default {
         p.user-title {
           font-size: 14px;
           color: gray;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .content {
+      min-height: calc(100vh - 50px);
+    }
+
+    .chat-box {
+      position: fixed;
+      margin: 5vh 0 0 0.5%;
+      height: 80vh;
+      .box-user {
+        display: none;
+      }
+
+      .box-show {
+        width: 100%;
+        height: 100%;
+
+        .chat-show {
+          height: calc(100% - 100px);
+
+          .chat-item .self-msg .item-msg {
+            max-width: 250px;
+          }
+
+          .chat-item .love-msg .item-msg {
+            max-width: 250px;
+          }
+        }
+
+        .chat-push {
+          height: 100px;
+
+          textarea {
+            height: 60px;
+          }
         }
       }
     }
