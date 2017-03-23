@@ -4,7 +4,7 @@
     <Top v-show="showTop"></Top>
     <Loading :loading="loading"></Loading>
     <div class="content photo-c" v-show="!loading">
-      <waterfall :line-gap="300" :watch="photos">
+      <waterfall :line-gap="300" :watch="photos" id="showPhoto">
         <waterfall-slot
           v-for="(item, index) in photos"
           :width="item.width/50"
@@ -12,7 +12,7 @@
           :order="index"
           :key="item.id"
           >
-          <img :src="item.urls.small" :alt="item.id" @click="showLarge(index)">
+          <img :src="item.urls.small" :alt="item.id" :data-max="item.urls.regular">
       </waterfall-slot>
       </waterfall>
       <Mloading :loading="mloading"></Mloading>
@@ -30,6 +30,7 @@
           <img :src="this.maxBack">
         </div>
     </div>
+    <ViewPhoto :el="el"></ViewPhoto>
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import Loading from '../components/Loading'
 import Mloading from '../components/Mloading'
 import Waterfall from 'vue-waterfall/lib/waterfall'
 import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
+import ViewPhoto from '../components/ViewPhoto'
 export default {
   data () {
     return {
@@ -55,7 +57,8 @@ export default {
       maxBack: '',
       downBack: '',
       showTop: false,
-      add: false
+      add: false,
+      el: '#showPhoto'
     }
   },
   watch: {
@@ -113,7 +116,8 @@ export default {
     Mloading,
     Top,
     Waterfall,
-    WaterfallSlot
+    WaterfallSlot,
+    ViewPhoto
   },
   mounted () {
     // 读取本地数据
@@ -151,6 +155,8 @@ export default {
         }
       }
     }
+    // console.log(ViewPhoto)
+    // console.log(Waterfall)
   },
   destroyed () {
     document.querySelector('body').classList.remove('model-open')
