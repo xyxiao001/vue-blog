@@ -122,7 +122,7 @@ export default {
     top: 60%;
     margin-left: -49%;
     width: 98%;
-    height: 400px;
+    height: 430px;
   }
 
   .box-head {
@@ -130,7 +130,7 @@ export default {
   }
 
   .box-content {
-    padding: 8px 5px;
+    padding: 10px 10px;
     font-size: 14px;
 
     p {

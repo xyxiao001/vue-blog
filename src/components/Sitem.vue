@@ -108,13 +108,13 @@ export default {
     .s-item {
       width: 100%;
       margin: 5px;
-      height: 108px;
 
       .left {
         float: left;
         width: 30%;
 
         img {
+          vertical-align: middle;
           width: 100%;
           height: 100%;
         }

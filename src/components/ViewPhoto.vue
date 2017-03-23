@@ -1,7 +1,11 @@
 <template>
   <div class="view-photo" :class="{'bg-show': open, 'bg-hidden': !open}" v-if="first">
     <div class="x-show">
+      <div class="view-loading" v-show="loading">
+        <Mloading :loading="loading"></Mloading>
+      </div>
       <img
+        v-show="!loading"
         class="show-img"
         @mousedown="startMove"
         @touchstart="startMove"
@@ -29,9 +33,12 @@
 </template>
 
 <script>
+import Mloading from '../components/Mloading'
+
 export default {
   data: function () {
     return {
+      loading: true,
       now: {
         url: '',
         text: ''
@@ -74,7 +81,15 @@ export default {
         }, 600)
       }
     },
+    loading () {
+      if (!this.loading) {
+        this.$nextTick(() => {
+          this.showImg()
+        })
+      }
+    },
     nowId () {
+      this.loading = true
       this.now.url = this.lists[this.nowId].url
       this.now.text = this.lists[this.nowId].text
     },
@@ -96,6 +111,9 @@ export default {
       }
     }
   },
+  components: {
+    Mloading
+  },
   methods: {
     // 退出
     exit () {
@@ -107,6 +125,7 @@ export default {
       var img = this.$refs.showImg
       img.style.height = 'auto'
       img.style.width = 'auto'
+      // console.log(window.getComputedStyle(img).height)
       this.reallyHeight = window.getComputedStyle(img).height.replace('px', '')
       this.reallyWidth = window.getComputedStyle(img).width.replace('px', '')
       if ((screen - 100) < img.height) {
@@ -217,7 +236,7 @@ export default {
           this.$nextTick(() => {
             this.$refs.showImg.onload = () => {
               // 图片加载成功后布局
-              this.showImg()
+              this.loading = false
             }
           })
         }
@@ -261,6 +280,17 @@ export default {
       width: 100%;
       height: 100%;
       top: 0;
+
+      .view-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px;
+      }
+
+      .m-loading p {
+        color: white;
+       }
 
       img.show-img {
         position: absolute;
