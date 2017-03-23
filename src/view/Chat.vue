@@ -134,7 +134,7 @@ export default {
       let key = that.now === 0 ? that.key0 : that.key1
       this.$http.get(this.url + '?key=' + key + '&&info=' + this.nowMsg)
       .then(function (response) {
-        let msg = JSON.parse(response.body)
+        let msg = response.body
         if (msg.code === 100000) {
           that.msgs[that.now].list.push(
             {
