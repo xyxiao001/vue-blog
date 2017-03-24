@@ -5,13 +5,22 @@
     <span class="row3"></span>
     <span class="row4"></span>
     <span class="row5"></span>
-    <p>加载中...</p>
+    <p :style="{'color': color}">加载中...</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['loading']
+  props: {
+    loading: {
+      type: Boolean,
+      required: true
+    },
+    color: {
+      type: String,
+      default: 'rgba(0, 0, 0, 1)'
+    }
+  }
 }
 </script>
 

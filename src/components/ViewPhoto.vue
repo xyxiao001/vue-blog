@@ -2,7 +2,7 @@
   <div class="view-photo" :class="{'bg-show': open, 'bg-hidden': !open}" v-if="first">
     <div class="x-show">
       <div class="view-loading" v-show="loading">
-        <Mloading :loading="loading"></Mloading>
+        <Mloading :loading="loading" :color="'rgba(255, 255, 255, 1)'"></Mloading>
       </div>
       <img
         v-show="!loading"
@@ -43,7 +43,7 @@ export default {
         url: '',
         text: ''
       },
-      nowId: 0,
+      nowId: -1,
       lists: [],
       opacity: 0,
       left: 0,
@@ -77,6 +77,7 @@ export default {
         window.removeEventListener('mousewheel', this.changeSize)
         setTimeout(() => {
           this.now.url = ''
+          this.nowId = -1
           document.body.style.overflow = 'auto'
         }, 600)
       }
@@ -89,9 +90,11 @@ export default {
       }
     },
     nowId () {
-      this.loading = true
-      this.now.url = this.lists[this.nowId].url
-      this.now.text = this.lists[this.nowId].text
+      if (this.nowId >= 0) {
+        this.loading = true
+        this.now.url = this.lists[this.nowId].url
+        this.now.text = this.lists[this.nowId].text
+      }
     },
     showSize () {
       if (this.showSize) {
@@ -121,17 +124,24 @@ export default {
     },
     // 图片布局
     showImg () {
-      var screen = document.documentElement.clientHeight
+      var screenH = document.documentElement.clientHeight
+      var screenW = document.documentElement.clientWidth
       var img = this.$refs.showImg
       img.style.height = 'auto'
       img.style.width = 'auto'
       // console.log(window.getComputedStyle(img).height)
       this.reallyHeight = window.getComputedStyle(img).height.replace('px', '')
       this.reallyWidth = window.getComputedStyle(img).width.replace('px', '')
-      if ((screen - 100) < img.height) {
-        this.size = (screen - 100) / img.height
-        this.size = parseFloat(this.size.toFixed(2))
-        img.style.height = screen - 100 + 'px'
+      if ((screenH - 100) < img.height) {
+        if (screenW - 20 < img.width) {
+          this.size = (screenW - 20) / img.width
+          this.size = parseFloat(this.size.toFixed(2))
+          img.style.width = screenW - 20 + 'px'
+        } else {
+          this.size = (screenH - 100) / img.height
+          this.size = parseFloat(this.size.toFixed(2))
+          img.style.height = screenH - 100 + 'px'
+        }
       } else {
         this.size = 1
       }
@@ -159,7 +169,9 @@ export default {
     },
     // 移动函数
     move (event) {
-      event.preventDefault()
+      if (event.clientX) {
+        event.preventDefault()
+      }
       var nowX = event.clientX ? event.clientX : event.touches[0].clientX
       var nowY = event.clientY ? event.clientY : event.touches[0].clientY
       this.$refs.showImg.style.left = ~~(nowX) - ~~(this.x) + 'px'
@@ -265,6 +277,10 @@ export default {
 
 <style lang="scss" scoped>
   @import url(https://at.alicdn.com/t/font_6j0cuk14qwd0a4i.css);
+  .m-loading {
+    color: #fff;
+  }
+
   .view-photo {
     position: fixed;
     width: 100vw;
@@ -287,10 +303,6 @@ export default {
         left: 50%;
         margin-left: -50px;
       }
-
-      .m-loading p {
-        color: white;
-       }
 
       img.show-img {
         position: absolute;
@@ -470,6 +482,17 @@ export default {
     100% {
       visibility: hidden;
       transform: scale3d(0, 0, 0);
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .view-photo {
+      top: 50px;
+      height: calc(100vh - 50px);
+
+      .m-loading {
+        margin-left: 0;
+      }
     }
   }
 </style>
