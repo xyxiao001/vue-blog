@@ -5,7 +5,7 @@
       <Loading :loading="loading"></Loading>
       <div class="show-tag story-tag">
         <div class="tag-item">
-            <router-link :to="{path: '/story', query: {page: page}}">鬼故事</router-link>
+            <router-link :to="{path: '/story', query: {type: type, page: page}}">鬼故事</router-link>
         </div>
         <div class="tag-item">
           <a>→</a>
@@ -15,7 +15,9 @@
         </div>
       </div>
       <div class="show-story" v-html="detail"></div>
+      <div class="more-story" v-show="nowPage < allPages && !mloading" @click="more">加载下一页</div>
     </div>
+    <Top></Top>
   </div>
 </template>
 
@@ -23,19 +25,28 @@
 import store from '../vuex/store'
 import NavBar from '../components/Nav'
 import Loading from '../components/Loading'
+import Top from '../components/Top'
 
 export default {
   data () {
     return {
       id: '',
-      url: 'https://route.showapi.com/955-2?&page=1&showapi_appid=26601&type=dp&showapi_sign=adc05e2062a5402b81c563a3ced09208&id=',
+      url: 'https://route.showapi.com/955-2?showapi_appid=26601&type=dp&showapi_sign=adc05e2062a5402b81c563a3ced09208&id=',
       detail: '',
-      loading: true
+      type: 'dp',
+      nowPage: 1,
+      allPages: 1,
+      loading: true,
+      mloading: false
     }
   },
   computed: {
     name () {
-      return store.getters.getStoryName
+      if (this.$route.query.text) {
+        return this.$route.query.text
+      } else {
+        return '未知名字'
+      }
     },
     page () {
       return store.getters.getStoryPage
@@ -43,13 +54,17 @@ export default {
   },
   methods: {
     start () {
-      this.$http.get(this.url + this.id).then((response) => {
+      this.$http.get(this.url + this.id + '&page=' + this.nowPage).then((response) => {
         // 处理数据
         this.clear(response.body.showapi_res_body.text)
+        this.page = response.body.showapi_res_body.currentPage
+        this.allPages = response.body.showapi_res_body.allPages
         this.loading = false
+        this.mloading = false
       }, (response) => {
         console.error('请求失败！')
         this.loading = false
+        this.mloading = false
       })
     },
     clear (data) {
@@ -57,24 +72,39 @@ export default {
       a = data.replace('shoye_336();', '')
       a = a.replace('var cpro_id = "u535693', '').replace('var cpro_id = "u535693', '')
       a = a.replace('var cpro_id = "u138765";', '')
-      this.detail = a
-      this.detail = this.detail.replace(/&nbsp;&nbsp;&nbsp;/g, '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+      a = a.replace(/&nbsp;&nbsp;&nbsp;/g, '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+      this.detail += a
+    },
+    more () {
+      console.log(1)
+      if (!this.mloading) {
+        this.mloading = true
+        this.nowPage += 1
+        this.start()
+      }
     }
   },
   components: {
     NavBar,
-    Loading
+    Loading,
+    Top
   },
   mounted () {
+    if (this.$route.query.type) {
+      this.type = this.$route.query.type
+    }
     this.id = this.$route.query.id
     this.start()
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .content {
+    margin-bottom: 30px;
+  }
   .show-story {
-    margin: 30px auto;
+    margin: auto;
     width: 80%;
     color: #8d6e63;
     box-shadow: 0 0 15px 0 #CCC;
@@ -103,6 +133,18 @@ export default {
         border-color: #8d6e63;
       }
     }
+  }
+
+  .more-story {
+    margin: 0 auto 30px auto;
+    padding: 0 20px;
+    width: 80%;
+    text-align: center;
+    background: #8d6e63;
+    color: white;
+    line-height: 35px;
+    cursor: pointer;
+    user-select: none;
   }
 
   @media screen and (max-width: 500px) {

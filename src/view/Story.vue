@@ -3,11 +3,15 @@
     <NavBar></NavBar>
     <Loading :loading="loading"></Loading>
     <div class="content" v-show="!loading">
-      <div class="s-list">
-        <Sitem v-for="list in lists" :item="list"></Sitem>
+      <div class="g-tags">
+        <a class="g-tag" v-for="item in types" :class="{'activity': type === item.type}" @click="changeType($event, item)">{{ item.name }}</a>
       </div>
-      <Pagenation :allPages="allPages" :current="current"></Pagenation>
+      <div class="s-list">
+        <Sitem v-for="list in lists" :item="list" :type="type"></Sitem>
+      </div>
+      <Pagenation :allPages="allPages" :current="current" :type="type"></Pagenation>
     </div>
+    <Top></Top>
   </div>
 </template>
 
@@ -16,13 +20,53 @@ import NavBar from '../components/Nav'
 import Sitem from '../components/Sitem'
 import Loading from '../components/Loading'
 import Pagenation from '../components/Pagenation'
+import Top from '../components/Top'
 
 export default {
   data () {
     return {
-      url: 'https://route.showapi.com/955-1?&showapi_appid=26601&type=dp&showapi_sign=adc05e2062a5402b81c563a3ced09208&page=',
+      url: 'https://route.showapi.com/955-1?&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&page=',
       allPages: 0,
       lists: [],
+      type: 'dp',
+      types: [
+        {
+          name: '短篇',
+          type: 'dp'
+        },
+        {
+          name: '长篇',
+          type: 'cp'
+        },
+        {
+          name: '校园',
+          type: 'xy'
+        },
+        {
+          name: '医院',
+          type: 'yy'
+        },
+        {
+          name: '家里',
+          type: 'jl'
+        },
+        {
+          name: '民间',
+          type: 'mj'
+        },
+        {
+          name: '灵异',
+          type: 'ly'
+        },
+        {
+          name: '原创',
+          type: 'yc'
+        },
+        {
+          name: '内涵',
+          type: 'neihanguigushi'
+        }
+      ],
       loading: true
     }
   },
@@ -39,7 +83,7 @@ export default {
   },
   methods: {
     start () {
-      this.$http.get(this.url + this.current).then((response) => {
+      this.$http.get(this.url + this.current + '&type=' + this.type).then((response) => {
         this.loading = false
         const data = response.body.showapi_res_body.pagebean
         this.allPages = data.allPages ? data.allPages : 0
@@ -49,16 +93,51 @@ export default {
         this.loading = false
         console.error('请求失败！')
       })
+    },
+    changeType (e, data) {
+      if (data.type !== this.type) {
+        this.$router.push(
+          {
+            path: 'story',
+            query: { type: data.type }
+          }
+        )
+        this.$router.go(1)
+        this.type = data.type
+        this.start()
+        this.loading = true
+      }
     }
   },
   components: {
     NavBar,
     Sitem,
     Loading,
-    Pagenation
+    Pagenation,
+    Top
   },
   mounted () {
+    if (this.$route.query.type) {
+      this.type = this.$route.query.type
+    }
     this.start()
   }
 }
 </script>
+
+<style lang="scss">
+  .g-tags {
+    width: 100%;
+    display: flex;
+    padding: 1%;
+  }
+
+  .g-tag {
+    width: 80px;
+    cursor: pointer;
+  }
+
+  .g-tags a.activity {
+    color: #e78170;
+  }
+</style>

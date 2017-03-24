@@ -10,7 +10,7 @@
         </div>
         <ul class="menus">
           <li v-for="(menu, index) in menus" class="menu">
-            <router-link :to="{path: menu.name}" exact>
+            <router-link :to="{path: menu.name}">
               <i :class="menu.icon" class="iconfont"></i>
               <span>{{ menu.text }}</span>
             </router-link>

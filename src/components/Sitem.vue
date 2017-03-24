@@ -5,7 +5,7 @@
     @mouseout="leave"
     @click="changeName(item.title)">
     <router-link
-      :to="{path: '/story/detail',  query: {id: item.id}}">
+      :to="{path: '/story/detail',  query: {type: type , id: item.id, text: item.title}}">
       <div class="left">
         <img :src="item.img" :alt="item.title" />
       </div>
@@ -25,7 +25,7 @@ export default {
       set: false
     }
   },
-  props: ['item'],
+  props: ['item', 'type'],
   methods: {
     changeName (name) {
       if (!this.set) {

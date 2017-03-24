@@ -3,12 +3,12 @@
     <router-link
       class="pre pages"
       v-show="current > 0"
-      :to="{path: this.$route.path, query: { page: 1 }}" exact>首页
+      :to="{path: this.$route.path, query: { page: 1, type: type }}" exact>首页
     </router-link>
     <router-link
       class="pre pages"
       v-show="current > 1"
-      :to="{path: this.$route.path, query: { page: current - 1 }}" exact>上一页
+      :to="{path: this.$route.path, query: { page: current - 1, type: type  }}" exact>上一页
     </router-link>
     <a
       class="pre pages disabled"
@@ -20,13 +20,13 @@
         <router-link
           class="pages"
           :class="{'active': page === current}"
-          :to="{path: $route.path, query: { page: page }}"
+          :to="{path: $route.path, query: { page: page, type: type }}"
            exact>{{ page }}</router-link>
       </li>
     </ul>
     <router-link
       v-if="~~(current) < ~~(allPages)"
-      :to="{path: this.$route.path, query: { page: ~~(current) + 1 }}"
+      :to="{path: this.$route.path, query: { page: ~~(current) + 1, type: type }}"
       class="next pages" exact>下一页
     </router-link>
     <a
@@ -42,7 +42,7 @@
         class="goPage"
         v-model.number="goPage">
       <router-link
-        :to="{path: this.$route.path, query: { page: goPage }}"
+        :to="{path: this.$route.path, query: { page: goPage, type: type  }}"
         class="pages" exact>GO
       </router-link>
       <span>共{{ allPages }}页</span>
@@ -57,7 +57,7 @@ export default {
       goPage: 1
     }
   },
-  props: ['allPages', 'current'],
+  props: ['allPages', 'current', 'type'],
   computed: {
     pages () {
       var arr = []
