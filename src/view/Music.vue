@@ -606,13 +606,12 @@ export default {
           height: 100%;
 
           li {
-            line-height: 42px;
+            height: 50px;
             text-align: left;
             cursor: pointer;
 
             span {
               display: inline-block;
-              line-height: 100%;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space:nowrap;
@@ -833,7 +832,7 @@ export default {
             i.icontdot, i::before {
               position: absolute;
               font-size: 28px;
-              top: -20px;
+              top: -18px;
               right: 5px;
               width: 10px;
               height: 10px;
@@ -878,7 +877,7 @@ export default {
 
             i.icontdot, i:before {
               position: absolute;
-              top: -16px;
+              top: -14px;
               right: -8px;
               z-index: 3;
             }
