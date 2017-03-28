@@ -62,14 +62,15 @@
 </template>
 
 <script>
+import store from '../vuex/store'
 import NavBar from '../components/Nav'
 import Loading from '../components/Loading'
 import Top from '../components/Top'
 export default {
   data () {
     return {
-      url1: 'https://route.showapi.com/109-34?showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208',
-      url2: 'https://route.showapi.com/109-35?&needContent=0&needHtml=1&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&channelId=',
+      url1: 'https://route.showapi.com/109-34?showapi_appid=26601',
+      url2: 'https://route.showapi.com/109-35?&needContent=0&needHtml=1&showapi_appid=26601&channelId=',
       loading: true,
       dLoading: true,
       lists: [],
@@ -80,6 +81,11 @@ export default {
       add: false,
       detailIn: false,
       html: ''
+    }
+  },
+  computed: {
+    key () {
+      return store.getters.getKey
     }
   },
   components: {
@@ -106,7 +112,7 @@ export default {
   methods: {
     getNewName () {
       // 请求新闻列表
-      this.$http.get(this.url1).then((response) => {
+      this.$http.get(this.url1 + '&showapi_sign=' + this.key).then((response) => {
         this.loading = false
         if (response.body.showapi_res_code === 0) {
           this.lists = response.body.showapi_res_body.channelList
@@ -120,7 +126,7 @@ export default {
     },
     getNewList () {
       // 请求新闻内容
-      this.$http.get(this.url2 + this.id + '&page=' + this.page).then((response) => {
+      this.$http.get(this.url2 + this.id + '&page=' + this.page + '&showapi_sign=' + this.key).then((response) => {
         this.loading = false
         if (response.body.showapi_res_code === 0) {
           this.add = false

@@ -18,3 +18,7 @@ export const getStoryName = state => state.story.name
 
 // 从哪页跳转来的
 export const getStoryPage = state => state.story.page
+
+// 密钥
+// 从哪页跳转来的
+export const getKey = state => state.key

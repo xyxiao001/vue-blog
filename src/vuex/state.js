@@ -1,5 +1,6 @@
 const state = {
   touxiang: 'http://ofyaji162.bkt.clouddn.com/touxiang.jpg',
+  key: '9019a61af1584616b14262b9d5f5c1ff',
   menus: [
     // {
     //   name: '/dashboard',

@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import store from '../vuex/store'
 import NavBar from '../components/Nav'
 import Sitem from '../components/Sitem'
 import Loading from '../components/Loading'
@@ -25,7 +26,7 @@ import Top from '../components/Top'
 export default {
   data () {
     return {
-      url: 'https://route.showapi.com/955-1?&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&page=',
+      url: 'https://route.showapi.com/955-1?&showapi_appid=26601',
       allPages: 0,
       lists: [],
       type: 'dp',
@@ -73,6 +74,9 @@ export default {
   computed: {
     current () {
       return this.$route.query.page ? this.$route.query.page : 1
+    },
+    key () {
+      return store.getters.getKey
     }
   },
   watch: {
@@ -83,7 +87,7 @@ export default {
   },
   methods: {
     start () {
-      this.$http.get(this.url + this.current + '&type=' + this.type).then((response) => {
+      this.$http.get(this.url + '&showapi_sign=' + this.key + '&page=' + this.current + '&type=' + this.type).then((response) => {
         this.loading = false
         const data = response.body.showapi_res_body.pagebean
         this.allPages = data.allPages ? data.allPages : 0

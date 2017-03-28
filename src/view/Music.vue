@@ -123,14 +123,15 @@
 </template>
 
 <script>
+import store from '../vuex/store'
 import NavBar from '../components/Nav'
 import Loading from '../components/Loading'
 export default {
   data () {
     return {
-      url1: 'https://route.showapi.com/213-4?showapi_appid=26601&topid=26&showapi_sign=adc05e2062a5402b81c563a3ced09208',
-      url2: 'https://route.showapi.com/213-2?showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&musicid=',
-      url3: 'https://route.showapi.com/213-1?page=1&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=',
+      url1: 'https://route.showapi.com/213-4?showapi_appid=26601&topid=26',
+      url2: 'https://route.showapi.com/213-2?showapi_appid=26601&musicid=',
+      url3: 'https://route.showapi.com/213-1?page=1&showapi_appid=26601&keyword=',
       musicId: '',
       lists: [],
       newLists: [],
@@ -174,6 +175,9 @@ export default {
     },
     playingText () {
       return this.playing === true ? '暂停' : '开始'
+    },
+    key () {
+      return store.getters.getKey
     }
   },
   watch: {
@@ -187,7 +191,7 @@ export default {
   },
   methods: {
     all () {
-      this.$http.get(this.url1).then((response) => {
+      this.$http.get(this.url1 + '&showapi_sign=' + this.key).then((response) => {
         // 移出loading
         this.loading = false
         // 处理数据
@@ -211,7 +215,7 @@ export default {
         txt: '歌词加载中...'
       }]
       this.musicId = this.newLists[this.now].songid
-      this.$http.get(this.url2 + this.musicId).then((response) => {
+      this.$http.get(this.url2 + this.musicId + '&showapi_sign=' + this.key).then((response) => {
         // 歌词
         this.lyr = response.body.showapi_res_body.lyric
         // this.showLyr(response.body.showapi_res_body.lyric)
@@ -223,7 +227,7 @@ export default {
     // 搜素
     searchMusic () {
       if (this.onLine) {
-        this.$http.get(this.url3 + this.search).then((response) => {
+        this.$http.get(this.url3 + this.search + '&showapi_sign=' + this.key).then((response) => {
           // 处理数据
           this.onLinelists = response.body.showapi_res_body.pagebean.contentlist
           this.newLists = this.onLinelists

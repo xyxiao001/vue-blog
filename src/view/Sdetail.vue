@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       id: '',
-      url: 'https://route.showapi.com/955-2?showapi_appid=26601&type=dp&showapi_sign=adc05e2062a5402b81c563a3ced09208&id=',
+      url: 'https://route.showapi.com/955-2?showapi_appid=26601',
       detail: '',
       type: 'dp',
       nowPage: 1,
@@ -50,11 +50,14 @@ export default {
     },
     page () {
       return store.getters.getStoryPage
+    },
+    key () {
+      return store.getters.getKey
     }
   },
   methods: {
     start () {
-      this.$http.get(this.url + this.id + '&page=' + this.nowPage).then((response) => {
+      this.$http.get(this.url + '&showapi_sign=' + this.key + '&id=' + this.id + '&page=' + this.nowPage).then((response) => {
         // 处理数据
         this.clear(response.body.showapi_res_body.text)
         this.page = response.body.showapi_res_body.currentPage
