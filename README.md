@@ -5,3 +5,7 @@
 ####         git clone https://github.com/xyxiao001/vue-blog.git
 ####         cd vue--blog
 ####         npm install -d
+###  启动
+####         npm run dev
+###  编译
+####         npm run build
