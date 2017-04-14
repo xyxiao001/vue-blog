@@ -94,9 +94,9 @@ export default {
         {
           cut: 0,
           offset: 0,
-          name: '百科全树',
+          name: '树大佬',
           url: 'http://geeku.net/',
-          des: '对于他来说， 就没有不知道东西，江湖人送称号 - 人肉百科',
+          des: '对于他来说， 就没有不知道东西，江湖人送称号 - 百科全树',
           avatar: 'http://geeku.net/wp-content/themes/Lollipop/img/avatar.png'
         },
         {
