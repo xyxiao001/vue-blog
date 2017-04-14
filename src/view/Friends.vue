@@ -49,7 +49,7 @@ export default {
           name: '好宅',
           url: 'http://funnycoder.lofter.com',
           des: '这里是一只宅，励志成为一名有趣的Coder~',
-          avatar: 'http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/80tgwfppFxSJbTboaJ4R2Q==/6631977061815991766.jpg_96x96x0x90.jpg'
+          avatar: 'http://ofyaji162.bkt.clouddn.com/zhai.jpg'
         },
         {
           cut: 0,
@@ -79,7 +79,7 @@ export default {
           cut: 0,
           offset: 0,
           name: '夜喵',
-          url: '',
+          url: 'https://nightcat.win',
           des: '据说是铲屎喵的女朋友，技术宅，车队的头号种子选手。',
           avatar: 'http://ofyaji162.bkt.clouddn.com/nightcat.jpg'
         },
@@ -87,8 +87,8 @@ export default {
           cut: 0,
           offset: 0,
           name: '铲屎喵',
-          url: '',
-          des: '据说是夜喵喵的男朋友, 叶苗苗的铲屎官',
+          url: 'https://nightcat.win',
+          des: '据说是夜喵喵的男朋友, 叶苗苗的铲屎官, 拥有逆天长腿。',
           avatar: 'http://ofyaji162.bkt.clouddn.com/can.jpg'
         },
         {
@@ -106,6 +106,14 @@ export default {
           url: 'http://www.chjsun.top',
           des: '据说也是一个胖子，但是他没女朋友',
           avatar: 'https://avatar.duoshuo.com/avatar-50/857/303954.jpg'
+        },
+        {
+          cut: 0,
+          offset: 0,
+          name: '狐狸',
+          url: 'http://rbblog.space/',
+          des: '审美为100的美男子',
+          avatar: 'https://avatars2.githubusercontent.com/u/19708789?v=3&s=460'
         }
       ]
     }
