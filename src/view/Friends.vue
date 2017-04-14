@@ -94,6 +94,22 @@ export default {
         {
           cut: 0,
           offset: 0,
+          name: '百科全树',
+          url: 'http://geeku.net/',
+          des: '对于他来说， 就没有不知道东西，江湖人送称号 - 人肉百科',
+          avatar: 'http://geeku.net/wp-content/themes/Lollipop/img/avatar.png'
+        },
+        {
+          cut: 0,
+          offset: 0,
+          name: '爆栈大佬',
+          url: 'https://is.daryl.moe',
+          des: '传说中的爆栈， 技术栈深不可测。',
+          avatar: 'https://o90cnn3g2.qnssl.com/0C3ABE8D05322EAC3120DDB11F9D1F72.png'
+        },
+        {
+          cut: 0,
+          offset: 0,
           name: '银马座_废喵',
           url: 'https://yinmazuo.github.io',
           des: '不乱于心，不困于情，不畏将来，不念过往。',
