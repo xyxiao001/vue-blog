@@ -117,6 +117,7 @@
       :src="musicSrc"
       ref="music"
       @playing="startTime"
+      @timeupdate="startTime"
       @seeked="seeked"
       @ended="goNext"></audio>
   </div>
@@ -294,7 +295,7 @@ export default {
             this.allTime = this.$refs.music.duration
           }, 1000)
         }
-        this.clearTime()
+        // this.clearTime()
       })
     },
     // 解析歌词
@@ -331,35 +332,36 @@ export default {
     },
     // 开始计时
     startTime () {
-      this.timeInter = setInterval(() => {
-        // 读取当前时间
-        this.nowTime = this.$refs.music.currentTime
-        var lyrP = Array.prototype.slice.call(document.querySelectorAll('.l-lyr p'))
-        if (this.lyrList.length > 2) {
-          // 表示有歌词 可以滚动
-          this.lyrList.forEach((v, i) => {
-            if (i < this.lyrList.length - 1) {
-              if (this.sumTime(v) <= this.nowTime && this.sumTime(this.lyrList[i + 1]) > this.nowTime) {
-                // 选中p
-                lyrP.forEach((val, index) => {
-                  if (index === i) {
-                    val.className = 'on'
-                    this.nowLyr = i
-                    // 如果鼠标不在右边执行滚动
-                    if (this.lyrIn === false) {
-                      this.$refs.showLyr.scrollTop = 0
-                      this.$refs.lyrList.style.transitionDuration = '0.4s'
-                      this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
-                    }
-                  } else {
-                    val.className = ''
+      // this.timeInter = setInterval(() => {
+      //
+      // }, 100)
+      // 读取当前时间
+      this.nowTime = this.$refs.music.currentTime
+      var lyrP = Array.prototype.slice.call(document.querySelectorAll('.l-lyr p'))
+      if (this.lyrList.length > 2) {
+        // 表示有歌词 可以滚动
+        this.lyrList.forEach((v, i) => {
+          if (i < this.lyrList.length - 1) {
+            if (this.sumTime(v) <= this.nowTime && this.sumTime(this.lyrList[i + 1]) > this.nowTime) {
+              // 选中p
+              lyrP.forEach((val, index) => {
+                if (index === i) {
+                  val.className = 'on'
+                  this.nowLyr = i
+                  // 如果鼠标不在右边执行滚动
+                  if (this.lyrIn === false) {
+                    this.$refs.showLyr.scrollTop = 0
+                    this.$refs.lyrList.style.transitionDuration = '0.4s'
+                    this.$refs.lyrList.style.transform = 'translate3d(0, -' + (this.nowLyr - 1) * 35 + 'px, 0)'
                   }
-                })
-              }
+                } else {
+                  val.className = ''
+                }
+              })
             }
-          })
-        }
-      }, 100)
+          }
+        })
+      }
     },
     // 歌词
     inLyr () {
@@ -391,7 +393,7 @@ export default {
     // 暂停
     pause () {
       this.$refs.music.pause()
-      this.clearTime()
+      // this.clearTime()
       this.playing = false
     },
     // 下一首
@@ -526,7 +528,7 @@ export default {
     })
   },
   destroyed () {
-    this.clearTime()
+    // this.clearTime()
   }
 }
 </script>
