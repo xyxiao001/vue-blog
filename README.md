@@ -1,4 +1,4 @@
-### 网站数据源采用 [showapi](https://www.showapi.com/api/apiList)  如果想自己做可以上去 申请个key 替换store.js 里面的key 就可以使用了
+### 网站数据源采用 [showapi](https://www.showapi.com/api/apiList)  如果想自己做可以上去 申请个key 替换src/vuex/state.js里面的key 就可以使用了
 
 #  a blog for vue  
 
