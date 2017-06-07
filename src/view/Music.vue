@@ -349,7 +349,7 @@ export default {
                   val.className = 'now'
                   var a = this.sumTime(this.lyrList[i + 1]) - this.sumTime(this.lyrList[i])
                   var b = this.sumTime(this.lyrList[i + 1]) - this.nowTime
-                  val.style = `background-image: -webkit-linear-gradient(left,rgb(49, 194, 124) ${(1 - (b / a)) * 100}%,#ffffff ${(1 - (b / a)) * 100}%)`
+                  val.style.backgroundImage = `-webkit-linear-gradient(left,rgb(49, 194, 124) ${(1 - (b / a)) * 100}%,#ffffff ${(1 - (b / a)) * 100}%)`
                   this.nowLyr = i
                   // 如果鼠标不在右边执行滚动
                   if (this.lyrIn === false) {
@@ -359,7 +359,7 @@ export default {
                   }
                 } else {
                   val.className = ''
-                  val.style = ''
+                  val.style.backgroundImage = ''
                 }
               })
             }
