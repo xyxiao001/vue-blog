@@ -233,7 +233,7 @@ export default {
           this.onLinelists = response.body.showapi_res_body.pagebean.contentlist
           this.newLists = this.onLinelists
           if (response.body.showapi_res_body.pagebean.allPages > 2) {
-            this.$http.get('https://route.showapi.com/213-1?page=2&showapi_appid=26601&showapi_sign=adc05e2062a5402b81c563a3ced09208&keyword=' + this.search).then((nextRes) => {
+            this.$http.get('https://route.showapi.com/213-1?page=2&showapi_appid=26601' + '&showapi_sign=' + this.key + '&keyword=' + this.search).then((nextRes) => {
               this.now = 1000
               this.onLinelists = this.onLinelists.concat(nextRes.body.showapi_res_body.pagebean.contentlist)
               this.newLists = this.onLinelists
@@ -346,7 +346,10 @@ export default {
               // 选中p
               lyrP.forEach((val, index) => {
                 if (index === i) {
-                  val.className = 'on'
+                  val.className = 'now'
+                  var a = this.sumTime(this.lyrList[i + 1]) - this.sumTime(this.lyrList[i])
+                  var b = this.sumTime(this.lyrList[i + 1]) - this.nowTime
+                  val.style = `background-image: -webkit-linear-gradient(left,rgb(49, 194, 124) ${(1 - (b / a)) * 100}%,#ffffff ${(1 - (b / a)) * 100}%)`
                   this.nowLyr = i
                   // 如果鼠标不在右边执行滚动
                   if (this.lyrIn === false) {
@@ -356,6 +359,7 @@ export default {
                   }
                 } else {
                   val.className = ''
+                  val.style = ''
                 }
               })
             }
@@ -380,7 +384,7 @@ export default {
           this.$refs.showLyr.scrollTop = 0
           this.lyrIn = false
         }
-      }, 500)
+      }, 1000)
     },
     // 算出时间
     sumTime (v) {
@@ -1094,5 +1098,16 @@ export default {
     .music .show-music .left table td:first-child {
       max-width: 190px;
     }
+  }
+
+  .music .show-music .right .l-box .l-lyr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .now {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 </style>
