@@ -3,7 +3,7 @@ const state = {
   key: '9019a61af1584616b14262b9d5f5c1ff',
   menus: [
     // {
-    //   name: '/dashboard',
+    //   name: 'article',
     //   text: '文章',
     //   icon: 'icon-index'
     // },

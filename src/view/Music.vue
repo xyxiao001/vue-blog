@@ -159,7 +159,11 @@ export default {
       muted: false,
       volume: 0,
       search: '',
-      onLine: false
+      onLine: false,
+      oldLyr: 0,
+      newLyr: 0,
+      val: '',
+      lyrIndex: 0
     }
   },
   computed: {
@@ -188,6 +192,10 @@ export default {
           return (item.songname.indexOf(this.search) !== -1 || item.singername.indexOf(this.search) !== -1)
         })
       }
+    },
+
+    lyrIndex () {
+      this.oldLyr = 0
     }
   },
   methods: {
@@ -349,8 +357,14 @@ export default {
                   val.className = 'now'
                   var a = this.sumTime(this.lyrList[i + 1]) - this.sumTime(this.lyrList[i])
                   var b = this.sumTime(this.lyrList[i + 1]) - this.nowTime
-                  val.style.backgroundImage = `-webkit-linear-gradient(left,rgb(49, 194, 124) ${(1 - (b / a)) * 100}%,#ffffff ${(1 - (b / a)) * 100}%)`
+                  this.newLyr = (1 - (b / a))
+                  this.val = val
+                  this.animateLyr()
                   this.nowLyr = i
+                  this.lyrIndex = index
+                  if (this.oldLyr >= 100) {
+                    this.oldLyr = 0
+                  }
                   // 如果鼠标不在右边执行滚动
                   if (this.lyrIn === false) {
                     this.$refs.showLyr.scrollTop = 0
@@ -366,6 +380,17 @@ export default {
           }
         })
       }
+    },
+
+    // 动画
+    animateLyr () {
+      if (this.oldLyr < this.newLyr) {
+        window.requestAnimationFrame(this.animateLyr)
+      }
+      this.$nextTick(() => {
+        this.val.style.backgroundImage = `-webkit-linear-gradient(left,rgb(49, 194, 124) ${this.oldLyr * 100}%,#ffffff ${this.oldLyr * 100}%)`
+        this.oldLyr += 0.005
+      })
     },
     // 歌词
     inLyr () {

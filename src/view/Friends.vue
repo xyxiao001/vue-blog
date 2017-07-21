@@ -121,7 +121,7 @@ export default {
           name: '油俊',
           url: 'http://www.chjsun.top',
           des: '据说也是一个胖子，但是他没女朋友',
-          avatar: 'https://avatar.duoshuo.com/avatar-50/857/303954.jpg'
+          avatar: 'http://www.chjsun.top/img/logo/logo.png'
         },
         {
           cut: 0,

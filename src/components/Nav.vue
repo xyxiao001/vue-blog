@@ -9,6 +9,12 @@
           <span>goodboy</span>
         </div>
         <ul class="menus">
+          <li class="menu">
+            <a href="https://blog.xyxiao.cn" target="_blank">
+              <i class="icon-index iconfont"></i>
+              <span>博客文章</span>
+            </a>
+          </li>
           <li v-for="(menu, index) in menus" class="menu">
             <router-link :to="{path: menu.name}">
               <i :class="menu.icon" class="iconfont"></i>
